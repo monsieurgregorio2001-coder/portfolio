@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
+    <nav class="p-4 space-y-1">
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-building w-5"></i>
+            <span class="ml-3">Companies</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">47</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-user-group w-5"></i>
+            <span class="ml-3">Contacts</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">1.2K</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+            <i class="fa-solid fa-briefcase w-5"></i>
+            <span class="ml-3">Jobs</span>
+            <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">12</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-diagram-project w-5"></i>
+            <span class="ml-3">Pipeline</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-regular fa-calendar w-5"></i>
+            <span class="ml-3">Calendar</span>
+            <span class="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-semibold">8</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-bar w-5"></i>
+            <span class="ml-3">Reports</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-robot w-5"></i>
+            <span class="ml-3">AI Assistant</span>
+            <span class="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
+        </a>
+    </nav>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <div class="space-y-1">
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Candidate</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Create Job</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Company</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Workspace</div>
+        <div class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-users w-4"></i>
+                <span class="ml-3">Team</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-gear w-4"></i>
+                <span class="ml-3">Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-700 m-4 rounded-lg">
+        <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-crown text-yellow-300"></i>
+            </div>
+            <div>
+                <div class="text-white font-semibold text-sm">Upgrade to Pro</div>
+                <div class="text-blue-100 text-xs mt-1">Unlock AI features & unlimited contacts</div>
+                <button class="mt-3 w-full bg-white text-blue-600 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-64 mt-16 p-8">
+    <div id="job-header-section" class="mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-4">
+                <button class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class="fa-solid fa-arrow-left text-gray-600"></i>
+                </button>
+                <div>
+                    <div class="flex items-center space-x-3 mb-1">
+                        <h1 class="text-2xl font-bold text-gray-900">Senior Software Engineer</h1>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Active</span>
+                    </div>
+                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                        <span class="flex items-center">
+                            <i class="fa-solid fa-building mr-2 text-blue-600"></i>
+                            Stripe
+                        </span>
+                        <span class="flex items-center">
+                            <i class="fa-solid fa-location-dot mr-2 text-gray-400"></i>
+                            San Francisco, CA (Hybrid)
+                        </span>
+                        <span class="flex items-center">
+                            <i class="fa-solid fa-dollar-sign mr-2 text-gray-400"></i>
+                            $150k - $200k
+                        </span>
+                        <span class="flex items-center">
+                            <i class="fa-solid fa-briefcase mr-2 text-gray-400"></i>
+                            Full-time
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="px-4 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                    <i class="fa-solid fa-share-nodes mr-2"></i>
+                    Share
+                </button>
+                <button class="px-4 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                    <i class="fa-solid fa-pen mr-2"></i>
+                    Edit
+                </button>
+                <button class="px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                    <i class="fa-solid fa-times-circle mr-2"></i>
+                    Close Job
+                </button>
+            </div>
+        </div>
+
+        <div id="job-tabs" class="border-b border-gray-200">
+            <div class="flex space-x-8">
+                <button class="px-1 py-4 text-sm font-semibold text-blue-600 border-b-2 border-blue-600">
+                    Overview
+                </button>
+                <button class="px-1 py-4 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors relative">
+                    Candidates
+                    <span class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-600 text-xs font-semibold rounded-full">23</span>
+                </button>
+                <button class="px-1 py-4 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                    Analytics
+                </button>
+                <button class="px-1 py-4 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                    Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="job-detail-grid" class="grid grid-cols-3 gap-6">
+        <div id="left-column" class="col-span-2 space-y-6">
+            <div id="stats-section" class="grid grid-cols-4 gap-4">
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-user-group text-blue-600"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-900 mb-1">23</div>
+                    <div class="text-sm text-gray-600">Total Applicants</div>
+                    <div class="mt-3 flex items-center text-xs text-gray-500">
+                        <i class="fa-solid fa-arrow-up text-green-500 mr-1"></i>
+                        <span class="text-green-600 font-semibold">5</span>
+                        <span class="ml-1">this week</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-clipboard-check text-purple-600"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-900 mb-1">8</div>
+                    <div class="text-sm text-gray-600">In Interview</div>
+                    <div class="mt-3 flex items-center text-xs text-gray-500">
+                        <span class="text-purple-600 font-semibold">35%</span>
+                        <span class="ml-1">of applicants</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-file-contract text-orange-600"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-900 mb-1">2</div>
+                    <div class="text-sm text-gray-600">Offers Sent</div>
+                    <div class="mt-3 flex items-center text-xs text-gray-500">
+                        <span class="text-orange-600 font-semibold">1</span>
+                        <span class="ml-1">pending</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-clock text-green-600"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-900 mb-1">18</div>
+                    <div class="text-sm text-gray-600">Days to Fill</div>
+                    <div class="mt-3 flex items-center text-xs text-gray-500">
+                        <span class="text-green-600 font-semibold">12 days</span>
+                        <span class="ml-1">avg</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="job-description-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Job Description</h2>
+                        <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                            <i class="fa-solid fa-expand mr-1"></i>
+                            Expand
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-3">About Stripe</h3>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                Stripe is a technology company that builds economic infrastructure for the internet. Businesses of every size—from new startups to public companies—use our software to accept payments and manage their businesses online. We're looking for a Senior Software Engineer to join our growing team and help build the future of online payments.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-3">What You'll Do</h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check-circle text-blue-600 mr-3 mt-0.5"></i>
+                                    <span>Design, build, and maintain APIs, services, and systems across Stripe's engineering teams</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check-circle text-blue-600 mr-3 mt-0.5"></i>
+                                    <span>Debug production issues across services and multiple levels of the stack</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check-circle text-blue-600 mr-3 mt-0.5"></i>
+                                    <span>Work with engineers across the company to build new features at scale</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check-circle text-blue-600 mr-3 mt-0.5"></i>
+                                    <span>Improve engineering standards, tooling, and processes</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check-circle text-blue-600 mr-3 mt-0.5"></i>
+                                    <span>Participate in our on-call rotation to respond to critical incidents</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-3">Who You Are</h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-star text-yellow-500 mr-3 mt-0.5"></i>
+                                    <span>5+ years of software engineering experience</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-star text-yellow-500 mr-3 mt-0.5"></i>
+                                    <span>Strong technical skills and experience with modern programming languages</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-star text-yellow-500 mr-3 mt-0.5"></i>
+                                    <span>Experience building and scaling distributed systems</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-star text-yellow-500 mr-3 mt-0.5"></i>
+                                    <span>Excellent communication and collaboration skills</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-star text-yellow-500 mr-3 mt-0.5"></i>
+                                    <span>Passion for building great products and solving complex problems</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-3">Benefits</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="flex items-center text-sm text-gray-700">
+                                    <i class="fa-solid fa-check text-green-600 mr-2"></i>
+                                    <span>Competitive salary & equity</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-700">
+                                    <i class="fa-solid fa-check text-green-600 mr-2"></i>
+                                    <span>Health, dental & vision insurance</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-700">
+                                    <i class="fa-solid fa-check text-green-600 mr-2"></i>
+                                    <span>401(k) with company match</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-700">
+                                    <i class="fa-solid fa-check text-green-600 mr-2"></i>
+                                    <span>Unlimited PTO</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-700">
+                                    <i class="fa-solid fa-check text-green-600 mr-2"></i>
+                                    <span>Remote work flexibility</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-700">
+                                    <i class="fa-solid fa-check text-green-600 mr-2"></i>
+                                    <span>Learning & development budget</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                            <i class="fa-solid fa-chevron-down mr-1"></i>
+                            Show more
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pipeline-distribution-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Pipeline Distribution</h2>
+                </div>
+                <div class="p-6">
+                    <div id="pipeline-distribution-chart" style="height: 350px;"></div>
+                </div>
+            </div>
+
+            <div id="recent-activity-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Recent Activity</h2>
+                        <button class="text-sm font-medium text-blue-600 hover:text-blue-700">View all</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-5">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-user-plus text-blue-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">New application received</p>
+                                    <span class="text-xs text-gray-500">12 min ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">Michael Chen submitted application with resume and portfolio</p>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Michael" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-medium text-gray-900">Michael Chen</span>
+                                    <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-medium rounded">New</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-calendar-check text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Interview scheduled</p>
+                                    <span class="text-xs text-gray-500">1 hour ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">Technical interview scheduled with Sarah Johnson for tomorrow at 2 PM</p>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Sarah" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-medium text-gray-900">Sarah Johnson</span>
+                                    <span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs font-medium rounded">Interview</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-arrow-right text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Candidate moved to next stage</p>
+                                    <span class="text-xs text-gray-500">3 hours ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">David Park moved from Screening to Technical Interview stage</p>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="David" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-medium text-gray-900">David Park</span>
+                                    <span class="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs font-medium rounded">In Progress</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-file-contract text-orange-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Offer extended</p>
+                                    <span class="text-xs text-gray-500">Yesterday</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">Offer sent to Emily Rodriguez for $180k base + equity</p>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Emily" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-medium text-gray-900">Emily Rodriguez</span>
+                                    <span class="px-2 py-0.5 bg-orange-50 text-orange-700 text-xs font-medium rounded">Offer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-comment-dots text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Note added</p>
+                                    <span class="text-xs text-gray-500">2 days ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">Sarah Mitchell added: "Strong technical skills, great culture fit"</p>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-medium text-gray-900">Sarah Mitchell</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-times-circle text-red-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Application rejected</p>
+                                    <span class="text-xs text-gray-500">3 days ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">James Wilson rejected - insufficient experience with required tech stack</p>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="James" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-medium text-gray-900">James Wilson</span>
+                                    <span class="px-2 py-0.5 bg-red-50 text-red-700 text-xs font-medium rounded">Rejected</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="interview-schedule-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Upcoming Interviews</h2>
+                        <button class="px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fa-solid fa-plus mr-1"></i>
+                            Schedule Interview
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Candidate" class="w-12 h-12 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Sarah Johnson</p>
+                                        <p class="text-xs text-gray-500">Technical Interview - Round 2</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Tomorrow</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center space-x-4 text-gray-600">
+                                    <span><i class="fa-regular fa-clock mr-1"></i>2:00 PM - 3:00 PM</span>
+                                    <span><i class="fa-solid fa-video mr-1"></i>Video Call</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Interviewer" class="w-6 h-6 rounded-full">
+                                    <span class="text-xs text-gray-600">Mike Johnson</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="Candidate" class="w-12 h-12 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">David Park</p>
+                                        <p class="text-xs text-gray-500">System Design Interview</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">Friday</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center space-x-4 text-gray-600">
+                                    <span><i class="fa-regular fa-clock mr-1"></i>10:00 AM - 11:30 AM</span>
+                                    <span><i class="fa-solid fa-location-dot mr-1"></i>On-site</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-6 h-6 rounded-full">
+                                    <span class="text-xs text-gray-600">Sarah Mitchell</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Candidate" class="w-12 h-12 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Michael Chen</p>
+                                        <p class="text-xs text-gray-500">Initial Phone Screen</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Next Week</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center space-x-4 text-gray-600">
+                                    <span><i class="fa-regular fa-clock mr-1"></i>3:30 PM - 4:00 PM</span>
+                                    <span><i class="fa-solid fa-phone mr-1"></i>Phone Call</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-6 h-6 rounded-full">
+                                    <span class="text-xs text-gray-600">Sarah Mitchell</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="candidate-feedback-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Recent Interview Feedback</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-5">
+                        <div class="border-l-4 border-green-500 bg-green-50 rounded-r-lg p-4">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Sarah Johnson</p>
+                                        <p class="text-xs text-gray-500">Technical Interview - Round 1</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-3">
+                                Excellent technical skills and problem-solving ability. Demonstrated strong understanding of system design principles. Communication was clear and concise. Highly recommend moving forward.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Interviewer" class="w-5 h-5 rounded-full">
+                                    <span>Mike Johnson</span>
+                                </div>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 bg-blue-50 rounded-r-lg p-4">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">David Park</p>
+                                        <p class="text-xs text-gray-500">Coding Challenge</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-3">
+                                Good coding skills and clean code structure. Could improve on edge case handling and optimization. Overall solid performance with room for growth.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-5 h-5 rounded-full">
+                                    <span>Sarah Mitchell</span>
+                                </div>
+                                <span>4 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-yellow-500 bg-yellow-50 rounded-r-lg p-4">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Alex Martinez</p>
+                                        <p class="text-xs text-gray-500">Behavioral Interview</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-3">
+                                Decent cultural fit but lacks leadership experience for senior role. May be better suited for mid-level position. Recommend additional rounds to assess team collaboration skills.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Interviewer" class="w-5 h-5 rounded-full">
+                                    <span>Emily Davis</span>
+                                </div>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="right-column" class="space-y-6">
+            <div id="hiring-team-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Hiring Team</h2>
+                        <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                            <i class="fa-solid fa-plus mr-1"></i>
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Sarah Mitchell</p>
+                                <p class="text-xs text-gray-500">Lead Recruiter</p>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">Owner</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Mike" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Mike Johnson</p>
+                                <p class="text-xs text-gray-500">Engineering Manager</p>
+                            </div>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Interviewer</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Emily" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Emily Davis</p>
+                                <p class="text-xs text-gray-500">HR Manager</p>
+                            </div>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Reviewer</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="Tom" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Tom Anderson</p>
+                                <p class="text-xs text-gray-500">Tech Lead</p>
+                            </div>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Interviewer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ai-match-section" class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl text-white p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-bold">AI Match Suggestions</h2>
+                    <div class="w-8 h-8 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-purple-100 mb-4">These candidates from your database are great matches for this role</p>
+                
+                <div class="space-y-3">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-lg p-4 hover:bg-opacity-20 transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-9.jpg" alt="Candidate" class="w-10 h-10 rounded-full border-2 border-white">
+                                <div>
+                                    <p class="text-sm font-semibold">Jessica Lee</p>
+                                    <p class="text-xs text-purple-100">Software Engineer</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="text-lg font-bold">92%</span>
+                                <span class="text-xs text-purple-100">Match</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs text-purple-100">
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">Python</span>
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">React</span>
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">AWS</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-lg p-4 hover:bg-opacity-20 transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="Candidate" class="w-10 h-10 rounded-full border-2 border-white">
+                                <div>
+                                    <p class="text-sm font-semibold">Robert Kim</p>
+                                    <p class="text-xs text-purple-100">Full Stack Developer</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="text-lg font-bold">88%</span>
+                                <span class="text-xs text-purple-100">Match</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs text-purple-100">
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">Node.js</span>
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">Docker</span>
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">K8s</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-lg p-4 hover:bg-opacity-20 transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-7.jpg" alt="Candidate" class="w-10 h-10 rounded-full border-2 border-white">
+                                <div>
+                                    <p class="text-sm font-semibold">Amanda Foster</p>
+                                    <p class="text-xs text-purple-100">Backend Engineer</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="text-lg font-bold">85%</span>
+                                <span class="text-xs text-purple-100">Match</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs text-purple-100">
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">Java</span>
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">Spring</span>
+                            <span class="px-2 py-1 bg-white bg-opacity-20 rounded">SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="w-full mt-4 py-2.5 bg-white text-purple-600 font-semibold rounded-lg hover:bg-purple-50 transition-colors">
+                    View All Matches
+                </button>
+            </div>
+
+            <div id="job-details-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Job Details</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Job ID</p>
+                            <p class="text-sm font-medium text-gray-900">JOB-2024-0142</p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Department</p>
+                            <p class="text-sm font-medium text-gray-900">Engineering</p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Experience Level</p>
+                            <p class="text-sm font-medium text-gray-900">Senior (5+ years)</p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Posted Date</p>
+                            <p class="text-sm font-medium text-gray-900">January 15, 2024</p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Application Deadline</p>
+                            <p class="text-sm font-medium text-gray-900">March 15, 2024</p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Required Skills</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">Python</span>
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">React</span>
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">Node.js</span>
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">AWS</span>
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">Docker</span>
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">Kubernetes</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Nice to Have</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">GraphQL</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">TypeScript</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quick-actions-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Quick Actions</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-3">
+                        <button class="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fa-solid fa-user-plus mr-2"></i>
+                            Add Candidate to Pipeline
+                        </button>
+
+                        <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-calendar-plus mr-2"></i>
+                            Schedule Interview
+                        </button>
+
+                        <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-envelope mr-2"></i>
+                            Send Email Campaign
+                        </button>
+
+                        <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-download mr-2"></i>
+                            Export Applications
+                        </button>
+
+                        <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-copy mr-2"></i>
+                            Duplicate Job
+                        </button>
+
+                        <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-chart-bar mr-2"></i>
+                            View Analytics
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="job-performance-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Performance Metrics</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Application Rate</span>
+                                <span class="text-sm font-bold text-gray-900">23 / 30 goal</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 77%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Interview Conversion</span>
+                                <span class="text-sm font-bold text-gray-900">35%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Offer Acceptance</span>
+                                <span class="text-sm font-bold text-gray-900">50%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Time to Hire</span>
+                                <span class="text-sm font-bold text-gray-900">18 days</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-600 h-2 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Target: 30 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="job-visibility-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Job Visibility</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-globe text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Career Page</p>
+                                    <p class="text-xs text-gray-500">Published</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                            </label>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-brands fa-linkedin text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">LinkedIn</p>
+                                    <p class="text-xs text-gray-500">Active</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                            </label>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-briefcase text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Indeed</p>
+                                    <p class="text-xs text-gray-500">Active</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                            </label>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-share-nodes text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Internal Referrals</p>
+                                    <p class="text-xs text-gray-500">Inactive</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notes-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Notes & Comments</h2>
+                </div>
+                <div class="p-6">
+                    <textarea placeholder="Add a note about this job..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" rows="4"></textarea>
+                    <button class="mt-3 w-full px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fa-solid fa-plus mr-2"></i>
+                        Add Note
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+window.addEventListener('load', function() {
+    try {
+        var pipelineData = [{
+            type: 'funnel',
+            y: ['Applied', 'Screening', 'Phone Screen', 'Technical', 'Final', 'Offer'],
+            x: [23, 15, 12, 8, 4, 2],
+            marker: {
+                color: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444', '#EC4899']
+            },
+            textinfo: 'value+percent initial',
+            textfont: {
+                family: 'Inter, sans-serif',
+                size: 12
+            }
+        }];
+
+        var pipelineLayout = {
+            margin: { t: 20, r: 20, b: 20, l: 20 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            showlegend: false,
+            font: { family: 'Inter, sans-serif' }
+        };
+
+        var pipelineConfig = {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+        };
+
+        Plotly.newPlot('pipeline-distribution-chart', pipelineData, pipelineLayout, pipelineConfig);
+
+    } catch(e) {
+        console.error('Chart rendering error:', e);
+        document.getElementById('pipeline-distribution-chart').innerHTML = '<div class="flex items-center justify-center h-full text-gray-500"><p>Chart could not be loaded</p></div>';
+    }
+});
+</script>
+
+</body>
+</html>

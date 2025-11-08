@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Transcription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
+    <nav class="p-4 space-y-1">
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-building w-5"></i>
+            <span class="ml-3">Companies</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">47</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-user-group w-5"></i>
+            <span class="ml-3">Contacts</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">1.2K</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-briefcase w-5"></i>
+            <span class="ml-3">Jobs</span>
+            <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">12</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-diagram-project w-5"></i>
+            <span class="ml-3">Pipeline</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+            <i class="fa-regular fa-calendar w-5"></i>
+            <span class="ml-3">Calendar</span>
+            <span class="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-semibold">8</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-bar w-5"></i>
+            <span class="ml-3">Reports</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-robot w-5"></i>
+            <span class="ml-3">AI Assistant</span>
+            <span class="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
+        </a>
+    </nav>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <div class="space-y-1">
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Candidate</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Create Job</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Company</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Workspace</div>
+        <div class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-users w-4"></i>
+                <span class="ml-3">Team</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-gear w-4"></i>
+                <span class="ml-3">Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-700 m-4 rounded-lg">
+        <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-crown text-yellow-300"></i>
+            </div>
+            <div>
+                <div class="text-white font-semibold text-sm">Upgrade to Pro</div>
+                <div class="text-blue-100 text-xs mt-1">Unlock AI features & unlimited contacts</div>
+                <button class="mt-3 w-full bg-white text-blue-600 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-64 mt-16">
+    <div id="page-header" class="bg-white border-b border-gray-200 px-8 py-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <h1 class="text-2xl font-bold text-gray-900">Phone Screen - Senior Engineer</h1>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-sm font-semibold rounded-full">Strong Hire</span>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-2 text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <i class="fa-regular fa-calendar mr-2"></i>
+                            <span>March 15, 2024 at 2:00 PM</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-regular fa-clock mr-2"></i>
+                            <span>45 minutes</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-5 h-5 rounded-full mr-2">
+                            <span>Sarah Mitchell</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    <i class="fa-solid fa-download mr-2"></i>
+                    Download
+                </button>
+                <button class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    <i class="fa-solid fa-share-nodes mr-2"></i>
+                    Share
+                </button>
+                <button class="px-4 py-2 text-red-600 bg-white border border-red-300 rounded-lg font-medium hover:bg-red-50 transition-colors">
+                    <i class="fa-regular fa-trash-can mr-2"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tabs-section" class="bg-white border-b border-gray-200 px-8">
+        <div class="flex items-center space-x-1">
+            <button class="px-6 py-4 text-blue-600 font-semibold border-b-2 border-blue-600">
+                Summary
+            </button>
+            <button class="px-6 py-4 text-gray-600 font-medium hover:text-gray-900 hover:bg-gray-50">
+                Full Transcript
+            </button>
+            <button class="px-6 py-4 text-gray-600 font-medium hover:text-gray-900 hover:bg-gray-50 flex items-center">
+                Action Items
+                <span class="ml-2 px-2 py-0.5 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">5</span>
+            </button>
+            <button class="px-6 py-4 text-gray-600 font-medium hover:text-gray-900 hover:bg-gray-50">
+                Insights
+            </button>
+        </div>
+    </div>
+
+    <div class="flex">
+        <div id="main-transcript-area" class="flex-1 p-8">
+            <div id="ai-summary-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-wand-magic-sparkles text-white"></i>
+                            </div>
+                            <h2 class="text-lg font-bold text-gray-900">AI-Generated Summary</h2>
+                        </div>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Generated in 3s</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="prose max-w-none mb-6">
+                        <p class="text-gray-700 leading-relaxed">
+                            Michael Chen demonstrated exceptional technical depth during the phone screen for the Senior Software Engineer position. He has 8+ years of experience in full-stack development with a strong focus on scalable microservices architecture. His recent work at TechCorp involved leading a team of 5 engineers to rebuild their payment processing system, reducing transaction latency by 60% and handling 2M+ daily transactions. Michael showed excellent problem-solving skills when discussing system design challenges and demonstrated strong communication abilities when explaining complex technical concepts.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3">Key Highlights</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">8+ years of full-stack development experience with React, Node.js, and AWS</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Led team that reduced payment processing latency by 60%</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Strong system design skills - designed scalable architecture handling 2M+ daily transactions</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Excellent communication and leadership experience</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Available to start in 2 weeks, salary expectations align ($140-160K)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3">Concerns & Questions</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-exclamation text-orange-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Limited experience with our specific tech stack (Python/Django)</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-exclamation text-orange-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Needs to verify cultural fit with remote-first team structure</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-question text-blue-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Ask about experience with real-time data processing in technical round</p>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-question text-blue-600 text-xs"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-700">Clarify reasons for leaving current position at TechCorp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-6">
+                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-4">Technical Assessment</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Technical Skills</span>
+                                    <span class="text-lg font-bold text-green-600">9/10</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star-half-stroke text-yellow-400"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Communication</span>
+                                    <span class="text-lg font-bold text-green-600">8/10</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Problem Solving</span>
+                                    <span class="text-lg font-bold text-green-600">9/10</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star-half-stroke text-yellow-400"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Leadership</span>
+                                    <span class="text-lg font-bold text-green-600">8/10</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Culture Fit</span>
+                                    <span class="text-lg font-bold text-blue-600">7/10</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star-half-stroke text-yellow-400"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-gray-600 uppercase">Overall Score</span>
+                                    <span class="text-lg font-bold text-green-600">8.2/10</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="action-items-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Action Items</h2>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">5 Tasks</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900 mb-2">Schedule technical interview with engineering team</p>
+                                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-user mr-2"></i>
+                                        <select class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                            <option>Assign to...</option>
+                                            <option>Sarah Mitchell</option>
+                                            <option>Mike Johnson</option>
+                                            <option>Emily Davis</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-2"></i>
+                                        <input type="date" class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                    </div>
+                                    <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full font-semibold">High Priority</span>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                Create Task
+                            </button>
+                        </div>
+
+                        <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900 mb-2">Send technical assessment coding challenge</p>
+                                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-user mr-2"></i>
+                                        <select class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                            <option>Assign to...</option>
+                                            <option>Sarah Mitchell</option>
+                                            <option>Mike Johnson</option>
+                                            <option>Emily Davis</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-2"></i>
+                                        <input type="date" class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                    </div>
+                                    <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full font-semibold">Medium Priority</span>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                Create Task
+                            </button>
+                        </div>
+
+                        <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900 mb-2">Verify references from previous employers</p>
+                                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-user mr-2"></i>
+                                        <select class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                            <option>Assign to...</option>
+                                            <option>Sarah Mitchell</option>
+                                            <option>Mike Johnson</option>
+                                            <option>Emily Davis</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-2"></i>
+                                        <input type="date" class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                    </div>
+                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full font-semibold">Low Priority</span>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                Create Task
+                            </button>
+                        </div>
+
+                        <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900 mb-2">Share candidate profile with hiring manager</p>
+                                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-user mr-2"></i>
+                                        <select class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                            <option>Assign to...</option>
+                                            <option>Sarah Mitchell</option>
+                                            <option>Mike Johnson</option>
+                                            <option>Emily Davis</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-2"></i>
+                                        <input type="date" class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                    </div>
+                                    <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full font-semibold">Medium Priority</span>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                Create Task
+                            </button>
+                        </div>
+
+                        <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900 mb-2">Follow up on Python/Django experience in technical round</p>
+                                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-user mr-2"></i>
+                                        <select class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                            <option>Assign to...</option>
+                                            <option>Sarah Mitchell</option>
+                                            <option>Mike Johnson</option>
+                                            <option>Emily Davis</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-2"></i>
+                                        <input type="date" class="bg-transparent border-none p-0 focus:ring-0 text-xs">
+                                    </div>
+                                    <span class="px-2 py-1 bg-red-100 text-red-700 rounded-full font-semibold">High Priority</span>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                Create Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="key-moments-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Key Moments Timeline</h2>
+                </div>
+                <div class="p-6">
+                    <div class="relative">
+                        <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                        <div class="space-y-6">
+                            <div class="relative flex items-start space-x-4">
+                                <div class="relative z-10 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-play text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">00:00 - 02:30</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">Introduction</span>
+                                    </div>
+                                    <p class="text-sm text-gray-900 font-medium mb-1">Opening & Background Discussion</p>
+                                    <p class="text-sm text-gray-600">Candidate introduced himself and discussed current role at TechCorp</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="relative z-10 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-code text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide">02:30 - 15:45</span>
+                                        <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded">Technical Deep Dive</span>
+                                    </div>
+                                    <p class="text-sm text-gray-900 font-medium mb-1">Payment System Architecture Discussion</p>
+                                    <p class="text-sm text-gray-600">Detailed explanation of microservices architecture and performance optimization strategies</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="relative z-10 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-lightbulb text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-green-600 uppercase tracking-wide">15:45 - 22:10</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">Problem Solving</span>
+                                    </div>
+                                    <p class="text-sm text-gray-900 font-medium mb-1">System Design Challenge</p>
+                                    <p class="text-sm text-gray-600">Candidate walked through approach to designing a scalable notification system</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="relative z-10 w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-users text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-orange-600 uppercase tracking-wide">22:10 - 30:15</span>
+                                        <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded">Leadership</span>
+                                    </div>
+                                    <p class="text-sm text-gray-900 font-medium mb-1">Team Management Experience</p>
+                                    <p class="text-sm text-gray-600">Discussed approach to mentoring junior engineers and handling team conflicts</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="relative z-10 w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-comments text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-yellow-600 uppercase tracking-wide">30:15 - 38:00</span>
+                                        <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded">Culture Fit</span>
+                                    </div>
+                                    <p class="text-sm text-gray-900 font-medium mb-1">Work Style & Values Discussion</p>
+                                    <p class="text-sm text-gray-600">Talked about remote work preferences and collaboration style</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="relative z-10 w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-question text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-gray-600 uppercase tracking-wide">38:00 - 45:00</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded">Q&A</span>
+                                    </div>
+                                    <p class="text-sm text-gray-900 font-medium mb-1">Candidate Questions & Next Steps</p>
+                                    <p class="text-sm text-gray-600">Asked about team structure, tech stack, and growth opportunities</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sentiment-analysis-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Sentiment Analysis</h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border border-green-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-bold text-green-900 uppercase tracking-wide">Overall Tone</span>
+                                <i class="fa-solid fa-face-smile text-2xl text-green-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-green-600 mb-1">Positive</p>
+                            <p class="text-sm text-green-700">85% positive sentiment throughout</p>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-bold text-blue-900 uppercase tracking-wide">Engagement Level</span>
+                                <i class="fa-solid fa-bolt text-2xl text-blue-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-blue-600 mb-1">High</p>
+                            <p class="text-sm text-blue-700">Active participation & enthusiasm</p>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border border-purple-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-bold text-purple-900 uppercase tracking-wide">Confidence Level</span>
+                                <i class="fa-solid fa-chart-line text-2xl text-purple-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-purple-600 mb-1">Strong</p>
+                            <p class="text-sm text-purple-700">Demonstrated technical expertise</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-4">Engagement Metrics</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-gray-700">Speaking Time Distribution</span>
+                                    <span class="text-sm font-bold text-gray-900">Candidate: 65% | Interviewer: 35%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-blue-600 to-blue-400" style="width: 65%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-gray-700">Question Response Quality</span>
+                                    <span class="text-sm font-bold text-gray-900">90%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-green-600 to-green-400" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-gray-700">Technical Depth</span>
+                                    <span class="text-sm font-bold text-gray-900">88%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-purple-600 to-purple-400" style="width: 88%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-gray-700">Communication Clarity</span>
+                                    <span class="text-sm font-bold text-gray-900">82%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-orange-600 to-orange-400" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-4">Emotional Timeline</h3>
+                        <div id="emotion-chart" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="transcript-preview-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Transcript Preview</h2>
+                        <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                            View Full Transcript
+                            <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-10 h-10 rounded-full flex-shrink-0">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                                    <span class="text-xs text-gray-500">00:00</span>
+                                </div>
+                                <div class="bg-blue-50 rounded-2xl rounded-tl-none p-4 inline-block max-w-2xl">
+                                    <p class="text-sm text-gray-900">Hi Michael! Thanks so much for taking the time to speak with me today. How are you doing?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 flex-row-reverse">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Candidate" class="w-10 h-10 rounded-full flex-shrink-0">
+                            <div class="flex-1 flex flex-col items-end">
+                                <div class="flex items-center space-x-2 mb-2 flex-row-reverse">
+                                    <span class="text-sm font-semibold text-gray-900">Michael Chen</span>
+                                    <span class="text-xs text-gray-500">00:15</span>
+                                </div>
+                                <div class="bg-gray-100 rounded-2xl rounded-tr-none p-4 inline-block max-w-2xl">
+                                    <p class="text-sm text-gray-900">I'm doing great, thanks for asking! Really excited to learn more about the Senior Engineer role and discuss how my experience might be a good fit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-10 h-10 rounded-full flex-shrink-0">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                                    <span class="text-xs text-gray-500">00:35</span>
+                                </div>
+                                <div class="bg-blue-50 rounded-2xl rounded-tl-none p-4 inline-block max-w-2xl">
+                                    <p class="text-sm text-gray-900">Perfect! Let's start with your current role at TechCorp. Can you tell me about the payment processing system you've been working on?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 flex-row-reverse">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Candidate" class="w-10 h-10 rounded-full flex-shrink-0">
+                            <div class="flex-1 flex flex-col items-end">
+                                <div class="flex items-center space-x-2 mb-2 flex-row-reverse">
+                                    <span class="text-sm font-semibold text-gray-900">Michael Chen</span>
+                                    <span class="text-xs text-gray-500">00:52</span>
+                                </div>
+                                <div class="bg-gray-100 rounded-2xl rounded-tr-none p-4 inline-block max-w-2xl">
+                                    <p class="text-sm text-gray-900">Absolutely! So we rebuilt our entire payment processing infrastructure from a monolithic Rails app to a microservices architecture. The system now handles over 2 million transactions daily with 99.99% uptime. We reduced latency by 60% by implementing event-driven architecture with Kafka and optimizing our database queries...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Interviewer" class="w-10 h-10 rounded-full flex-shrink-0">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                                    <span class="text-xs text-gray-500">02:18</span>
+                                </div>
+                                <div class="bg-blue-50 rounded-2xl rounded-tl-none p-4 inline-block max-w-2xl">
+                                    <p class="text-sm text-gray-900">That's impressive! Can you walk me through your approach to handling that migration? What were the biggest challenges?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center py-4">
+                            <button class="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                Load More Messages
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar-panel" class="w-96 bg-white border-l border-gray-200 p-6 space-y-6">
+            <div id="quick-actions-card" class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-6 text-white">
+                <h3 class="text-lg font-bold mb-4">Quick Actions</h3>
+                <div class="space-y-3">
+                    <button class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-briefcase mr-2"></i>
+                        Add to Job Pipeline
+                    </button>
+                    <button class="w-full bg-white text-blue-600 font-semibold py-3 px-4 rounded-lg hover:bg-blue-50 transition-all flex items-center justify-center">
+                        <i class="fa-regular fa-calendar mr-2"></i>
+                        Schedule Next Interview
+                    </button>
+                    <button class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center">
+                        <i class="fa-regular fa-envelope mr-2"></i>
+                        Send Follow-up Email
+                    </button>
+                    <button class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-share-nodes mr-2"></i>
+                        Share with Team
+                    </button>
+                </div>
+            </div>
+
+            <div id="candidate-info-card" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-4 border-b border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Candidate Information</h3>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Candidate" class="w-16 h-16 rounded-full">
+                        <div>
+                            <p class="text-lg font-bold text-gray-900">Michael Chen</p>
+                            <p class="text-sm text-gray-600">Senior Software Engineer</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <i class="fa-solid fa-building w-5 mr-3"></i>
+                            <span>TechCorp (Current)</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fa-solid fa-location-dot w-5 mr-3"></i>
+                            <span>San Francisco, CA</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fa-regular fa-envelope w-5 mr-3"></i>
+                            <span>michael.chen@email.com</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fa-solid fa-phone w-5 mr-3"></i>
+                            <span>(415) 555-0123</span>
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fa-brands fa-linkedin w-5 mr-3"></i>
+                            <span>linkedin.com/in/michaelchen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="scorecard-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-4 border-b border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Interview Scorecard</h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-sm font-semibold text-gray-700">Technical Skills</label>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                </div>
+                            </div>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Add notes..."></textarea>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-sm font-semibold text-gray-700">Communication</label>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-regular fa-star text-gray-300 cursor-pointer"></i>
+                                </div>
+                            </div>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Add notes..."></textarea>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-sm font-semibold text-gray-700">Problem Solving</label>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                </div>
+                            </div>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Add notes..."></textarea>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-sm font-semibold text-gray-700">Culture Fit</label>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-solid fa-star text-yellow-400 cursor-pointer"></i>
+                                    <i class="fa-regular fa-star text-gray-300 cursor-pointer"></i>
+                                </div>
+                            </div>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Add notes..."></textarea>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-200">
+                            <label class="text-sm font-semibold text-gray-700 block mb-2">Overall Recommendation</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select recommendation...</option>
+                                <option value="strong-hire">Strong Hire</option>
+                                <option value="hire">Hire</option>
+                                <option value="maybe">Maybe</option>
+                                <option value="no-hire">No Hire</option>
+                            </select>
+                        </div>
+
+                        <button class="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Save Scorecard
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="next-steps-card" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-4 border-b border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Recommended Next Steps</h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900 mb-1">Move to Technical Round</p>
+                                <p class="text-xs text-gray-600">Strong candidate - schedule technical interview within 3 days</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-white text-xs font-bold">2</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900 mb-1">Send Coding Challenge</p>
+                                <p class="text-xs text-gray-600">Assess Python/Django skills before technical round</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-white text-xs font-bold">3</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900 mb-1">Share with Hiring Manager</p>
+                                <p class="text-xs text-gray-600">Get approval to move forward with interview process</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="related-candidates-card" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-4 border-b border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Similar Candidates</h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">James Wilson</p>
+                                <p class="text-xs text-gray-600">7 years exp • Backend focus</p>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">8.5</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Lisa Anderson</p>
+                                <p class="text-xs text-gray-600">9 years exp • Full-stack</p>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">8.0</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Robert Kim</p>
+                                <p class="text-xs text-gray-600">6 years exp • Microservices</p>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">7.8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+window.addEventListener('load', function() {
+    try {
+        var emotionData = [
+            {
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Positive',
+                x: ['0:00', '5:00', '10:00', '15:00', '20:00', '25:00', '30:00', '35:00', '40:00', '45:00'],
+                y: [70, 75, 85, 88, 82, 90, 85, 88, 92, 90],
+                line: { color: '#10B981', width: 3 },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(16, 185, 129, 0.1)'
+            },
+            {
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Neutral',
+                x: ['0:00', '5:00', '10:00', '15:00', '20:00', '25:00', '30:00', '35:00', '40:00', '45:00'],
+                y: [25, 20, 12, 10, 15, 8, 12, 10, 6, 8],
+                line: { color: '#6B7280', width: 2 },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(107, 114, 128, 0.1)'
+            },
+            {
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Negative',
+                x: ['0:00', '5:00', '10:00', '15:00', '20:00', '25:00', '30:00', '35:00', '40:00', '45:00'],
+                y: [5, 5, 3, 2, 3, 2, 3, 2, 2, 2],
+                line: { color: '#EF4444', width: 2 },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(239, 68, 68, 0.1)'
+            }
+        ];
+
+        var emotionLayout = {
+            margin: { t: 20, r: 20, b: 40, l: 50 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            xaxis: { title: 'Interview Timeline' },
+            yaxis: { title: 'Sentiment %', range: [0, 100] },
+            showlegend: true,
+            legend: { orientation: 'h', y: -0.2 },
+            font: { family: 'Inter, sans-serif' }
+        };
+
+        var emotionConfig = {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+        };
+
+        Plotly.newPlot('emotion-chart', emotionData, emotionLayout, emotionConfig);
+
+    } catch(e) {
+        console.error('Chart rendering error:', e);
+    }
+});
+</script>
+
+</body>
+</html>

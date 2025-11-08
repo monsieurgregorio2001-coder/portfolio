@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
+    <nav class="p-4 space-y-1">
+        <a href="#" class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-building w-5"></i>
+            <span class="ml-3">Companies</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">47</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-user-group w-5"></i>
+            <span class="ml-3">Contacts</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">1.2K</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-briefcase w-5"></i>
+            <span class="ml-3">Jobs</span>
+            <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">12</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-diagram-project w-5"></i>
+            <span class="ml-3">Pipeline</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-regular fa-calendar w-5"></i>
+            <span class="ml-3">Calendar</span>
+            <span class="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-semibold">8</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-bar w-5"></i>
+            <span class="ml-3">Reports</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-robot w-5"></i>
+            <span class="ml-3">AI Assistant</span>
+            <span class="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
+        </a>
+    </nav>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <div class="space-y-1">
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Candidate</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Create Job</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Company</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Workspace</div>
+        <div class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-users w-4"></i>
+                <span class="ml-3">Team</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-gear w-4"></i>
+                <span class="ml-3">Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-700 m-4 rounded-lg">
+        <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-crown text-yellow-300"></i>
+            </div>
+            <div>
+                <div class="text-white font-semibold text-sm">Upgrade to Pro</div>
+                <div class="text-blue-100 text-xs mt-1">Unlock AI features & unlimited contacts</div>
+                <button class="mt-3 w-full bg-white text-blue-600 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-64 mt-16 p-8">
+    <div id="welcome-section" class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Good morning, Sarah! 👋</h1>
+                <p class="text-gray-600 mt-1">Here's what's happening with your recruiting pipeline today</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <select class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>Last 7 days</option>
+                    <option>Last 30 days</option>
+                    <option>Last 90 days</option>
+                    <option>This year</option>
+                </select>
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    <i class="fa-solid fa-download mr-2"></i>
+                    Export Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="kpi-cards-section" class="grid grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-briefcase text-blue-600 text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">+3 this week</span>
+            </div>
+            <div class="text-3xl font-bold text-gray-900 mb-1">12</div>
+            <div class="text-sm text-gray-600">Active Jobs</div>
+            <div class="mt-4 flex items-center text-xs text-gray-500">
+                <i class="fa-solid fa-arrow-up text-green-500 mr-1"></i>
+                <span class="text-green-600 font-semibold">25%</span>
+                <span class="ml-1">vs last month</span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-user-group text-purple-600 text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full">+142 this week</span>
+            </div>
+            <div class="text-3xl font-bold text-gray-900 mb-1">1,247</div>
+            <div class="text-sm text-gray-600">Total Candidates</div>
+            <div class="mt-4 flex items-center text-xs text-gray-500">
+                <i class="fa-solid fa-arrow-up text-green-500 mr-1"></i>
+                <span class="text-green-600 font-semibold">12%</span>
+                <span class="ml-1">vs last month</span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-calendar-check text-orange-600 text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded-full">Today: 3</span>
+            </div>
+            <div class="text-3xl font-bold text-gray-900 mb-1">8</div>
+            <div class="text-sm text-gray-600">Scheduled Interviews</div>
+            <div class="mt-4 flex items-center text-xs text-gray-500">
+                <i class="fa-solid fa-arrow-down text-red-500 mr-1"></i>
+                <span class="text-red-600 font-semibold">5%</span>
+                <span class="ml-1">vs last month</span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-trophy text-green-600 text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">+1 this week</span>
+            </div>
+            <div class="text-3xl font-bold text-gray-900 mb-1">3</div>
+            <div class="text-sm text-gray-600">Placements This Month</div>
+            <div class="mt-4 flex items-center text-xs text-gray-500">
+                <i class="fa-solid fa-arrow-up text-green-500 mr-1"></i>
+                <span class="text-green-600 font-semibold">50%</span>
+                <span class="ml-1">vs last month</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-dashboard-grid" class="grid grid-cols-3 gap-6 mb-8">
+        <div id="recent-activity-section" class="col-span-2 bg-white rounded-xl border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-gray-900">Recent Activity</h2>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg">All</button>
+                        <button class="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Candidates</button>
+                        <button class="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Jobs</button>
+                        <button class="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg">Interviews</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-plus text-blue-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">New candidate added</p>
+                                    <p class="text-sm text-gray-600 mt-1">Michael Chen applied for Senior Software Engineer position</p>
+                                </div>
+                                <span class="text-xs text-gray-500">2 min ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2 mt-3">
+                                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">New</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Software Engineer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-check-circle text-green-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Interview completed</p>
+                                    <p class="text-sm text-gray-600 mt-1">Sarah Johnson completed technical interview with TechCorp</p>
+                                </div>
+                                <span class="text-xs text-gray-500">15 min ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2 mt-3">
+                                <span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded">Interview</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Product Manager</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-briefcase text-purple-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">New job posted</p>
+                                    <p class="text-sm text-gray-600 mt-1">DataFlow Inc. posted UX Designer - Remote position</p>
+                                </div>
+                                <span class="text-xs text-gray-500">1 hour ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2 mt-3">
+                                <span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded">Job Posted</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Remote</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-calendar text-orange-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Interview scheduled</p>
+                                    <p class="text-sm text-gray-600 mt-1">David Park scheduled for final round with StartupX tomorrow at 2 PM</p>
+                                </div>
+                                <span class="text-xs text-gray-500">2 hours ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2 mt-3">
+                                <span class="px-2 py-1 bg-orange-50 text-orange-700 text-xs font-medium rounded">Scheduled</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Data Scientist</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-envelope text-yellow-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Email sent</p>
+                                    <p class="text-sm text-gray-600 mt-1">Outreach campaign sent to 25 candidates for Backend Engineer role</p>
+                                </div>
+                                <span class="text-xs text-gray-500">3 hours ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2 mt-3">
+                                <span class="px-2 py-1 bg-yellow-50 text-yellow-700 text-xs font-medium rounded">Campaign</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">25 recipients</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-trophy text-red-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Placement successful</p>
+                                    <p class="text-sm text-gray-600 mt-1">Emily Rodriguez accepted offer from CloudTech as Senior DevOps Engineer</p>
+                                </div>
+                                <span class="text-xs text-gray-500">5 hours ago</span>
+                            </div>
+                            <div class="flex items-center space-x-2 mt-3">
+                                <span class="px-2 py-1 bg-red-50 text-red-700 text-xs font-medium rounded">Placed</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">$120K salary</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                        View all activity
+                        <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="pipeline-and-jobs-section" class="space-y-6">
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Pipeline Health</h2>
+                </div>
+                <div class="p-6">
+                    <div id="pipeline-chart" style="height: 300px;"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Top Jobs</h2>
+                        <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-700">View all</a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-code text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Senior Software Engineer</p>
+                                    <p class="text-xs text-gray-500">TechCorp • Remote</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900">47</p>
+                                <p class="text-xs text-gray-500">candidates</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-chart-line text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Product Manager</p>
+                                    <p class="text-xs text-gray-500">StartupX • San Francisco</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900">32</p>
+                                <p class="text-xs text-gray-500">candidates</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-palette text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">UX Designer</p>
+                                    <p class="text-xs text-gray-500">DataFlow Inc. • Remote</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900">28</p>
+                                <p class="text-xs text-gray-500">candidates</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-database text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">Data Scientist</p>
+                                    <p class="text-xs text-gray-500">AI Labs • New York</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900">19</p>
+                                <p class="text-xs text-gray-500">candidates</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="secondary-metrics-section" class="grid grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-lg font-bold text-gray-900">Candidate Sources</h2>
+            </div>
+            <div class="p-6">
+                <div id="sources-chart" style="height: 300px;"></div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-lg font-bold text-gray-900">Time to Hire Trend</h2>
+            </div>
+            <div class="p-6">
+                <div id="time-to-hire-chart" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="upcoming-interviews-section" class="bg-white rounded-xl border border-gray-200 mb-8">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-bold text-gray-900">Upcoming Interviews</h2>
+                <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-700">View calendar</a>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-3 gap-6">
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded">Today</span>
+                        <span class="text-xs text-gray-500">2:00 PM</span>
+                    </div>
+                    <div class="flex items-center space-x-3 mb-3">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Alex Thompson</p>
+                            <p class="text-xs text-gray-500">Senior Software Engineer</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-gray-600">
+                        <span><i class="fa-solid fa-building mr-1"></i>TechCorp</span>
+                        <span><i class="fa-solid fa-video mr-1"></i>Video call</span>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded">Tomorrow</span>
+                        <span class="text-xs text-gray-500">10:00 AM</span>
+                    </div>
+                    <div class="flex items-center space-x-3 mb-3">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Maria Garcia</p>
+                            <p class="text-xs text-gray-500">Product Manager</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-gray-600">
+                        <span><i class="fa-solid fa-building mr-1"></i>StartupX</span>
+                        <span><i class="fa-solid fa-location-dot mr-1"></i>On-site</span>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded">Tomorrow</span>
+                        <span class="text-xs text-gray-500">3:30 PM</span>
+                    </div>
+                    <div class="flex items-center space-x-3 mb-3">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">James Wilson</p>
+                            <p class="text-xs text-gray-500">UX Designer</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-gray-600">
+                        <span><i class="fa-solid fa-building mr-1"></i>DataFlow</span>
+                        <span><i class="fa-solid fa-video mr-1"></i>Video call</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="team-performance-section" class="bg-white rounded-xl border border-gray-200 mb-8">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-bold text-gray-900">Team Performance</h2>
+                <select class="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>This month</option>
+                    <option>Last month</option>
+                    <option>This quarter</option>
+                </select>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Recruiter</th>
+                            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Active Jobs</th>
+                            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Candidates</th>
+                            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Interviews</th>
+                            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Placements</th>
+                            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Response Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Sarah Mitchell</p>
+                                        <p class="text-xs text-gray-500">Senior Recruiter</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">5</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">312</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">18</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded">3</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-green-600">68%</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Mike" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Mike Johnson</p>
+                                        <p class="text-xs text-gray-500">Recruiter</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">4</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">287</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">15</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded">2</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-green-600">62%</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Emily" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Emily Davis</p>
+                                        <p class="text-xs text-gray-500">Recruiter</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">3</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">198</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">12</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded">1</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-orange-600">58%</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="David" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">David Park</p>
+                                        <p class="text-xs text-gray-500">Junior Recruiter</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">2</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">142</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">8</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded">0</span>
+                            </td>
+                            <td class="text-center py-4 px-4">
+                                <span class="text-sm font-semibold text-orange-600">54%</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-insights-section" class="grid grid-cols-2 gap-6 mb-8">
+        <div class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl p-6 text-white">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold">AI Insights</h2>
+                <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fa-solid fa-lightbulb text-yellow-300 mt-1"></i>
+                        <div>
+                            <p class="font-semibold mb-1">Top Recommendation</p>
+                            <p class="text-sm text-purple-100">3 candidates in your database match the new Senior Software Engineer role at TechCorp. Consider reaching out today.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fa-solid fa-chart-line text-green-300 mt-1"></i>
+                        <div>
+                            <p class="font-semibold mb-1">Performance Trend</p>
+                            <p class="text-sm text-purple-100">Your response rate increased by 15% this week. Email templates with personalization perform best.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-lg font-bold text-gray-900">Quick Actions</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                        <i class="fa-solid fa-user-plus text-2xl text-blue-600 mb-2"></i>
+                        <span class="text-sm font-semibold text-gray-900">Add Candidate</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all">
+                        <i class="fa-solid fa-briefcase text-2xl text-purple-600 mb-2"></i>
+                        <span class="text-sm font-semibold text-gray-900">Create Job</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all">
+                        <i class="fa-solid fa-calendar-plus text-2xl text-green-600 mb-2"></i>
+                        <span class="text-sm font-semibold text-gray-900">Schedule Interview</span>
+                    </button>
+                    <button class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition-all">
+                        <i class="fa-solid fa-envelope text-2xl text-orange-600 mb-2"></i>
+                        <span class="text-sm font-semibold text-gray-900">Send Campaign</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="recent-placements-section" class="bg-white rounded-xl border border-gray-200 mb-8">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-bold text-gray-900">Recent Placements</h2>
+                <span class="text-sm text-gray-500">Last 30 days</span>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-trophy text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Emily Rodriguez</p>
+                            <p class="text-xs text-gray-600">Senior DevOps Engineer at CloudTech</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-bold text-green-600">$120,000</p>
+                        <p class="text-xs text-gray-500">5 days ago</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-trophy text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Marcus Johnson</p>
+                            <p class="text-xs text-gray-600">Product Designer at DesignCo</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-bold text-green-600">$95,000</p>
+                        <p class="text-xs text-gray-500">12 days ago</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-trophy text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Lisa Chen</p>
+                            <p class="text-xs text-gray-600">Data Analyst at Analytics Inc</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-bold text-green-600">$85,000</p>
+                        <p class="text-xs text-gray-500">18 days ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-cta-section" class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-white text-center">
+        <h2 class="text-2xl font-bold mb-2">Ready to supercharge your recruiting?</h2>
+        <p class="text-blue-100 mb-6">Upgrade to Pro and unlock AI-powered features, unlimited contacts, and advanced analytics</p>
+        <div class="flex items-center justify-center space-x-4">
+            <button class="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+                Upgrade to Pro
+            </button>
+            <button class="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-colors">
+                Learn More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+window.addEventListener('load', function() {
+    try {
+        var pipelineData = [{
+            type: 'funnel',
+            y: ['Applied', 'Screening', 'Interview', 'Offer', 'Placed'],
+            x: [1247, 487, 156, 42, 12],
+            marker: {
+                color: ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444']
+            },
+            textinfo: 'value+percent initial'
+        }];
+
+        var pipelineLayout = {
+            margin: { t: 20, r: 20, b: 20, l: 20 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            showlegend: false,
+            font: { family: 'Inter, sans-serif' }
+        };
+
+        var pipelineConfig = {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+        };
+
+        Plotly.newPlot('pipeline-chart', pipelineData, pipelineLayout, pipelineConfig);
+
+        var sourcesData = [{
+            type: 'pie',
+            labels: ['LinkedIn', 'Job Boards', 'Referrals', 'Direct', 'Other'],
+            values: [420, 315, 268, 189, 55],
+            marker: {
+                colors: ['#0A66C2', '#3B82F6', '#10B981', '#8B5CF6', '#6B7280']
+            },
+            textinfo: 'label+percent',
+            hole: 0.4
+        }];
+
+        var sourcesLayout = {
+            margin: { t: 20, r: 20, b: 20, l: 20 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            showlegend: true,
+            legend: { orientation: 'h', y: -0.1 },
+            font: { family: 'Inter, sans-serif' }
+        };
+
+        var sourcesConfig = {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+        };
+
+        Plotly.newPlot('sources-chart', sourcesData, sourcesLayout, sourcesConfig);
+
+        var timeToHireData = [{
+            type: 'scatter',
+            mode: 'lines',
+            x: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+            y: [42, 38, 35, 32, 30, 28, 27, 25],
+            line: {
+                color: '#3B82F6',
+                width: 3
+            },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(59, 130, 246, 0.1)'
+        }];
+
+        var timeToHireLayout = {
+            margin: { t: 20, r: 20, b: 40, l: 40 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            xaxis: { title: '' },
+            yaxis: { title: 'Days' },
+            showlegend: false,
+            font: { family: 'Inter, sans-serif' }
+        };
+
+        var timeToHireConfig = {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+        };
+
+        Plotly.newPlot('time-to-hire-chart', timeToHireData, timeToHireLayout, timeToHireConfig);
+
+    } catch(e) {
+        console.error('Chart rendering error:', e);
+    }
+});
+</script>
+
+</body>
+</html>

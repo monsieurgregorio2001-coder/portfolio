@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
+    <nav class="p-4 space-y-1">
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-building w-5"></i>
+            <span class="ml-3">Companies</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">47</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+            <i class="fa-solid fa-user-group w-5"></i>
+            <span class="ml-3">Contacts</span>
+            <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">1.2K</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-briefcase w-5"></i>
+            <span class="ml-3">Jobs</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">12</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-diagram-project w-5"></i>
+            <span class="ml-3">Pipeline</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-regular fa-calendar w-5"></i>
+            <span class="ml-3">Calendar</span>
+            <span class="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-semibold">8</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-bar w-5"></i>
+            <span class="ml-3">Reports</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-robot w-5"></i>
+            <span class="ml-3">AI Assistant</span>
+            <span class="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
+        </a>
+    </nav>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <div class="space-y-1">
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Candidate</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Create Job</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Company</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Workspace</div>
+        <div class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-users w-4"></i>
+                <span class="ml-3">Team</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-gear w-4"></i>
+                <span class="ml-3">Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-700 m-4 rounded-lg">
+        <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-crown text-yellow-300"></i>
+            </div>
+            <div>
+                <div class="text-white font-semibold text-sm">Upgrade to Pro</div>
+                <div class="text-blue-100 text-xs mt-1">Unlock AI features & unlimited contacts</div>
+                <button class="mt-3 w-full bg-white text-blue-600 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-64 mt-16">
+    <div id="breadcrumb-section" class="bg-white border-b border-gray-200 px-8 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-sm">
+                <a href="#" class="text-blue-600 hover:text-blue-700 flex items-center">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    Back to Contacts
+                </a>
+                <span class="text-gray-400">/</span>
+                <span class="text-gray-600">Sarah Johnson</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm">
+                    <i class="fa-solid fa-star mr-2"></i>
+                    Add to Favorites
+                </button>
+                <button class="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm">
+                    <i class="fa-solid fa-share-nodes mr-2"></i>
+                    Share
+                </button>
+                <button class="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-header-section" class="bg-white border-b border-gray-200 px-8 py-6">
+        <div class="flex items-start justify-between">
+            <div class="flex items-start space-x-6">
+                <div class="relative">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Sarah Johnson" class="w-28 h-28 rounded-2xl border-4 border-white shadow-lg">
+                    <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white"></div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <h1 class="text-3xl font-bold text-gray-900">Sarah Johnson</h1>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Active</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">Top Candidate</span>
+                    </div>
+                    <p class="text-lg text-gray-600 mb-3">Senior Product Designer @ TechFlow Inc.</p>
+                    <div class="flex items-center space-x-6 text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-envelope text-gray-400 mr-2"></i>
+                            <a href="mailto:sarah.johnson@email.com" class="text-blue-600 hover:text-blue-700">sarah.johnson@email.com</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-phone text-gray-400 mr-2"></i>
+                            <a href="tel:+14155551234" class="text-blue-600 hover:text-blue-700">+1 (415) 555-1234</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-location-dot text-gray-400 mr-2"></i>
+                            <span>San Francisco, CA</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-brands fa-linkedin text-gray-400 mr-2"></i>
+                            <a href="#" class="text-blue-600 hover:text-blue-700">LinkedIn Profile</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 mt-4">
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Product Design</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">UX Research</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Figma</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Design Systems</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Leadership</span>
+                        <button class="px-3 py-1 text-blue-600 text-xs font-medium hover:bg-blue-50 rounded-full">+5 more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                    <i class="fa-solid fa-envelope mr-2"></i>
+                    Send Email
+                </button>
+                <button class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                    <i class="fa-solid fa-briefcase mr-2"></i>
+                    Add to Job
+                </button>
+                <button class="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors flex items-center">
+                    <i class="fa-solid fa-calendar-plus mr-2"></i>
+                    Schedule Call
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex">
+        <div id="main-profile-content" class="flex-1 p-8">
+            <div id="ai-summary-section" class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl p-6 mb-6 text-white">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold">AI Summary</h3>
+                            <p class="text-sm text-purple-100">Generated 2 hours ago</p>
+                        </div>
+                    </div>
+                    <button class="px-3 py-1.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-medium transition-colors">
+                        <i class="fa-solid fa-refresh mr-2"></i>
+                        Regenerate
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <p class="text-purple-50 leading-relaxed">
+                        <strong class="text-white">Top Match:</strong> Sarah is an exceptional candidate for the Senior Product Designer role at DataFlow Inc. Her 8+ years of experience in B2B SaaS design and proven track record of building design systems make her a perfect fit.
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="bg-white bg-opacity-10 rounded-lg p-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-purple-100">Match Score</span>
+                                <i class="fa-solid fa-info-circle text-purple-200 text-xs"></i>
+                            </div>
+                            <div class="text-2xl font-bold">94%</div>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-lg p-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-purple-100">Skills Match</span>
+                                <i class="fa-solid fa-info-circle text-purple-200 text-xs"></i>
+                            </div>
+                            <div class="text-2xl font-bold">9/10</div>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-lg p-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-purple-100">Culture Fit</span>
+                                <i class="fa-solid fa-info-circle text-purple-200 text-xs"></i>
+                            </div>
+                            <div class="text-2xl font-bold">Excellent</div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4 mt-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-lightbulb text-yellow-300 mt-1"></i>
+                            <div>
+                                <p class="font-semibold mb-1">AI Recommendation</p>
+                                <p class="text-sm text-purple-100">Schedule an interview this week. Sarah has expressed interest in remote opportunities and your role offers this flexibility. Mention the design system work in your outreach.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="activity-tabs-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+                <div class="border-b border-gray-200">
+                    <div class="flex items-center px-6">
+                        <button class="px-6 py-4 text-blue-600 border-b-2 border-blue-600 font-semibold text-sm">
+                            All Activity
+                        </button>
+                        <button class="px-6 py-4 text-gray-600 hover:text-gray-900 font-medium text-sm">
+                            Emails
+                            <span class="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">12</span>
+                        </button>
+                        <button class="px-6 py-4 text-gray-600 hover:text-gray-900 font-medium text-sm">
+                            Calls
+                            <span class="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">5</span>
+                        </button>
+                        <button class="px-6 py-4 text-gray-600 hover:text-gray-900 font-medium text-sm">
+                            Notes
+                            <span class="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">8</span>
+                        </button>
+                        <button class="px-6 py-4 text-gray-600 hover:text-gray-900 font-medium text-sm">
+                            Interviews
+                            <span class="ml-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">3</span>
+                        </button>
+                        <div class="ml-auto px-6 py-4">
+                            <button class="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                                <i class="fa-solid fa-plus mr-2"></i>
+                                Add Activity
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="relative">
+                        <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                        
+                        <div class="space-y-6">
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-envelope text-blue-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-semibold text-gray-900">Email Sent</h4>
+                                            <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-medium rounded">Outreach</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">2 hours ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-3">Subject: Senior Product Designer Role at DataFlow Inc.</p>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-3 text-sm text-gray-700 mb-3">
+                                        Hi Sarah, I came across your profile and was impressed by your work on design systems at TechFlow. We have an exciting opportunity for a Senior Product Designer role that I think would be a perfect match for your skills...
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                        <span><i class="fa-solid fa-eye mr-1"></i>Opened 3 times</span>
+                                        <span><i class="fa-solid fa-mouse-pointer mr-1"></i>2 link clicks</span>
+                                        <button class="text-blue-600 hover:text-blue-700 font-medium">View full email</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-reply text-green-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-semibold text-gray-900">Email Reply Received</h4>
+                                            <span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs font-medium rounded">Response</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">4 hours ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-3">Re: Senior Product Designer Role at DataFlow Inc.</p>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-3 text-sm text-gray-700 mb-3">
+                                        Thanks for reaching out! The role sounds really interesting. I'd love to learn more about the design system work and the team structure. I'm available for a call next week...
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-700 font-medium text-xs">Reply to this email</button>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-phone text-purple-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-semibold text-gray-900">Phone Call Scheduled</h4>
+                                            <span class="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs font-medium rounded">Upcoming</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">1 day ago</span>
+                                    </div>
+                                    <div class="flex items-center space-x-6 text-sm text-gray-700 mb-3">
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-calendar text-gray-400 mr-2"></i>
+                                            <span>Tomorrow, Dec 15</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-clock text-gray-400 mr-2"></i>
+                                            <span>2:00 PM - 2:30 PM PST</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded hover:bg-blue-700">
+                                            <i class="fa-solid fa-video mr-1"></i>
+                                            Join Call
+                                        </button>
+                                        <button class="px-3 py-1.5 bg-gray-200 text-gray-700 text-xs font-semibold rounded hover:bg-gray-300">
+                                            Reschedule
+                                        </button>
+                                        <button class="px-3 py-1.5 bg-gray-200 text-gray-700 text-xs font-semibold rounded hover:bg-gray-300">
+                                            Add to Calendar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-file-lines text-yellow-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-semibold text-gray-900">Note Added</h4>
+                                            <span class="px-2 py-0.5 bg-yellow-50 text-yellow-700 text-xs font-medium rounded">Internal</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">2 days ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3">Sarah showed strong interest in the design system aspect of the role. She mentioned her current company is going through a redesign and she's leading that initiative. Worth highlighting our mature design system in future conversations.</p>
+                                    <div class="flex items-center space-x-3 text-xs text-gray-500">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah Mitchell" class="w-5 h-5 rounded-full mr-1">
+                                            <span>Added by Sarah Mitchell</span>
+                                        </div>
+                                        <button class="text-blue-600 hover:text-blue-700 font-medium">Edit note</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-calendar-check text-orange-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-semibold text-gray-900">Interview Completed</h4>
+                                            <span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs font-medium rounded">Passed</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">5 days ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-3">Initial Screening Call with Hiring Manager</p>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-3 mb-3">
+                                        <div class="grid grid-cols-3 gap-4 mb-3">
+                                            <div>
+                                                <p class="text-xs text-gray-500 mb-1">Duration</p>
+                                                <p class="text-sm font-semibold text-gray-900">45 minutes</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs text-gray-500 mb-1">Rating</p>
+                                                <div class="flex items-center">
+                                                    <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                    <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                    <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                    <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                    <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs text-gray-500 mb-1">Interviewer</p>
+                                                <p class="text-sm font-semibold text-gray-900">Mike Johnson</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-gray-600">Strong candidate with excellent portfolio. Communication skills are outstanding. Recommended for technical round.</p>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-700 font-medium text-xs">View full feedback</button>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-briefcase text-red-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-semibold text-gray-900">Added to Job Pipeline</h4>
+                                            <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-medium rounded">Active</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">1 week ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-2">Senior Product Designer @ DataFlow Inc.</p>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-2 py-1 bg-white border border-gray-200 text-xs font-medium text-gray-700 rounded">Screening</span>
+                                        <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
+                                        <span class="px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded">Interview</span>
+                                        <i class="fa-solid fa-arrow-right text-gray-400 text-xs"></i>
+                                        <span class="px-2 py-1 bg-white border border-gray-200 text-xs font-medium text-gray-700 rounded">Final Round</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start space-x-4">
+                                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0 relative z-10">
+                                    <i class="fa-solid fa-user-plus text-gray-600"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900">Contact Created</h4>
+                                        <span class="text-xs text-gray-500">2 weeks ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Added from LinkedIn sourcing campaign</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button class="px-6 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                            Load More Activity
+                            <i class="fa-solid fa-chevron-down ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="documents-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900">Documents & Attachments</h3>
+                        <button class="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fa-solid fa-upload mr-2"></i>
+                            Upload Document
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-file-pdf text-red-600 text-xl"></i>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 text-sm mb-1">Resume_SarahJohnson.pdf</h4>
+                            <p class="text-xs text-gray-500 mb-2">Updated 2 weeks ago</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>2.4 MB</span>
+                                <button class="text-blue-600 hover:text-blue-700 font-medium">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-file-word text-blue-600 text-xl"></i>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 text-sm mb-1">CoverLetter.docx</h4>
+                            <p class="text-xs text-gray-500 mb-2">Updated 2 weeks ago</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>156 KB</span>
+                                <button class="text-blue-600 hover:text-blue-700 font-medium">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-link text-purple-600 text-xl"></i>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 text-sm mb-1">Portfolio Website</h4>
+                            <p class="text-xs text-gray-500 mb-2">Added 2 weeks ago</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>External Link</span>
+                                <button class="text-blue-600 hover:text-blue-700 font-medium">Open</button>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-file-excel text-green-600 text-xl"></i>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 text-sm mb-1">References.xlsx</h4>
+                            <p class="text-xs text-gray-500 mb-2">Updated 1 week ago</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>48 KB</span>
+                                <button class="text-blue-600 hover:text-blue-700 font-medium">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-image text-orange-600 text-xl"></i>
+                                </div>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 text-sm mb-1">Design_Samples.zip</h4>
+                            <p class="text-xs text-gray-500 mb-2">Updated 5 days ago</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span>15.8 MB</span>
+                                <button class="text-blue-600 hover:text-blue-700 font-medium">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer flex flex-col items-center justify-center">
+                            <i class="fa-solid fa-plus text-2xl text-gray-400 mb-2"></i>
+                            <p class="text-sm font-medium text-gray-600">Add Document</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar-right" class="w-96 bg-white border-l border-gray-200 p-6 space-y-6">
+            <div id="quick-stats-card" class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-5 border border-blue-100">
+                <h3 class="text-sm font-bold text-gray-900 mb-4">Quick Stats</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Response Rate</span>
+                        <div class="flex items-center">
+                            <div class="w-20 h-2 bg-gray-200 rounded-full mr-2">
+                                <div class="w-4/5 h-2 bg-green-500 rounded-full"></div>
+                            </div>
+                            <span class="text-sm font-bold text-gray-900">85%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Total Interactions</span>
+                        <span class="text-sm font-bold text-gray-900">28</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Avg Response Time</span>
+                        <span class="text-sm font-bold text-gray-900">4.2 hours</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Last Contact</span>
+                        <span class="text-sm font-bold text-gray-900">2 hours ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="match-score-card" class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-gray-900">Match Score</h3>
+                    <i class="fa-solid fa-info-circle text-gray-400"></i>
+                </div>
+                <div class="flex items-center justify-center mb-4">
+                    <div class="relative w-32 h-32">
+                        <svg class="transform -rotate-90 w-32 h-32">
+                            <circle cx="64" cy="64" r="56" stroke="#E5E7EB" stroke-width="12" fill="none" />
+                            <circle cx="64" cy="64" r="56" stroke="#3B82F6" stroke-width="12" fill="none" stroke-dasharray="351.68" stroke-dashoffset="35.17" stroke-linecap="round" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span class="text-3xl font-bold text-gray-900">94</span>
+                            <span class="text-xs text-gray-500">out of 100</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-gray-600">Skills Match</span>
+                        <span class="font-semibold text-gray-900">9/10</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-gray-600">Experience Level</span>
+                        <span class="font-semibold text-gray-900">Perfect</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-gray-600">Location Match</span>
+                        <span class="font-semibold text-gray-900">Excellent</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-gray-600">Salary Expectation</span>
+                        <span class="font-semibold text-gray-900">Within Range</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="current-opportunities-card" class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-gray-900">Current Opportunities</h3>
+                    <button class="text-blue-600 hover:text-blue-700 text-xs font-medium">View All</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-900">Senior Product Designer</h4>
+                                <p class="text-xs text-gray-500">DataFlow Inc.</p>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">Active</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-600">
+                            <span>Stage: Interview</span>
+                            <span class="font-semibold text-green-600">94% match</span>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-900">Lead UX Designer</h4>
+                                <p class="text-xs text-gray-500">TechCorp</p>
+                            </div>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded">Pending</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-600">
+                            <span>Stage: Screening</span>
+                            <span class="font-semibold text-blue-600">87% match</span>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="flex items-start justify-between mb-2">
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-900">Design Manager</h4>
+                                <p class="text-xs text-gray-500">StartupX</p>
+                            </div>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded">On Hold</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-600">
+                            <span>Stage: Applied</span>
+                            <span class="font-semibold text-purple-600">82% match</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contact-info-card" class="bg-white rounded-xl border border-gray-200 p-5">
+                <h3 class="text-sm font-bold text-gray-900 mb-4">Contact Information</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</label>
+                        <p class="text-sm text-gray-900 mt-1">sarah.johnson@email.com</p>
+                        <button class="text-blue-600 hover:text-blue-700 text-xs font-medium mt-1">Send email</button>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Phone</label>
+                        <p class="text-sm text-gray-900 mt-1">+1 (415) 555-1234</p>
+                        <button class="text-blue-600 hover:text-blue-700 text-xs font-medium mt-1">Call now</button>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</label>
+                        <p class="text-sm text-gray-900 mt-1">San Francisco, CA</p>
+                        <p class="text-xs text-gray-500 mt-1">Open to Remote</p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Current Company</label>
+                        <p class="text-sm text-gray-900 mt-1">TechFlow Inc.</p>
+                        <p class="text-xs text-gray-500 mt-1">3.5 years</p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Salary Expectation</label>
+                        <p class="text-sm text-gray-900 mt-1">$140K - $160K</p>
+                        <p class="text-xs text-gray-500 mt-1">Base + Equity</p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Notice Period</label>
+                        <p class="text-sm text-gray-900 mt-1">2 weeks</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="social-profiles-card" class="bg-white rounded-xl border border-gray-200 p-5">
+                <h3 class="text-sm font-bold text-gray-900 mb-4">Social Profiles</h3>
+                <div class="space-y-3">
+                    <a href="#" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-brands fa-linkedin text-blue-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-gray-900">LinkedIn</p>
+                            <p class="text-xs text-gray-500">linkedin.com/in/sarahjohnson</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gray-400 text-sm"></i>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-brands fa-github text-purple-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-gray-900">GitHub</p>
+                            <p class="text-xs text-gray-500">github.com/sarahjohnson</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gray-400 text-sm"></i>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-brands fa-dribbble text-pink-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-gray-900">Dribbble</p>
+                            <p class="text-xs text-gray-500">dribbble.com/sarahjohnson</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gray-400 text-sm"></i>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-brands fa-behance text-orange-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-gray-900">Behance</p>
+                            <p class="text-xs text-gray-500">behance.net/sarahjohnson</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gray-400 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div id="tags-card" class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-gray-900">Tags</h3>
+                    <button class="text-blue-600 hover:text-blue-700 text-xs font-medium">
+                        <i class="fa-solid fa-plus mr-1"></i>
+                        Add
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">Top Talent</span>
+                    <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">Quick Responder</span>
+                    <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Design Systems</span>
+                    <span class="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-medium rounded-full">Remote Ready</span>
+                    <span class="px-3 py-1 bg-pink-50 text-pink-700 text-xs font-medium rounded-full">Leadership</span>
+                    <span class="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-medium rounded-full">B2B SaaS</span>
+                </div>
+            </div>
+
+            <div id="team-notes-card" class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-gray-900">Team Notes</h3>
+                    <button class="text-blue-600 hover:text-blue-700 text-xs font-medium">
+                        <i class="fa-solid fa-plus mr-1"></i>
+                        Add Note
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                        <div class="flex items-start space-x-2">
+                            <i class="fa-solid fa-thumbtack text-yellow-600 text-xs mt-1"></i>
+                            <div class="flex-1">
+                                <p class="text-xs text-gray-700 mb-1">Highly recommended by Mike Johnson. Strong portfolio and excellent communication skills.</p>
+                                <div class="flex items-center justify-between mt-2">
+                                    <span class="text-xs text-gray-500">Sarah Mitchell</span>
+                                    <span class="text-xs text-gray-400">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <p class="text-xs text-gray-700 mb-1">Interested in design system work. Mention our mature DS in conversations.</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xs text-gray-500">Emily Davis</span>
+                            <span class="text-xs text-gray-400">5 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="actions-card" class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-5 text-white">
+                <h3 class="text-sm font-bold mb-4">Quick Actions</h3>
+                <div class="space-y-2">
+                    <button class="w-full px-4 py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-semibold text-left transition-colors flex items-center">
+                        <i class="fa-solid fa-envelope mr-3"></i>
+                        Send Follow-up Email
+                    </button>
+                    <button class="w-full px-4 py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-semibold text-left transition-colors flex items-center">
+                        <i class="fa-solid fa-calendar-plus mr-3"></i>
+                        Schedule Next Interview
+                    </button>
+                    <button class="w-full px-4 py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-semibold text-left transition-colors flex items-center">
+                        <i class="fa-solid fa-share mr-3"></i>
+                        Share with Team
+                    </button>
+                    <button class="w-full px-4 py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-semibold text-left transition-colors flex items-center">
+                        <i class="fa-solid fa-file-export mr-3"></i>
+                        Export Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Garfield Greg V. Lim III" />
+  <meta name="dcterms.date" content="2025-11-08" />
+  <title>UniversalHire: AI-Powered Recruitment CRM</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pdf-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">UniversalHire: AI-Powered Recruitment CRM</h1>
+<p class="subtitle">Project Overview &amp; Specifications</p>
+<p class="author">Garfield Greg V. Lim III</p>
+<p class="date">November 8, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#universalhire-ai-powered-recruitment-crm"
+id="toc-universalhire-ai-powered-recruitment-crm">UniversalHire:
+AI-Powered Recruitment CRM</a>
+<ul>
+<li><a href="#project-overview-specifications"
+id="toc-project-overview-specifications">Project Overview &amp;
+Specifications</a></li>
+<li><a href="#executive-summary" id="toc-executive-summary">Executive
+Summary</a></li>
+<li><a href="#project-goals" id="toc-project-goals">Project
+Goals</a></li>
+<li><a href="#target-market" id="toc-target-market">Target
+Market</a></li>
+<li><a href="#user-personas" id="toc-user-personas">User
+Personas</a></li>
+<li><a href="#market-analysis" id="toc-market-analysis">Market
+Analysis</a></li>
+<li><a href="#product-strategy" id="toc-product-strategy">Product
+Strategy</a></li>
+<li><a href="#use-cases" id="toc-use-cases">Use Cases</a></li>
+<li><a href="#user-stories" id="toc-user-stories">User Stories</a></li>
+<li><a href="#success-metrics" id="toc-success-metrics">Success
+Metrics</a></li>
+<li><a href="#launch-criteria" id="toc-launch-criteria">Launch
+Criteria</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="universalhire-ai-powered-recruitment-crm">UniversalHire:
+AI-Powered Recruitment CRM</h1>
+<h2 id="project-overview-specifications">Project Overview &amp;
+Specifications</h2>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p><strong>Project Name:</strong> UniversalHire<br />
+<strong>Project Type:</strong> AI-First Recruitment CRM
+(Greenfield)<br />
+<strong>Duration:</strong> 120 days (4 months)<br />
+<strong>Team Size:</strong> 4 people<br />
+<strong>Budget:</strong> $80K-110K (excluding founder equity)<br />
+<strong>Target Scale:</strong> 100,000 users</p>
+<h3 id="vision">Vision</h3>
+<p>Build a modern, AI-first recruitment CRM that unifies ATS (Applicant
+Tracking System), sourcing, outreach, AI automation, and reporting into
+one seamless platform. Replace fragmented tools with a single,
+intelligent system that makes recruiters 10x more productive.</p>
+<h3 id="mission">Mission</h3>
+<p>Empower recruiting teams to find, engage, and hire top talent faster
+through intelligent automation, seamless communication, and data-driven
+insights—all in one platform.</p>
+<hr />
+<h2 id="project-goals">Project Goals</h2>
+<h3 id="business-goals">Business Goals</h3>
+<ol type="1">
+<li><strong>Launch MVP in 60 days</strong> with core CRM + AI
+features</li>
+<li><strong>Achieve product-market fit</strong> with 5-20 pilot
+companies</li>
+<li><strong>Demonstrate enterprise readiness</strong> by Day 90</li>
+<li><strong>Secure Series A funding</strong> with proven scalability to
+100K users</li>
+<li><strong>Build foundation for $10M ARR</strong> within 18 months</li>
+</ol>
+<h3 id="technical-goals">Technical Goals</h3>
+<ol type="1">
+<li><strong>Multi-tenant architecture</strong> from Day 1 (scalable to
+100K users)</li>
+<li><strong>AI-first design</strong> with semantic search, smart
+automation, and insights</li>
+<li><strong>99.9% uptime</strong> with enterprise-grade reliability</li>
+<li><strong>Sub-500ms API response times</strong> (P95)</li>
+<li><strong>SOC 2 compliance readiness</strong> by Day 120</li>
+</ol>
+<h3 id="user-experience-goals">User Experience Goals</h3>
+<ol type="1">
+<li><strong>10x faster</strong> candidate search with AI semantic
+search</li>
+<li><strong>80% reduction</strong> in manual data entry through
+automation</li>
+<li><strong>50% faster</strong> hiring cycles through intelligent
+workflows</li>
+<li><strong>Zero context switching</strong> with unified
+communication</li>
+<li><strong>Beautiful, intuitive UI</strong> that requires minimal
+training</li>
+</ol>
+<hr />
+<h2 id="target-market">Target Market</h2>
+<h3 id="primary-target-smb-recruiting-agencies">Primary Target: SMB
+Recruiting Agencies</h3>
+<p><strong>Company Size:</strong> 5-50 employees<br />
+<strong>Annual Revenue:</strong> $1M-10M<br />
+<strong>Current Pain Points:</strong></p>
+<ul>
+<li>Using 5-10 different tools (LinkedIn, ATS, email, calendar,
+CRM)</li>
+<li>Manual data entry consuming 40% of recruiter time</li>
+<li>Poor candidate database search and rediscovery</li>
+<li>No AI-powered insights or automation</li>
+<li>Fragmented communication history</li>
+</ul>
+<p><strong>Budget:</strong> $200-500 per user/month</p>
+<hr />
+<h3 id="secondary-target-enterprise-in-house-teams">Secondary Target:
+Enterprise In-House Teams</h3>
+<p><strong>Company Size:</strong> 500-10,000 employees<br />
+<strong>Hiring Team Size:</strong> 10-100 recruiters<br />
+<strong>Current Pain Points:</strong></p>
+<ul>
+<li>Legacy ATS systems (inflexible, slow)</li>
+<li>No modern AI capabilities</li>
+<li>Poor collaboration tools</li>
+<li>Compliance and audit challenges</li>
+<li>High cost per hire</li>
+</ul>
+<p><strong>Budget:</strong> $500-1,000 per user/month (enterprise
+tier)</p>
+<hr />
+<h2 id="user-personas">User Personas</h2>
+<h3 id="persona-1-sarah---senior-recruiter-primary-user">Persona 1:
+Sarah - Senior Recruiter (Primary User)</h3>
+<p><strong>Demographics:</strong></p>
+<ul>
+<li>Age: 28-35</li>
+<li>Experience: 5+ years in recruiting</li>
+<li>Tech-savvy, wants efficiency</li>
+</ul>
+<p><strong>Goals:</strong></p>
+<ul>
+<li>Fill 3-5 positions per month</li>
+<li>Build strong candidate pipeline</li>
+<li>Maintain relationships with candidates</li>
+<li>Hit placement goals and earn bonuses</li>
+</ul>
+<p><strong>Pain Points:</strong></p>
+<ul>
+<li>Spends 4 hours/day on manual tasks</li>
+<li>Can’t find candidates she talked to 6 months ago</li>
+<li>Email and calendar in different tools</li>
+<li>No way to know which candidates to prioritize</li>
+<li>Misses follow-ups and loses candidates</li>
+</ul>
+<p><strong>Daily Workflow:</strong></p>
+<ol type="1">
+<li>Review open positions (30 min)</li>
+<li>Search for candidates (2 hours)</li>
+<li>Email outreach (1.5 hours)</li>
+<li>Phone screens (2 hours)</li>
+<li>Update records (1.5 hours)</li>
+<li>Client communication (1 hour)</li>
+</ol>
+<p><strong>How UniversalHire Helps:</strong></p>
+<ul>
+<li>AI search finds candidates in seconds</li>
+<li>Auto-logs all emails and calls</li>
+<li>AI suggests best candidates for each role</li>
+<li>Automated follow-up sequences</li>
+<li>One unified timeline per candidate</li>
+</ul>
+<hr />
+<h3 id="persona-2-mike---recruiting-manager-secondary-user">Persona 2:
+Mike - Recruiting Manager (Secondary User)</h3>
+<p><strong>Demographics:</strong></p>
+<ul>
+<li>Age: 35-45</li>
+<li>Experience: 10+ years</li>
+<li>Manages team of 5-10 recruiters</li>
+</ul>
+<p><strong>Goals:</strong></p>
+<ul>
+<li>Hit team placement targets</li>
+<li>Coach and develop recruiters</li>
+<li>Report on team performance</li>
+<li>Ensure data quality and compliance</li>
+</ul>
+<p><strong>Pain Points:</strong></p>
+<ul>
+<li>No visibility into team activities</li>
+<li>Can’t see pipeline health across team</li>
+<li>Manual reporting takes hours</li>
+<li>Unclear which recruiters need help</li>
+<li>Data quality issues</li>
+</ul>
+<p><strong>Daily Workflow:</strong></p>
+<ol type="1">
+<li>Review team metrics (45 min)</li>
+<li>1-on-1s with recruiters (2 hours)</li>
+<li>Pipeline reviews (1 hour)</li>
+<li>Client escalations (1.5 hours)</li>
+<li>Reporting (1.5 hours)</li>
+<li>Team training (1 hour)</li>
+</ol>
+<p><strong>How UniversalHire Helps:</strong></p>
+<ul>
+<li>Real-time team dashboard</li>
+<li>Activity tracking per recruiter</li>
+<li>Pipeline health metrics</li>
+<li>Automated weekly reports</li>
+<li>Audit trail for compliance</li>
+</ul>
+<hr />
+<h3 id="persona-3-david---founderceo-admin-user">Persona 3: David -
+Founder/CEO (Admin User)</h3>
+<p><strong>Demographics:</strong></p>
+<ul>
+<li>Age: 30-50</li>
+<li>Built recruiting agency from scratch</li>
+<li>10-30 recruiters on team</li>
+</ul>
+<p><strong>Goals:</strong></p>
+<ul>
+<li>Grow company revenue 3x per year</li>
+<li>Scale team efficiently</li>
+<li>Win enterprise clients</li>
+<li>Reduce operational costs</li>
+<li>Build best-in-class recruiting team</li>
+</ul>
+<p><strong>Pain Points:</strong></p>
+<ul>
+<li>Current tools don’t integrate</li>
+<li>High per-seat costs across tools</li>
+<li>No data-driven insights</li>
+<li>Compliance concerns with enterprise clients</li>
+<li>Can’t demonstrate ROI to clients</li>
+</ul>
+<p><strong>Daily Workflow:</strong></p>
+<ol type="1">
+<li>Review company metrics (30 min)</li>
+<li>Sales calls with prospects (2 hours)</li>
+<li>Strategic planning (1.5 hours)</li>
+<li>Client relationships (2 hours)</li>
+<li>Team leadership (2 hours)</li>
+</ol>
+<p><strong>How UniversalHire Helps:</strong></p>
+<ul>
+<li>All-in-one platform (reduce tool costs)</li>
+<li>Executive dashboard with KPIs</li>
+<li>SOC 2 compliant (win enterprise deals)</li>
+<li>AI features differentiate from competitors</li>
+<li>Transparent pricing and usage tracking</li>
+</ul>
+<hr />
+<h2 id="market-analysis">Market Analysis</h2>
+<h3 id="competitive-landscape">Competitive Landscape</h3>
+<p><strong>Category 1: Legacy ATS</strong> (Greenhouse, Lever,
+Workable)</p>
+<ul>
+<li>Not designed for agencies</li>
+<li>No modern AI features</li>
+<li>Poor candidate relationship management</li>
+<li>Enterprise-ready, SOC 2 certified</li>
+<li>Strong brand recognition</li>
+</ul>
+<p><strong>Category 2: Recruiting CRMs</strong> (Bullhorn, JobAdder,
+Vincere)</p>
+<ul>
+<li>Outdated UI/UX</li>
+<li>No AI capabilities</li>
+<li>Expensive ($150-300/user/month + setup fees)</li>
+<li>Deep industry features</li>
+<li>Established market presence</li>
+</ul>
+<p><strong>Category 3: Modern Startups</strong> (Dover, Ashby)</p>
+<ul>
+<li>Focused on in-house recruiting (not agencies)</li>
+<li>Limited AI features</li>
+<li>Modern UI/UX</li>
+<li>Good developer experience</li>
+</ul>
+<p><strong>UniversalHire’s Differentiation:</strong></p>
+<ol type="1">
+<li>AI-first from Day 1 (semantic search, smart automation)</li>
+<li>Built for recruiting agencies AND in-house teams</li>
+<li>Modern stack (fast, scalable, reliable)</li>
+<li>Beautiful, intuitive UI</li>
+<li>Transparent, usage-based pricing</li>
+<li>All-in-one (ATS + CRM + Communication + AI)</li>
+</ol>
+<hr />
+<h2 id="product-strategy">Product Strategy</h2>
+<h3 id="mvp-strategy-day-60">MVP Strategy (Day 60)</h3>
+<p><strong>Core Principle:</strong> Build a working CRM that recruiters
+love, then layer AI.</p>
+<p><strong>Phase 1 Focus:</strong></p>
+<ul>
+<li>Core CRM (Companies, Contacts, Jobs, Pipeline)</li>
+<li>Communication (Email, SMS, Calendar)</li>
+<li>Basic AI (Semantic search, Deduplication)</li>
+<li>Essential workflows</li>
+</ul>
+<p><strong>What’s NOT in MVP:</strong></p>
+<ul>
+<li>Voice AI (too complex)</li>
+<li>Advanced reporting (can be manual)</li>
+<li>Mobile apps (web-first)</li>
+<li>Integrations beyond email/calendar</li>
+<li>White-labeling</li>
+</ul>
+<h3 id="go-to-market-strategy">Go-to-Market Strategy</h3>
+<p><strong>Phase 1 (Days 1-60):</strong> Build + Alpha Testing</p>
+<ul>
+<li>Build MVP with 5 alpha testers</li>
+<li>Iterate based on feedback</li>
+<li>Achieve product-market fit signals</li>
+</ul>
+<p><strong>Phase 2 (Days 61-90):</strong> Private Beta</p>
+<ul>
+<li>Onboard 20 beta customers</li>
+<li>Gather testimonials and case studies</li>
+<li>Refine based on real usage</li>
+</ul>
+<p><strong>Phase 3 (Days 91-120):</strong> Public Launch Prep</p>
+<ul>
+<li>Harden for scale</li>
+<li>SOC 2 readiness</li>
+<li>Launch marketing site</li>
+<li>Prepare for public launch</li>
+</ul>
+<p><strong>Phase 4 (Month 5+):</strong> Growth</p>
+<ul>
+<li>Public launch</li>
+<li>Paid acquisition</li>
+<li>Content marketing</li>
+<li>Sales team hiring</li>
+</ul>
+<hr />
+<h2 id="use-cases">Use Cases</h2>
+<h3 id="use-case-1-finding-the-perfect-candidate">Use Case 1: Finding
+the Perfect Candidate</h3>
+<p><strong>Actor:</strong> Sarah (Senior Recruiter)<br />
+<strong>Goal:</strong> Find candidates for a Senior Software Engineer
+role at a startup<br />
+<strong>Frequency:</strong> Daily</p>
+<p><strong>Traditional Workflow (Current State):</strong></p>
+<ol type="1">
+<li>Log into LinkedIn Recruiter (2 min)</li>
+<li>Search for “senior software engineer” + location filters (5
+min)</li>
+<li>Open 20 profiles in tabs (5 min)</li>
+<li>Copy-paste info into spreadsheet (15 min)</li>
+<li>Search email database for any we’ve contacted before (5 min)</li>
+<li>Realize she talked to 3 of them 6 months ago, but can’t remember
+context (5 min)</li>
+<li>Give up and start over with different search (10 min)</li>
+</ol>
+<p><strong>Total Time:</strong> 47 minutes, incomplete results</p>
+<p><strong>UniversalHire Workflow (Future State):</strong></p>
+<ol type="1">
+<li>Open UniversalHire</li>
+<li>Type natural language: “Find senior engineers who worked at startups
+in SF, open to remote, talked to in last year” (30 sec)</li>
+<li>AI semantic search returns 15 relevant candidates with similarity
+scores (2 sec)</li>
+<li>See full timeline for each (previous calls, emails, notes) (2
+min)</li>
+<li>Select top 5, add to job pipeline (30 sec)</li>
+<li>Click “Generate outreach” - AI creates personalized emails (1
+min)</li>
+<li>Review and send (1 min)</li>
+</ol>
+<p><strong>Total Time:</strong> 5 minutes, complete results with
+context</p>
+<p><strong>Value:</strong> 10x faster, better results, full context</p>
+<hr />
+<h3 id="use-case-2-managing-candidate-pipeline">Use Case 2: Managing
+Candidate Pipeline</h3>
+<p><strong>Actor:</strong> Sarah (Senior Recruiter)<br />
+<strong>Goal:</strong> Move candidates through hiring stages for 3 open
+positions<br />
+<strong>Frequency:</strong> Daily</p>
+<p><strong>Traditional Workflow:</strong></p>
+<ol type="1">
+<li>Check email for candidate responses (10 min)</li>
+<li>Manually update spreadsheet with stage changes (5 min)</li>
+<li>Schedule interviews in Google Calendar (10 min)</li>
+<li>Email client about candidate progress (5 min)</li>
+<li>Update notes in another tool (5 min)</li>
+<li>Realize she forgot to follow up with 2 candidates (2 min)</li>
+</ol>
+<p><strong>Total Time:</strong> 37 minutes, error-prone</p>
+<p><strong>UniversalHire Workflow:</strong></p>
+<ol type="1">
+<li>Open pipeline board (drag-and-drop Kanban)</li>
+<li>See all candidates across all positions</li>
+<li>Drag candidates to new stages (auto-sends emails)</li>
+<li>Click candidate to see unified timeline (all emails, calls, notes in
+one place)</li>
+<li>Schedule interview directly from platform (syncs to calendar)</li>
+<li>Add quick note (auto-saved with timestamp)</li>
+<li>AI suggests candidates who need follow-up</li>
+</ol>
+<p><strong>Total Time:</strong> 10 minutes, zero errors</p>
+<p><strong>Value:</strong> 3x faster, automated follow-ups, full
+visibility</p>
+<hr />
+<h3 id="use-case-3-sourcing-and-outreach">Use Case 3: Sourcing and
+Outreach</h3>
+<p><strong>Actor:</strong> Sarah (Senior Recruiter)<br />
+<strong>Goal:</strong> Run outbound campaign to find Product
+Managers<br />
+<strong>Frequency:</strong> Weekly</p>
+<p><strong>Traditional Workflow:</strong></p>
+<ol type="1">
+<li>Search LinkedIn for Product Managers (20 min)</li>
+<li>Export to spreadsheet (5 min)</li>
+<li>Find email addresses using hunter.io (15 min)</li>
+<li>Copy-paste into email tool (10 min)</li>
+<li>Write personalized emails one by one (60 min)</li>
+<li>Schedule follow-up reminders manually (10 min)</li>
+<li>Track opens and replies in spreadsheet (ongoing)</li>
+</ol>
+<p><strong>Total Time:</strong> 120 minutes, manual tracking</p>
+<p><strong>UniversalHire Workflow:</strong></p>
+<ol type="1">
+<li>Import candidates from LinkedIn (CSV upload) (2 min)</li>
+<li>AI deduplicates with existing database (automatic)</li>
+<li>Create email sequence with 3 touchpoints (5 min)</li>
+<li>AI personalizes each email based on candidate profile
+(automatic)</li>
+<li>Set sequence to send (1 min)</li>
+<li>Track opens, replies, and engagement automatically</li>
+<li>AI suggests which candidates to prioritize based on engagement</li>
+</ol>
+<p><strong>Total Time:</strong> 8 minutes, automated tracking</p>
+<p><strong>Value:</strong> 15x faster, better personalization, smart
+prioritization</p>
+<hr />
+<h3 id="use-case-4-interview-coordination">Use Case 4: Interview
+Coordination</h3>
+<p><strong>Actor:</strong> Sarah (Senior Recruiter)<br />
+<strong>Goal:</strong> Schedule final round interviews for 5
+candidates<br />
+<strong>Frequency:</strong> Weekly</p>
+<p><strong>Traditional Workflow:</strong></p>
+<ol type="1">
+<li>Email hiring manager for availability (wait 4 hours)</li>
+<li>Email candidates with time options (20 min)</li>
+<li>Wait for replies (wait 1 day)</li>
+<li>Play email ping-pong to find time that works (40 min over 2
+days)</li>
+<li>Send calendar invites (10 min)</li>
+<li>Send reminder emails day before (10 min)</li>
+<li>Send Zoom links via email (5 min)</li>
+</ol>
+<p><strong>Total Time:</strong> 85 minutes + 2 days of
+back-and-forth</p>
+<p><strong>UniversalHire Workflow:</strong></p>
+<ol type="1">
+<li>Click “Schedule Interview” on candidate</li>
+<li>System shows hiring manager’s availability (integrated
+calendar)</li>
+<li>Send candidate link to self-schedule from available slots</li>
+<li>System auto-sends calendar invite to both parties</li>
+<li>System auto-sends reminder 24 hours before</li>
+<li>System auto-generates and includes video call link</li>
+</ol>
+<p><strong>Total Time:</strong> 5 minutes, same-day scheduling</p>
+<p><strong>Value:</strong> 17x faster, no back-and-forth, automated
+reminders</p>
+<hr />
+<h3 id="use-case-5-rediscovering-past-candidates">Use Case 5:
+Rediscovering Past Candidates</h3>
+<p><strong>Actor:</strong> Sarah (Senior Recruiter)<br />
+<strong>Goal:</strong> Find candidates from past searches for new
+role<br />
+<strong>Frequency:</strong> Weekly</p>
+<p><strong>Traditional Workflow:</strong></p>
+<ol type="1">
+<li>Remember she had great candidates 3 months ago</li>
+<li>Search old emails (10 min)</li>
+<li>Search LinkedIn messages (10 min)</li>
+<li>Can’t find them</li>
+<li>Give up and start new search</li>
+</ol>
+<p><strong>Total Time:</strong> 20 minutes, no results</p>
+<p><strong>UniversalHire Workflow:</strong></p>
+<ol type="1">
+<li>AI “Silver Medalist” feature suggests past candidates who:
+<ul>
+<li>Were strong fits but not hired (various reasons)</li>
+<li>Match new role requirements</li>
+<li>Haven’t been contacted recently</li>
+</ul></li>
+<li>Shows 10 candidates with explanation of why they match</li>
+<li>Click to see full history (why they weren’t hired before)</li>
+<li>Select 3 to re-engage</li>
+<li>AI generates personalized “checking in” emails</li>
+</ol>
+<p><strong>Total Time:</strong> 3 minutes, high-quality results</p>
+<p><strong>Value:</strong> Unlock 30% of hiring from existing
+database</p>
+<hr />
+<h3 id="use-case-6-team-performance-review">Use Case 6: Team Performance
+Review</h3>
+<p><strong>Actor:</strong> Mike (Recruiting Manager)<br />
+<strong>Goal:</strong> Review team performance for weekly meeting<br />
+<strong>Frequency:</strong> Weekly</p>
+<p><strong>Traditional Workflow:</strong></p>
+<ol type="1">
+<li>Ask each recruiter for their numbers via email (wait 1 day)</li>
+<li>Compile responses in spreadsheet (30 min)</li>
+<li>Calculate metrics manually (20 min)</li>
+<li>Create presentation slides (40 min)</li>
+<li>Realize data is inconsistent/incomplete</li>
+<li>Follow up with recruiters for clarification (wait 1 day)</li>
+</ol>
+<p><strong>Total Time:</strong> 90 minutes + 2 days</p>
+<p><strong>UniversalHire Workflow:</strong></p>
+<ol type="1">
+<li>Open team dashboard</li>
+<li>See real-time metrics:
+<ul>
+<li>Placements per recruiter</li>
+<li>Pipeline health (by stage)</li>
+<li>Activity levels (calls, emails, meetings)</li>
+<li>Time-to-fill trends</li>
+<li>Revenue per recruiter</li>
+</ul></li>
+<li>Export report with one click</li>
+<li>Identify underperformers and coach</li>
+</ol>
+<p><strong>Total Time:</strong> 5 minutes, real-time data</p>
+<p><strong>Value:</strong> 18x faster, always accurate, actionable
+insights</p>
+<hr />
+<h2 id="user-stories">User Stories</h2>
+<h3 id="epic-1-core-crm-functionality">Epic 1: Core CRM
+Functionality</h3>
+<h4 id="story-1.1-create-company">Story 1.1: Create Company</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> create a new company profile<br />
+<strong>So that</strong> they can track clients and their open
+positions</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can enter company name, domain, industry, size, location</li>
+<li>System auto-enriches company data from domain</li>
+<li>Can add custom fields</li>
+<li>Company is scoped to their organization (multi-tenant)</li>
+<li>Can upload company logo</li>
+</ul>
+<p><strong>Story Points:</strong> 3</p>
+<hr />
+<h4 id="story-1.2-create-contact">Story 1.2: Create Contact</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> create a new candidate profile<br />
+<strong>So that</strong> they can track candidates in their pipeline</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can enter name, email, phone, LinkedIn, title, location</li>
+<li>System checks for duplicates before creating</li>
+<li>Can link contact to company</li>
+<li>Can add tags and custom fields</li>
+<li>Contact is scoped to their organization</li>
+</ul>
+<p><strong>Story Points:</strong> 3</p>
+<hr />
+<h4 id="story-1.3-create-job">Story 1.3: Create Job</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> create a new job posting<br />
+<strong>So that</strong> they can track candidates for specific
+roles</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can enter title, description, requirements, location, salary
+range</li>
+<li>Can link job to company</li>
+<li>Can set job status (open, closed, on hold)</li>
+<li>Can add custom fields</li>
+<li>Job is scoped to their organization</li>
+</ul>
+<p><strong>Story Points:</strong> 3</p>
+<hr />
+<h4 id="story-1.4-view-pipeline-board">Story 1.4: View Pipeline
+Board</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> see all candidates in a visual
+pipeline<br />
+<strong>So that</strong> they can quickly understand hiring progress</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Shows Kanban board with stages: Applied → Screening → Interview →
+Offer → Hired</li>
+<li>Can filter by job, recruiter, date range</li>
+<li>Shows candidate count per stage</li>
+<li>Updates in real-time</li>
+<li>Responsive on desktop and tablet</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h4 id="story-1.5-drag-candidates-between-stages">Story 1.5: Drag
+Candidates Between Stages</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> drag candidates between pipeline
+stages<br />
+<strong>So that</strong> they can quickly update their status</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can drag and drop candidates between stages</li>
+<li>Auto-saves on drop</li>
+<li>Shows loading state during save</li>
+<li>Can bulk-move multiple candidates</li>
+<li>Triggers status update emails (if configured)</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h3 id="epic-2-search-and-filtering">Epic 2: Search and Filtering</h3>
+<h4 id="story-2.1-basic-search">Story 2.1: Basic Search</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> search for contacts by name, email, or
+company<br />
+<strong>So that</strong> they can quickly find candidates</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Search box on contacts page</li>
+<li>Searches name, email, phone, company, title</li>
+<li>Shows results as they type (debounced)</li>
+<li>Highlights matching text</li>
+<li>Fast (&lt; 200ms response)</li>
+</ul>
+<p><strong>Story Points:</strong> 3</p>
+<hr />
+<h4 id="story-2.2-advanced-filters">Story 2.2: Advanced Filters</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> filter contacts by multiple criteria<br />
+<strong>So that</strong> they can find specific candidate segments</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can filter by: location, title, company, tags, date added, last
+contact date</li>
+<li>Can combine filters (AND/OR logic)</li>
+<li>Can save filter combinations</li>
+<li>Shows result count as filters change</li>
+<li>Can clear all filters</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h4 id="story-2.3-saved-views">Story 2.3: Saved Views</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> save commonly used filters<br />
+<strong>So that</strong> they can access them quickly</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can name and save filter combinations</li>
+<li>Can set view as default</li>
+<li>Can share views with team</li>
+<li>Can edit or delete saved views</li>
+<li>Shows view in sidebar for quick access</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h3 id="epic-3-communication">Epic 3: Communication</h3>
+<h4 id="story-3.1-connect-gmail-account">Story 3.1: Connect Gmail
+Account</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> connect my Gmail account<br />
+<strong>So that</strong> my emails are automatically logged</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>OAuth flow to connect Gmail</li>
+<li>Secure token storage</li>
+<li>Can connect multiple email accounts</li>
+<li>Can disconnect account</li>
+<li>Shows connection status</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h4 id="story-3.2-view-email-timeline">Story 3.2: View Email
+Timeline</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> see all emails with a candidate in one
+place<br />
+<strong>So that</strong> they can understand our communication
+history</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Shows all emails (sent and received) with candidate</li>
+<li>Displays in chronological order</li>
+<li>Shows email subject, preview, and date</li>
+<li>Can expand to read full email</li>
+<li>Links to original email in Gmail</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h4 id="story-3.3-send-email-from-platform">Story 3.3: Send Email from
+Platform</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> send emails directly from the
+platform<br />
+<strong>So that</strong> they don’t have to switch to Gmail</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Email composer with rich text editor</li>
+<li>Can select email template</li>
+<li>Can personalize with variables (name, company, etc.)</li>
+<li>Auto-logs sent email to candidate timeline</li>
+<li>Syncs to Gmail sent folder</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h4 id="story-3.4-email-templates">Story 3.4: Email Templates</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> create reusable email templates<br />
+<strong>So that</strong> they can respond faster to candidates</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can create, edit, delete templates</li>
+<li>Supports variables ({{firstName}}, {{companyName}})</li>
+<li>Can categorize templates (Outreach, Follow-up, Interview,
+Offer)</li>
+<li>Can preview template before sending</li>
+<li>Can share templates with team</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h3 id="epic-4-ai-features-mvp">Epic 4: AI Features (MVP)</h3>
+<h4 id="story-4.1-semantic-search">Story 4.1: Semantic Search</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> search using natural language<br />
+<strong>So that</strong> they can find candidates by meaning, not just
+keywords</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can type queries like “senior engineers at startups in SF”</li>
+<li>Returns results based on semantic similarity</li>
+<li>Shows relevance score per result</li>
+<li>Fast (&lt; 2 seconds)</li>
+<li>Falls back to keyword search if no semantic results</li>
+</ul>
+<p><strong>Story Points:</strong> 13</p>
+<hr />
+<h4 id="story-4.2-duplicate-detection">Story 4.2: Duplicate
+Detection</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> automatically detect duplicate
+contacts<br />
+<strong>So that</strong> they maintain a clean database</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Detects duplicates by: name similarity, email, phone, LinkedIn</li>
+<li>Shows confidence score for each duplicate</li>
+<li>Can review and merge duplicates</li>
+<li>Preserves all data when merging</li>
+<li>Runs automatically on new contact creation</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h4 id="story-4.3-ai-transcription">Story 4.3: AI Transcription</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> upload call recordings and get
+transcripts<br />
+<strong>So that</strong> they can review conversations later</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can upload audio/video files</li>
+<li>Transcribes using Whisper API</li>
+<li>Shows speaker labels</li>
+<li>Generates summary of key points</li>
+<li>Extracts action items</li>
+<li>Adds to candidate timeline</li>
+</ul>
+<p><strong>Story Points:</strong> 13</p>
+<hr />
+<h4 id="story-4.4-ai-email-summarization">Story 4.4: AI Email
+Summarization</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> see AI summaries of long email
+threads<br />
+<strong>So that</strong> they can quickly catch up on conversations</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Auto-generates summary for threads &gt; 3 emails</li>
+<li>Highlights: key points, sentiment, next actions</li>
+<li>Shows summary at top of thread</li>
+<li>Can regenerate summary</li>
+<li>Links to full emails</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h3 id="epic-5-data-management">Epic 5: Data Management</h3>
+<h4 id="story-5.1-csv-import">Story 5.1: CSV Import</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> import contacts from a CSV file<br />
+<strong>So that</strong> they can quickly add bulk data</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can upload CSV file (&lt; 10MB)</li>
+<li>Shows field mapping interface</li>
+<li>Validates data before import</li>
+<li>Shows preview of first 10 rows</li>
+<li>Handles errors gracefully</li>
+<li>Shows progress during import</li>
+<li>Detects and flags duplicates</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h4 id="story-5.2-csv-export">Story 5.2: CSV Export</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> export contacts to CSV<br />
+<strong>So that</strong> they can analyze data in Excel</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can export all contacts or filtered subset</li>
+<li>Can select which fields to include</li>
+<li>Generates CSV file for download</li>
+<li>Shows progress for large exports</li>
+<li>Includes export timestamp in filename</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h4 id="story-5.3-bulk-actions">Story 5.3: Bulk Actions</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> perform actions on multiple contacts at
+once<br />
+<strong>So that</strong> they can work more efficiently</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can select multiple contacts (checkboxes)</li>
+<li>Can bulk: add tags, remove tags, assign to recruiter, add to job,
+delete</li>
+<li>Shows confirmation before destructive actions</li>
+<li>Shows progress during bulk operation</li>
+<li>Can undo bulk actions (within 5 minutes)</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h3 id="epic-6-collaboration">Epic 6: Collaboration</h3>
+<h4 id="story-6.1-add-notes">Story 6.1: Add Notes</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> add notes to candidate profiles<br />
+<strong>So that</strong> they can remember important details</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can add note from candidate detail page</li>
+<li>Supports rich text formatting</li>
+<li>Auto-saves as they type</li>
+<li>Shows note author and timestamp</li>
+<li>Can edit or delete their own notes</li>
+<li>Shows notes in timeline</li>
+</ul>
+<p><strong>Story Points:</strong> 3</p>
+<hr />
+<h4 id="story-6.2-mention-team-members">Story 6.2: <span
+class="citation" data-cites="Mention">@Mention</span> Team Members</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> mention team members in notes<br />
+<strong>So that</strong> they can get their attention on specific
+candidates</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can type @ to see team member list</li>
+<li>Sends notification to mentioned user</li>
+<li>Highlighted in note</li>
+<li>Can click mention to see user profile</li>
+<li>Shows unread mentions in inbox</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h4 id="story-6.3-activity-feed">Story 6.3: Activity Feed</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> see all recent team activity<br />
+<strong>So that</strong> they can stay informed on what’s happening</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Shows recent: emails sent, candidates added, stage changes, notes
+added</li>
+<li>Can filter by team member</li>
+<li>Can filter by activity type</li>
+<li>Updates in real-time</li>
+<li>Shows last 100 activities</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h3 id="epic-7-reporting-basic">Epic 7: Reporting (Basic)</h3>
+<h4 id="story-7.1-personal-dashboard">Story 7.1: Personal Dashboard</h4>
+<p><strong>As a</strong> recruiter<br />
+<strong>They want to</strong> see personal metrics<br />
+<strong>So that</strong> they can track my performance</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Shows: placements this month, pipeline value, candidates added,
+emails sent</li>
+<li>Shows charts for trends over time</li>
+<li>Can select date range</li>
+<li>Updates in real-time</li>
+<li>Exports to PDF</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h4 id="story-7.2-team-dashboard">Story 7.2: Team Dashboard</h4>
+<p><strong>As a</strong> manager<br />
+<strong>They want to</strong> see team metrics<br />
+<strong>So that</strong> they can monitor team performance</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Shows metrics per recruiter</li>
+<li>Shows: placements, pipeline health, activity levels</li>
+<li>Can drill down into individual recruiter</li>
+<li>Can compare time periods</li>
+<li>Exports to PDF</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h3 id="epic-8-administration">Epic 8: Administration</h3>
+<h4 id="story-8.1-invite-team-members">Story 8.1: Invite Team
+Members</h4>
+<p><strong>As an</strong> admin<br />
+<strong>They want to</strong> invite new team members<br />
+<strong>So that</strong> they can use the platform</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can send email invitation</li>
+<li>Can set role (Admin, Manager, Recruiter, Viewer)</li>
+<li>Invitation expires after 7 days</li>
+<li>Can resend invitation</li>
+<li>Can revoke invitation</li>
+</ul>
+<p><strong>Story Points:</strong> 5</p>
+<hr />
+<h4 id="story-8.2-manage-roles-permissions">Story 8.2: Manage Roles
+&amp; Permissions</h4>
+<p><strong>As an</strong> admin<br />
+<strong>They want to</strong> control what users can do<br />
+<strong>So that</strong> they can maintain security</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Can assign roles to users</li>
+<li>Roles have predefined permissions</li>
+<li>Can create custom roles (post-MVP)</li>
+<li>Shows permission matrix</li>
+<li>Changes take effect immediately</li>
+</ul>
+<p><strong>Story Points:</strong> 8</p>
+<hr />
+<h2 id="success-metrics">Success Metrics</h2>
+<h3 id="product-metrics-day-60---mvp">Product Metrics (Day 60 -
+MVP)</h3>
+<p><strong>Engagement:</strong></p>
+<ul>
+<li>Daily Active Users (DAU): 60%</li>
+<li>Weekly Active Users (WAU): 90%</li>
+<li>Average session duration: 45 min</li>
+<li>Sessions per user per day: 3</li>
+</ul>
+<p><strong>Core Features:</strong></p>
+<ul>
+<li>Contacts added per user per week: 20</li>
+<li>Searches per user per day: 15</li>
+<li>Emails sent per user per day: 10</li>
+<li>Pipeline moves per user per day: 5</li>
+</ul>
+<p><strong>Quality:</strong></p>
+<ul>
+<li>Time to first value: &lt; 10 minutes</li>
+<li>Feature adoption rate: &gt; 80% for core features</li>
+<li>User satisfaction (NPS): &gt; 40</li>
+<li>Bug rate: &lt; 5 critical bugs per week</li>
+</ul>
+<p><strong>Performance:</strong></p>
+<ul>
+<li>Page load time: &lt; 2 seconds</li>
+<li>Search response time: &lt; 500ms</li>
+<li>API P95 latency: &lt; 500ms</li>
+<li>Uptime: &gt; 99.5%</li>
+</ul>
+<hr />
+<h3 id="business-metrics-day-90">Business Metrics (Day 90)</h3>
+<p><strong>Growth:</strong></p>
+<ul>
+<li>Total companies: 20</li>
+<li>Total users: 50</li>
+<li>MRR (Monthly Recurring Revenue): $10K</li>
+<li>Gross churn: &lt; 5%</li>
+</ul>
+<p><strong>Efficiency:</strong></p>
+<ul>
+<li>Customer Acquisition Cost (CAC): &lt; $1,000</li>
+<li>Lifetime Value (LTV): &gt; $10,000</li>
+<li>LTV:CAC ratio: &gt; 3:1</li>
+<li>Payback period: &lt; 12 months</li>
+</ul>
+<p><strong>Sales:</strong></p>
+<ul>
+<li>Trial-to-paid conversion: &gt; 30%</li>
+<li>Average deal size: $3,000/year</li>
+<li>Sales cycle: &lt; 30 days</li>
+<li>Expansion revenue: 20% of total</li>
+</ul>
+<hr />
+<h3 id="ai-metrics">AI Metrics</h3>
+<p><strong>Quality:</strong></p>
+<ul>
+<li>Semantic search relevance: &gt; 80%</li>
+<li>Duplicate detection precision: &gt; 90%</li>
+<li>Transcription accuracy: &gt; 95%</li>
+<li>Summary quality (human rating): &gt; 4/5</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<ul>
+<li>% of searches using semantic search: &gt; 40%</li>
+<li>AI features used per user per week: 10</li>
+<li>AI-generated emails sent: &gt; 30% of total</li>
+<li>Transcriptions processed per week: 50</li>
+</ul>
+<p><strong>Cost:</strong></p>
+<ul>
+<li>AI cost per user per month: &lt; $10</li>
+<li>AI cost as % of revenue: &lt; 20%</li>
+</ul>
+<hr />
+<h2 id="launch-criteria">Launch Criteria</h2>
+<h3 id="mvp-launch-day-60">MVP Launch (Day 60)</h3>
+<p><strong>Feature Completeness:</strong></p>
+<ul>
+<li>All core CRM features working</li>
+<li>Email/SMS/Calendar integrated</li>
+<li>Basic AI features (search, dedupe, transcription)</li>
+<li>Mobile-responsive web app</li>
+</ul>
+<p><strong>Quality:</strong></p>
+<ul>
+<li>&lt; 5 critical bugs</li>
+<li>99% uptime over last 2 weeks</li>
+<li>&lt; 2 second page loads</li>
+<li>All major user flows tested (E2E)</li>
+</ul>
+<p><strong>Readiness:</strong></p>
+<ul>
+<li>Onboarding flow complete</li>
+<li>Help documentation published</li>
+<li>5 alpha customers actively using</li>
+<li>Positive feedback from alpha testers</li>
+</ul>
+<hr />
+<h3 id="public-launch-day-120">Public Launch (Day 120)</h3>
+<p><strong>Feature Completeness:</strong></p>
+<ul>
+<li>All enterprise features (RBAC, billing, audit logs)</li>
+<li>Advanced AI features (voice, matching, sequences)</li>
+<li>Performance optimized for scale</li>
+</ul>
+<p><strong>Quality:</strong></p>
+<ul>
+<li>99.9% uptime over last month</li>
+<li>P95 latency &lt; 500ms</li>
+<li>All security tests passed</li>
+<li>SOC 2 prep complete</li>
+</ul>
+<p><strong>Readiness:</strong></p>
+<ul>
+<li>20 beta customers using successfully</li>
+<li>Positive testimonials and case studies</li>
+<li>Marketing site live</li>
+<li>Sales process defined</li>
+<li>Customer support team ready</li>
+</ul>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>UniversalHire represents the future of recruitment
+software—intelligent, integrated, and intuitive. By combining
+best-in-class CRM functionality with cutting-edge AI, we’ll empower
+recruiters to work 10x faster and hire better candidates.</p>
+<p>This document serves as the north star for the project. All decisions
+should ladder up to the goals, use cases, and success metrics defined
+here.</p>
+<hr />
+<p><em>Document Version: 1.0</em><br />
+<em>Last Updated: November 8, 2025</em><br />
+<em>Document Type: Product Requirements &amp; Specifications</em><br />
+<em>Audience: Product Team, Stakeholders, Investors</em></p>
+</body>
+</html>

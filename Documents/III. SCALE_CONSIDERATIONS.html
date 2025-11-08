@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Garfield Greg V. Lim III" />
+  <meta name="dcterms.date" content="2025-11-08" />
+  <title>UniversalHire: AI-Powered Recruitment CRM</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pdf-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">UniversalHire: AI-Powered Recruitment CRM</h1>
+<p class="subtitle">Scale Considerations - 100,000 Users</p>
+<p class="author">Garfield Greg V. Lim III</p>
+<p class="date">November 8, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#scale-considerations-100000-users"
+id="toc-scale-considerations-100000-users">Scale Considerations: 100,000
+Users</a>
+<ul>
+<li><a href="#scale-reality-check" id="toc-scale-reality-check">Scale
+Reality Check</a></li>
+<li><a href="#what-100k-users-means" id="toc-what-100k-users-means">What
+100K Users Means</a></li>
+<li><a href="#tech-stack-adjustments-for-scale"
+id="toc-tech-stack-adjustments-for-scale">Tech Stack Adjustments for
+Scale</a></li>
+<li><a href="#performance-requirements-100k-users"
+id="toc-performance-requirements-100k-users">Performance Requirements
+(100K Users)</a></li>
+<li><a href="#ai-cost-optimization-critical-at-scale"
+id="toc-ai-cost-optimization-critical-at-scale">AI Cost Optimization
+(Critical at Scale)</a></li>
+<li><a href="#monitoring-observability-requirements"
+id="toc-monitoring-observability-requirements">Monitoring &amp;
+Observability Requirements</a></li>
+<li><a href="#scaling-milestones" id="toc-scaling-milestones">Scaling
+Milestones</a></li>
+<li><a href="#updated-tech-stack-for-100k-users"
+id="toc-updated-tech-stack-for-100k-users">Updated Tech Stack (For 100K
+Users)</a></li>
+<li><a href="#critical-success-factors-for-100k-users"
+id="toc-critical-success-factors-for-100k-users">Critical Success
+Factors for 100K Users</a></li>
+<li><a href="#timeline-adjustments-for-scale"
+id="toc-timeline-adjustments-for-scale">Timeline Adjustments for
+Scale</a></li>
+<li><a href="#key-insights" id="toc-key-insights">Key Insights</a></li>
+<li><a href="#action-items-priority-order"
+id="toc-action-items-priority-order">Action Items (Priority
+Order)</a></li>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="scale-considerations-100000-users">Scale Considerations: 100,000
+Users</h1>
+<p><strong>Critical Addendum to Technical Build Plan</strong></p>
+<hr />
+<h2 id="scale-reality-check">Scale Reality Check</h2>
+<p><strong>Target:</strong> 100,000 users (not 100 users)</p>
+<p>This changes several architectural decisions and requires deliberate
+planning for:</p>
+<ul>
+<li>Database performance and connection management</li>
+<li>Caching strategy</li>
+<li>Background job processing</li>
+<li>Cost optimization</li>
+<li>Monitoring and observability</li>
+</ul>
+<hr />
+<h2 id="what-100k-users-means">What 100K Users Means</h2>
+<h3 id="traffic-estimates">Traffic Estimates</h3>
+<pre><code>100,000 users
+  ├─ ~10-20% daily active (10,000-20,000 DAU)
+  ├─ ~5-10% concurrent peak (5,000-10,000 concurrent)
+  ├─ ~50-100 requests/user/hour
+  └─ = ~250,000-1,000,000 requests/hour at peak</code></pre>
+<h3 id="data-scale">Data Scale</h3>
+<pre><code>100,000 users across ~5,000-10,000 organizations
+  ├─ ~2,000,000-5,000,000 contacts
+  ├─ ~500,000-1,000,000 companies
+  ├─ ~100,000-500,000 jobs
+  ├─ ~10,000,000-50,000,000 activities
+  └─ ~5-10 TB total data including files</code></pre>
+<h3 id="cost-implications">Cost Implications</h3>
+<pre><code>Monthly Infrastructure (at scale):
+  ├─ Database (Neon/Supabase Pro): $500-2,000
+  ├─ Redis (Upstash): $200-500
+  ├─ Object Storage (S3/R2): $100-500
+  ├─ OpenAI API: $10,000-50,000 (!!!)
+  ├─ Hosting (Vercel/Cloudflare): $500-2,000
+  ├─ Monitoring/Observability: $500-1,000
+  └─ Total: $12,000-56,000/month</code></pre>
+<p><strong>Key Insight:</strong> AI costs will dominate. Aggressive
+optimization required.</p>
+<hr />
+<h2 id="tech-stack-adjustments-for-scale">Tech Stack Adjustments for
+Scale</h2>
+<h3 id="background-jobs">1. Background Jobs</h3>
+<p><strong>Original Plan:</strong> BullMQ + Redis<br />
+<strong>Updated:</strong> <strong>Inngest</strong> or
+<strong>Trigger.dev</strong> (serverless-first)</p>
+<p><strong>Why the change:</strong></p>
+<ul>
+<li>Built for serverless (no server to manage)</li>
+<li>Automatic retries and idempotency</li>
+<li>Visual workflow debugging</li>
+<li>Better developer experience</li>
+<li>Scales automatically with load</li>
+<li>No infrastructure to maintain</li>
+</ul>
+<hr />
+<h3 id="prompt-management-observability">2. Prompt Management &amp;
+Observability</h3>
+<p><strong>Original Plan:</strong> Helicone<br />
+<strong>Updated:</strong> <strong>Langfuse</strong> (primary)</p>
+<p><strong>Why Langfuse:</strong></p>
+<ul>
+<li>Prompt versioning and registry</li>
+<li>Built-in evals and quality metrics</li>
+<li>Cost tracking per org/user</li>
+<li>A/B testing for prompts</li>
+<li>Better designed for 100K scale</li>
+<li>Comprehensive AI observability</li>
+</ul>
+<hr />
+<h3 id="authentication">3. Authentication</h3>
+<p><strong>Original Plan:</strong> Supabase Auth<br />
+<strong>Updated:</strong> <strong>Clerk</strong> or
+<strong>Auth.js</strong></p>
+<p><strong>Why Clerk:</strong></p>
+<ul>
+<li>Built-in org management (perfect for multi-tenant)</li>
+<li>Beautiful pre-built UI components</li>
+<li>Built-in SSO/SAML support (for enterprise)</li>
+<li>Better developer experience</li>
+<li>Scales to millions of users</li>
+<li>Less custom code required</li>
+</ul>
+<p><strong>Alternative:</strong> Auth.js (more control, more setup)</p>
+<hr />
+<h3 id="feature-flags-ab-testing">4. Feature Flags &amp; A/B
+Testing</h3>
+<p><strong>Original Plan:</strong> Not mentioned<br />
+<strong>Updated:</strong> <strong>GrowthBook</strong> (required at this
+scale)</p>
+<p><strong>Why needed at 100K users:</strong></p>
+<ul>
+<li>Gradual rollouts (AI features can be buggy)</li>
+<li>A/B test AI prompts and features</li>
+<li>Kill switch for expensive features</li>
+<li>Per-org feature toggles</li>
+<li>Risk mitigation for new features</li>
+</ul>
+<hr />
+<h3 id="database-connection-management">5. Database Connection
+Management</h3>
+<p><strong>Critical at 100K users:</strong> Connection pooling
+required</p>
+<p><strong>Recommended:</strong> Neon with built-in pooling</p>
+<p><strong>Neon advantages at scale:</strong></p>
+<ul>
+<li>Serverless Postgres (auto-scales connections)</li>
+<li>Branching (preview environments)</li>
+<li>Auto-suspend when idle (cost savings)</li>
+<li>Built-in connection pooling (PgBouncer)</li>
+<li>No connection limit issues</li>
+</ul>
+<hr />
+<h2 id="performance-requirements-100k-users">Performance Requirements
+(100K Users)</h2>
+<h3 id="api-response-times-p95">API Response Times (P95)</h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Target</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List contacts (page)</td>
+<td>100ms</td>
+<td>500ms</td>
+</tr>
+<tr>
+<td>Create contact</td>
+<td>200ms</td>
+<td>1s</td>
+</tr>
+<tr>
+<td>Semantic search</td>
+<td>500ms</td>
+<td>2s</td>
+</tr>
+<tr>
+<td>AI summarization</td>
+<td>2s</td>
+<td>5s</td>
+</tr>
+<tr>
+<td>Email sync (bg job)</td>
+<td>N/A</td>
+<td>30s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="database-requirements">Database Requirements</h3>
+<p><strong>Required Optimizations:</strong></p>
+<ul>
+<li>Composite indexes for common query patterns</li>
+<li>Partial indexes for filtered queries</li>
+<li>GIN indexes for full-text search</li>
+<li>Include columns in indexes to avoid table lookups</li>
+<li>Regular VACUUM and ANALYZE operations</li>
+<li>Query plan monitoring</li>
+</ul>
+<hr />
+<h2 id="ai-cost-optimization-critical-at-scale">AI Cost Optimization
+(Critical at Scale)</h2>
+<h3 id="the-problem">The Problem</h3>
+<p>At 100K users, AI costs can easily hit
+<strong>$50K/month</strong>:</p>
+<pre><code>Embeddings:
+  - 5M contacts × 500 tokens × $0.00002/1K = $50/generation
+  - Re-embed monthly = $50-100/month  Cheap
+
+Summarization:
+  - 100K users × 10 meetings/month × 2000 tokens × $0.01/1K = $20,000/month 
+
+Search:
+  - 100K users × 50 searches/month × 1000 tokens × $0.01/1K = $50,000/month </code></pre>
+<h3 id="cost-optimization-strategies">Cost Optimization Strategies</h3>
+<h4 id="aggressive-caching">1. Aggressive Caching</h4>
+<ul>
+<li>Cache AI responses for identical queries</li>
+<li>24-hour cache for summaries</li>
+<li>Hash-based cache keys</li>
+<li>Save ~$0.02 per cached response</li>
+<li>Can reduce costs by 60-80%</li>
+</ul>
+<h4 id="model-selection-by-use-case">2. Model Selection by Use Case</h4>
+<ul>
+<li>Simple classification: GPT-3.5-turbo ($0.0005/1K)</li>
+<li>Summarization: GPT-4o-mini ($0.00015/1K)</li>
+<li>Complex reasoning: GPT-4o ($0.005/1K)</li>
+<li><strong>Don’t use GPT-4o for everything!</strong></li>
+</ul>
+<h4 id="batch-processing">3. Batch Processing</h4>
+<ul>
+<li>Batch embeddings API calls</li>
+<li>Process multiple items in single request</li>
+<li>Reduces API overhead</li>
+<li>Faster and cheaper</li>
+</ul>
+<h4 id="per-org-budgets-rate-limiting">4. Per-Org Budgets &amp; Rate
+Limiting</h4>
+<ul>
+<li>Track AI spend per organization</li>
+<li>Enforce monthly quotas</li>
+<li>Throttle expensive operations</li>
+<li>Alert when approaching limits</li>
+</ul>
+<h4 id="smart-fallbacks">5. Smart Fallbacks</h4>
+<ul>
+<li>Fall back to PostgreSQL full-text search when quota exceeded</li>
+<li>Degrade gracefully without breaking user experience</li>
+<li>Maintain functionality with reduced AI features</li>
+</ul>
+<hr />
+<h2 id="monitoring-observability-requirements">Monitoring &amp;
+Observability Requirements</h2>
+<h3 id="opentelemetry-integration-required">1. OpenTelemetry Integration
+(Required)</h3>
+<ul>
+<li>Comprehensive tracing from Day 1</li>
+<li>Track all API requests end-to-end</li>
+<li>Monitor database query performance</li>
+<li>Trace AI API calls</li>
+<li>Distributed tracing across services</li>
+</ul>
+<h3 id="critical-metrics-to-track">2. Critical Metrics to Track</h3>
+<p><strong>Performance Metrics:</strong></p>
+<ul>
+<li>API request duration (P50, P95, P99)</li>
+<li>Database query duration</li>
+<li>Cache hit/miss rates</li>
+<li>Background job processing time</li>
+</ul>
+<p><strong>Business Metrics:</strong></p>
+<ul>
+<li>Contacts created per org</li>
+<li>Search queries per user</li>
+<li>Email sync success rate</li>
+<li>Pipeline stage transitions</li>
+</ul>
+<p><strong>AI Metrics:</strong></p>
+<ul>
+<li>AI cost per organization</li>
+<li>AI cost per feature</li>
+<li>Token usage trends</li>
+<li>Model latency</li>
+<li>Error rates per model</li>
+</ul>
+<p><strong>Error Metrics:</strong></p>
+<ul>
+<li>Error rate by endpoint</li>
+<li>Database timeout frequency</li>
+<li>External API failures</li>
+<li>Background job failures</li>
+</ul>
+<h3 id="alerting-critical">3. Alerting (Critical)</h3>
+<p><strong>Required Alerts:</strong></p>
+<ul>
+<li>Error rate &gt; 5% for 5 minutes → Critical</li>
+<li>P95 latency &gt; 1s for 10 minutes → Warning</li>
+<li>AI cost spike &gt; $500/hour → Critical</li>
+<li>Database connections &gt; 90% for 5 minutes → Critical</li>
+<li>Background job failure rate &gt; 10% → Warning</li>
+</ul>
+<hr />
+<h2 id="scaling-milestones">Scaling Milestones</h2>
+<h3 id="phase-1-0-1000-users-days-1-60">Phase 1: 0-1,000 users (Days
+1-60)</h3>
+<p><strong>Focus:</strong> Ship features, don’t over-optimize</p>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li>Single Neon/Supabase database</li>
+<li>Basic Redis caching</li>
+<li>No sharding needed</li>
+<li>Starter plan sufficient</li>
+</ul>
+<p><strong>Monthly cost:</strong> ~$500-1,000</p>
+<hr />
+<h3 id="phase-2-1000-10000-users-days-61-120">Phase 2: 1,000-10,000
+users (Days 61-120)</h3>
+<p><strong>Focus:</strong> Optimize hot paths, add monitoring</p>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li>Upgrade to paid database plan</li>
+<li>Add read replicas (if needed)</li>
+<li>Implement aggressive caching</li>
+<li>Add APM (Datadog/New Relic)</li>
+<li>Optimize expensive queries</li>
+<li>Load testing</li>
+</ul>
+<p><strong>Monthly cost:</strong> ~$2,000-5,000</p>
+<hr />
+<h3 id="phase-3-10000-100000-users-months-5-12">Phase 3: 10,000-100,000
+users (Months 5-12)</h3>
+<p><strong>Focus:</strong> Horizontal scaling, cost optimization</p>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li>Database connection pooling (PgBouncer)</li>
+<li>CDN for static assets (Cloudflare)</li>
+<li>Separate read replicas for analytics</li>
+<li>Queue-based architecture for background jobs</li>
+<li>AI cost optimization (critical!)</li>
+<li>Implement per-org quotas</li>
+<li>Add performance budgets</li>
+</ul>
+<p><strong>Monthly cost:</strong> ~$10,000-50,000</p>
+<hr />
+<h3 id="phase-4-100000-users-year-2">Phase 4: 100,000+ users (Year
+2+)</h3>
+<p><strong>Focus:</strong> Microservices, geographic distribution</p>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li>Consider database sharding by org</li>
+<li>Extract AI services into separate service</li>
+<li>Multi-region deployment</li>
+<li>Custom AI model fine-tuning (cost savings)</li>
+<li>Dedicated enterprise instances</li>
+</ul>
+<p><strong>Monthly cost:</strong> $50,000-100,000+</p>
+<hr />
+<h2 id="updated-tech-stack-for-100k-users">Updated Tech Stack (For 100K
+Users)</h2>
+<h3 id="core-application">Core Application</h3>
+<ul>
+<li><strong>Next.js 14 + React + TypeScript</strong> (UI and API
+routes)</li>
+<li><strong>tRPC</strong> (type-safe APIs, better than REST for this
+scale)</li>
+<li><strong>Prisma ORM</strong> (with Neon or Supabase)</li>
+<li><strong>Postgres + pgvector</strong> (managed: Neon preferred)</li>
+<li><strong>Turborepo + pnpm</strong> (monorepo)</li>
+</ul>
+<h3 id="authentication-authorization">Authentication &amp;
+Authorization</h3>
+<ul>
+<li><strong>Clerk</strong> (best for multi-tenant SaaS at scale)</li>
+<li>Alternative: Auth.js or Stytch</li>
+<li><strong>WorkOS</strong> (for enterprise SSO/SAML)</li>
+</ul>
+<h3 id="background-jobs-1">Background Jobs</h3>
+<ul>
+<li><strong>Inngest</strong> or <strong>Trigger.dev</strong> (serverless
+job processing)</li>
+<li>Platform crons (Vercel Cron or similar)</li>
+</ul>
+<h3 id="ai-stack">AI Stack</h3>
+<ul>
+<li><strong>OpenAI + Anthropic</strong> (primary models)</li>
+<li><strong>Vercel AI SDK</strong> (streaming, tool calling)</li>
+<li><strong>Langfuse</strong> (prompt management, evals,
+observability)</li>
+<li><strong>Promptfoo or RAGAS</strong> (quality metrics)</li>
+</ul>
+<h3 id="caching-state">Caching &amp; State</h3>
+<ul>
+<li><strong>Upstash Redis</strong> (serverless Redis for
+cache/sessions)</li>
+<li><strong>Vercel KV</strong> (alternative, tightly integrated)</li>
+</ul>
+<h3 id="storage">Storage</h3>
+<ul>
+<li><strong>Cloudflare R2</strong> or <strong>AWS S3</strong> (object
+storage)</li>
+<li><strong>Vercel Blob</strong> (alternative for smaller files)</li>
+</ul>
+<h3 id="observability">Observability</h3>
+<ul>
+<li><strong>OpenTelemetry</strong> (standard for tracing)</li>
+<li><strong>Sentry</strong> (error tracking)</li>
+<li><strong>Datadog or Grafana Cloud</strong> (APM, logs,
+dashboards)</li>
+<li><strong>Langfuse</strong> (AI observability)</li>
+</ul>
+<h3 id="feature-management">Feature Management</h3>
+<ul>
+<li><strong>GrowthBook</strong> (feature flags + A/B testing)</li>
+<li>Alternative: Unleash or LaunchDarkly</li>
+</ul>
+<h3 id="communication">Communication</h3>
+<ul>
+<li><strong>Resend or Postmark</strong> (transactional email)</li>
+<li><strong>Twilio or MessageBird</strong> (SMS)</li>
+<li><strong>Google Calendar API + Microsoft Graph</strong>
+(calendar)</li>
+</ul>
+<h3 id="deployment">Deployment</h3>
+<ul>
+<li><strong>Vercel</strong> (primary, great for Next.js)</li>
+<li>Alternative: Cloudflare Pages or Render</li>
+<li><strong>GitHub Actions</strong> (CI/CD)</li>
+<li><strong>Preview deployments</strong> (per-PR)</li>
+</ul>
+<hr />
+<h2 id="critical-success-factors-for-100k-users">Critical Success
+Factors for 100K Users</h2>
+<h3 id="database-performance">1. Database Performance</h3>
+<ul>
+<li>All queries have appropriate indexes</li>
+<li>N+1 queries eliminated</li>
+<li>Connection pooling configured</li>
+<li>Query monitoring (log slow queries &gt; 100ms)</li>
+<li>Regular VACUUM and ANALYZE</li>
+</ul>
+<h3 id="caching-strategy">2. Caching Strategy</h3>
+<ul>
+<li>Redis for session data</li>
+<li>Redis for frequently accessed data</li>
+<li>CDN for static assets</li>
+<li>AI response caching (aggressive)</li>
+<li>HTTP caching headers set correctly</li>
+</ul>
+<h3 id="ai-cost-management">3. AI Cost Management</h3>
+<ul>
+<li>Per-org quotas enforced</li>
+<li>Model selection by use case</li>
+<li>Batch processing where possible</li>
+<li>Response caching (24h+ for summaries)</li>
+<li>Cost tracking per org in Langfuse</li>
+</ul>
+<h3 id="background-job-resilience">4. Background Job Resilience</h3>
+<ul>
+<li>Idempotent job handlers</li>
+<li>Automatic retries with exponential backoff</li>
+<li>Dead letter queue for failed jobs</li>
+<li>Job monitoring and alerting</li>
+<li>Rate limiting for external APIs</li>
+</ul>
+<h3 id="monitoring-alerting">5. Monitoring &amp; Alerting</h3>
+<ul>
+<li>Real-time error tracking (Sentry)</li>
+<li>Performance monitoring (P50, P95, P99)</li>
+<li>AI cost alerts (&gt;$500/hour)</li>
+<li>Database connection alerts</li>
+<li>API endpoint health checks</li>
+</ul>
+<hr />
+<h2 id="timeline-adjustments-for-scale">Timeline Adjustments for
+Scale</h2>
+<h3 id="days-1-30">Days 1-30</h3>
+<ul>
+<li>Setup with scale-friendly tools (Clerk, Inngest, Langfuse)</li>
+<li>Database schema with proper indexes from Day 1</li>
+<li>OpenTelemetry tracing integrated</li>
+<li>Basic caching strategy</li>
+<li>Cost tracking infrastructure</li>
+</ul>
+<h3 id="days-31-60-mvp">Days 31-60 (MVP)</h3>
+<ul>
+<li>All core features with performance budgets</li>
+<li>AI features with cost optimization</li>
+<li>Load testing (simulate 10K concurrent users)</li>
+<li>Monitoring dashboards</li>
+<li>Automated alerts</li>
+</ul>
+<h3 id="days-61-90-hardening">Days 61-90 (Hardening)</h3>
+<ul>
+<li>Performance optimization pass</li>
+<li>AI cost optimization (critical!)</li>
+<li>Database query optimization</li>
+<li>Incident response playbook</li>
+<li>Backup and disaster recovery</li>
+<li>Security audit (penetration testing)</li>
+</ul>
+<hr />
+<h2 id="key-insights">Key Insights</h2>
+<h3 id="whats-different-at-100k-users-vs.-100-users">What’s Different at
+100K Users vs. 100 Users?</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 20%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr>
+<th>Concern</th>
+<th>100 Users</th>
+<th>100K Users</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>Basic free tier</td>
+<td>Neon/Supabase Pro with connection pooling</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>Optional</td>
+<td><strong>Critical</strong> (Redis required)</td>
+</tr>
+<tr>
+<td><strong>AI Costs</strong></td>
+<td>~$100/month</td>
+<td><strong>$10K-50K/month</strong></td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Sentry basic</td>
+<td><strong>Full APM + OpenTelemetry</strong></td>
+</tr>
+<tr>
+<td><strong>Background Jobs</strong></td>
+<td>Simple queue</td>
+<td><strong>Inngest/Trigger.dev</strong> (resilient)</td>
+</tr>
+<tr>
+<td><strong>Feature Flags</strong></td>
+<td>Not needed</td>
+<td><strong>Required</strong> (gradual rollouts)</td>
+</tr>
+<tr>
+<td><strong>Load Testing</strong></td>
+<td>Skip</td>
+<td><strong>Critical</strong> (before launch)</td>
+</tr>
+<tr>
+<td><strong>Cost Tracking</strong></td>
+<td>Don’t worry</td>
+<td><strong>Per-org budgets required</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="action-items-priority-order">Action Items (Priority Order)</h2>
+<h3 id="immediate-week-1">Immediate (Week 1)</h3>
+<ol type="1">
+<li>Sign up for <strong>Clerk</strong> (not Supabase Auth)</li>
+<li>Sign up for <strong>Neon</strong> or <strong>Supabase Pro</strong>
+(not free tier)</li>
+<li>Sign up for <strong>Inngest</strong> or
+<strong>Trigger.dev</strong></li>
+<li>Sign up for <strong>Langfuse</strong> (not just Helicone)</li>
+<li>Sign up for <strong>GrowthBook</strong></li>
+<li>Set up <strong>OpenTelemetry</strong> from Day 1</li>
+</ol>
+<h3 id="before-launch-day-60">Before Launch (Day 60)</h3>
+<ol type="1">
+<li>Load test with 10K concurrent users</li>
+<li>Set up cost alerts for AI spend</li>
+<li>Implement per-org quotas</li>
+<li>Add database query monitoring</li>
+<li>Set up incident response (PagerDuty)</li>
+<li>Document scaling runbook</li>
+</ol>
+<h3 id="post-launch-days-61-90">Post-Launch (Days 61-90)</h3>
+<ol type="1">
+<li>Analyze slow queries weekly</li>
+<li>Review AI costs weekly</li>
+<li>Optimize hot paths</li>
+<li>Add more aggressive caching</li>
+<li>A/B test AI prompts (cost vs. quality)</li>
+</ol>
+<hr />
+<h2 id="summary">Summary</h2>
+<p><strong>The plan is still achievable at 100K users, but
+requires:</strong></p>
+<ol type="1">
+<li><strong>Better tools</strong> (Clerk, Inngest, Langfuse,
+GrowthBook)</li>
+<li><strong>AI cost management</strong> (will dominate costs)</li>
+<li><strong>Performance from Day 1</strong> (indexes, caching,
+monitoring)</li>
+<li><strong>Observability</strong> (OpenTelemetry, full APM)</li>
+<li><strong>Load testing</strong> (before launch)</li>
+</ol>
+<p><strong>The good news:</strong> Modern tools (Neon, Clerk, Inngest,
+Vercel) are built for this scale. Product Owner/PM/AI Specialist won’t
+need to manage servers or do complex DevOps.</p>
+<p><strong>The challenge:</strong> AI costs at scale. Budget
+$10K-50K/month and optimize aggressively.</p>
+<hr />
+<p><strong>Key Takeaway:</strong> With proper planning, a team of 4 can
+build and scale to 100K users using modern serverless tools. Focus on
+cost optimization, monitoring, and performance from Day 1.</p>
+<hr />
+<p><em>Document Version: 2.0</em><br />
+<em>Last Updated: November 8, 2025</em><br />
+<em>Focus: Scalability for 100,000 users</em></p>
+</body>
+</html>

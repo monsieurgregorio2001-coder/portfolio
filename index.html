@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UniversalHire - Technical Documentation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        color: white;
+        padding: 60px 40px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1.2em;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 60px 40px;
+      }
+
+      .intro {
+        margin-bottom: 40px;
+        padding: 30px;
+        background: #f8fafc;
+        border-left: 4px solid #2563eb;
+        border-radius: 6px;
+      }
+
+      .intro h2 {
+        color: #2563eb;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+      }
+
+      .intro p {
+        color: #64748b;
+        margin-bottom: 10px;
+      }
+
+      .documents {
+        display: grid;
+        gap: 20px;
+      }
+
+      .document-card {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .document-card:hover {
+        border-color: #2563eb;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .document-card h3 {
+        color: #1e293b;
+        margin-bottom: 10px;
+        font-size: 1.3em;
+      }
+
+      .document-card p {
+        color: #64748b;
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .document-card a {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s ease;
+      }
+
+      .document-card a:hover {
+        background: #1e40af;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .button-group a.secondary {
+        background: #7c3aed;
+      }
+
+      .button-group a.secondary:hover {
+        background: #6d28d9;
+      }
+
+      .portfolio-section {
+        margin-bottom: 40px;
+        padding: 40px;
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border-left: 4px solid #10b981;
+        border-radius: 6px;
+      }
+
+      .portfolio-section h2 {
+        color: #065f46;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+      }
+
+      .portfolio-intro {
+        color: #047857;
+        font-size: 1.05em;
+        margin-bottom: 30px;
+        line-height: 1.7;
+      }
+
+      .portfolio-grid {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        scroll-behavior: smooth;
+      }
+
+      .portfolio-grid::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .portfolio-grid::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 4px;
+      }
+
+      .portfolio-grid::-webkit-scrollbar-thumb {
+        background: #10b981;
+        border-radius: 4px;
+      }
+
+      .portfolio-grid::-webkit-scrollbar-thumb:hover {
+        background: #059669;
+      }
+
+      .portfolio-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        min-width: 280px;
+        flex-shrink: 0;
+      }
+
+      .portfolio-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+        border-color: #10b981;
+      }
+
+      .portfolio-logo {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        object-fit: contain;
+      }
+
+      .portfolio-card h3 {
+        color: #065f46;
+        font-size: 1.1em;
+        margin-bottom: 8px;
+      }
+
+      .portfolio-card .role {
+        color: #059669;
+        font-size: 0.9em;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .portfolio-card p {
+        color: #6b7280;
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+
+      .portfolio-card .tech {
+        display: inline-block;
+        background: #d1fae5;
+        color: #065f46;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        font-weight: 600;
+        margin: 4px 4px 4px 0;
+      }
+
+      .portfolio-link {
+        color: #059669;
+        text-decoration: none;
+        font-size: 0.85em;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .portfolio-link:hover {
+        color: #047857;
+        text-decoration: underline;
+      }
+
+      .highlight-box {
+        background: #fef3c7;
+        border-left: 3px solid #f59e0b;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 20px;
+      }
+
+      .highlight-box strong {
+        color: #92400e;
+      }
+
+      .resume-link {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 10px;
+        transition: background 0.3s ease;
+      }
+
+      .resume-link:hover {
+        background: #1e40af;
+      }
+
+      .reading-order {
+        margin-top: 40px;
+        padding: 30px;
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        border-radius: 6px;
+      }
+
+      .reading-order h3 {
+        color: #92400e;
+        margin-bottom: 15px;
+      }
+
+      .reading-order ol {
+        margin-left: 20px;
+        color: #78350f;
+      }
+
+      .reading-order li {
+        margin-bottom: 8px;
+      }
+
+      .footer {
+        padding: 30px 40px;
+        background: #f8fafc;
+        text-align: center;
+        color: #64748b;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #10b981;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>UniversalHire</h1>
+        <p>AI-Powered Recruitment CRM - Technical Documentation</p>
+      </div>
+
+      <div class="content">
+        <div class="intro">
+          <h2>Welcome</h2>
+          <p>
+            <strong>Garfield Greg V. Lim III</strong> — AI Engineer & Technical Director with proven expertise in building production LLM agents, AI/ML systems, and full-stack applications. Currently leading AI development at WRSHealth and managing technical teams at Cody Web Development (LIG Japan).
+          </p>
+          <p>
+            This comprehensive documentation presents a complete technical build plan for UniversalHire, demonstrating systems thinking, AI architecture, and product leadership for a 120-day MVP timeline scaling to 100,000 users.
+          </p>
+          <a href="assets/Garfield Greg Lim III - Resume - (October 17, 2025).pdf" class="resume-link" target="_blank">📄 View Full Resume</a>
+        </div>
+
+        <div class="portfolio-section">
+          <h2>Portfolio & Shipped Products</h2>
+          <p class="portfolio-intro">
+            <strong
+              >Real-world AI/LLM experience with production
+              applications.</strong
+            >
+            Below are live products currently in app stores and enterprise
+            systems where I've built AI features, managed technical projects,
+            and shipped to real users.
+          </p>
+
+          <div class="portfolio-grid">
+            <!-- MobileMD -->
+            <div class="portfolio-card">
+              <img
+                src="assets/wrs-logo.png"
+                alt="WRS MobileMD"
+                class="portfolio-logo"
+              />
+              <h3>MobileMD</h3>
+              <div class="role">AI Developer & BI Lead @ WRSHealth</div>
+              <p>
+                <strong>Live in App Store</strong> - Healthcare SaaS platform
+              </p>
+              <p>
+                • Voice agents with LLM function calling for prescription
+                creation
+              </p>
+              <p>• Multiple AI agents in beta for clinical workflows</p>
+              <p>• Full BI/analytics infrastructure</p>
+              <div style="margin-top: 12px">
+                <span class="tech">LLM Agents</span>
+                <span class="tech">Function Calling</span>
+                <span class="tech">Healthcare AI</span>
+              </div>
+              <a
+                href="https://apps.apple.com/ph/app/wrs-mobile-md/id6745961696"
+                class="portfolio-link"
+                target="_blank"
+                >View in App Store →</a
+              >
+            </div>
+
+            <!-- NavigateAI -->
+            <div class="portfolio-card">
+              <img
+                src="assets/navigate-logo.png"
+                alt="NavigateAI"
+                class="portfolio-logo"
+              />
+              <h3>NavigateAI (おでかけ EV)</h3>
+              <div class="role">Sole AI Developer @ Cody Web</div>
+              <p>
+                <strong>Live in Japan App Store</strong> - EV route optimization
+              </p>
+              <p>• Battery drain prediction ML model</p>
+              <p>• Full pipeline: data → training → production</p>
+              <p>• Real-time inference for EV drivers</p>
+              <div style="margin-top: 12px">
+                <span class="tech">ML Prediction</span>
+                <span class="tech">Mobile AI</span>
+                <span class="tech">Real-time</span>
+              </div>
+              <a
+                href="https://apps.apple.com/jp/app/おでかけev/id6443602287"
+                class="portfolio-link"
+                target="_blank"
+                >View in App Store →</a
+              >
+            </div>
+
+            <!-- Tenet Health -->
+            <div class="portfolio-card">
+              <div
+                style="
+                  width: 60px;
+                  height: 60px;
+                  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+                  border-radius: 8px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: 700;
+                  font-size: 1.5em;
+                  margin-bottom: 15px;
+                "
+              >
+                TH
+              </div>
+              <h3>Tenet Health LLM System</h3>
+              <div class="role">AI Ops Lead @ Cody Web</div>
+              <p><strong>Active Enterprise Collaboration</strong></p>
+              <p>• LLM agents with function calling</p>
+              <p>• Healthcare workflow automation</p>
+              <p>• HIPAA-compliant AI infrastructure</p>
+              <div style="margin-top: 12px">
+                <span class="tech">Enterprise AI</span>
+                <span class="tech">Healthcare</span>
+                <span class="tech">Compliance</span>
+              </div>
+              <a
+                href="https://www.tenethealth.com"
+                class="portfolio-link"
+                target="_blank"
+                >Learn More →</a
+              >
+            </div>
+
+            <!-- CuTouch -->
+            <div class="portfolio-card">
+              <div
+                style="
+                  width: 60px;
+                  height: 60px;
+                  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+                  border-radius: 8px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: 700;
+                  font-size: 1.8em;
+                  margin-bottom: 15px;
+                "
+              >
+                👆
+              </div>
+              <h3>CuTouch App & Station</h3>
+              <div class="role">IoT & Mobile Developer</div>
+              <p><strong>Somatosensory Rehabilitation System</strong></p>
+              <p>
+                • Full-stack IoT system: hardware station + iOS/Android apps
+              </p>
+              <p>• Vibrotactile therapy for stroke rehabilitation</p>
+              <p>• Multi-modal therapy (visual, auditory, tactile stimuli)</p>
+              <div style="margin-top: 12px">
+                <span class="tech">IoT Hardware</span>
+                <span class="tech">Mobile Apps</span>
+                <span class="tech">Healthcare Tech</span>
+              </div>
+              <a
+                href="https://drive.google.com/file/d/1M5IWApoTjK7joTnGSiPIyriCd0VjqVEd/view?usp=sharing"
+                class="portfolio-link"
+                target="_blank"
+                >Watch Demo Video →</a
+              >
+            </div>
+
+            <!-- IT Park Truck Permit System -->
+            <div class="portfolio-card">
+              <div
+                style="
+                  width: 60px;
+                  height: 60px;
+                  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+                  border-radius: 8px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: 700;
+                  font-size: 1.8em;
+                  margin-bottom: 15px;
+                "
+              >
+                🚚
+              </div>
+              <h3>IT Park Truck Permit System</h3>
+              <div class="role">Full-Stack Developer & Project Manager</div>
+              <p><strong>Enterprise Permit Management System</strong></p>
+              <p>• QR-based online truck permit application system</p>
+              <p>• Payment verification & reconciliation workflow</p>
+              <p>• Real-time permit verification for security guards</p>
+              <div style="margin-top: 12px">
+                <span class="tech">Full-Stack Web</span>
+                <span class="tech">QR Systems</span>
+                <span class="tech">Workflow Automation</span>
+              </div>
+              <a
+                href="https://docs.google.com/presentation/d/17P0IO075ovenw8MVJgM8_Y_dXMlTyzKR/edit?usp=sharing&ouid=105861160612356888563&rtpof=true&sd=true"
+                class="portfolio-link"
+                target="_blank"
+                >View Presentation →</a
+              >
+            </div>
+
+            <!-- Hackathon -->
+            <div class="portfolio-card">
+              <div
+                style="
+                  width: 60px;
+                  height: 60px;
+                  background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+                  border-radius: 8px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: 700;
+                  font-size: 2em;
+                  margin-bottom: 15px;
+                "
+              >
+                🏆
+              </div>
+              <h3>Semantic Job Matching Platform</h3>
+              <div class="role">Hackathon Championship 2023</div>
+              <p><strong>Highly relevant to this role!</strong></p>
+              <p>• Resume clustering & semantic similarity</p>
+              <p>• Embedding-based candidate matching</p>
+              <p>• NLP + recommendation engine</p>
+              <div style="margin-top: 12px">
+                <span class="tech">Semantic Search</span>
+                <span class="tech">NLP</span>
+                <span class="tech">Embeddings</span>
+              </div>
+              <a
+                href="https://www.philstar.com/the-freeman/cebu-business/2023/06/15/2274044/cibo-jobtarget-spearhead-cebu-interschool-hackathon"
+                class="portfolio-link"
+                target="_blank"
+                >Read Press Coverage →</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="documents">
+          <div class="document-card">
+            <h3>
+              I. Project Overview & Specifications
+              <span class="badge">Start Here</span>
+            </h3>
+            <p>
+              Highest-level project document covering vision, market analysis,
+              user personas, use cases, and user stories. This provides the
+              "why" and "what" for the entire project.
+            </p>
+            <div class="button-group">
+              <a href="Documents/I. PROJECT_OVERVIEW.html">Open Document →</a>
+              <a href="Wireframe/index.html" class="secondary">View UI/UX →</a>
+            </div>
+          </div>
+
+          <div class="document-card">
+            <h3>II. Technical Build Plan</h3>
+            <p>
+              120-day technical strategy covering architecture, MVP build plan,
+              enterprise extensions, team structure, and timeline. This explains
+              the "how" and "when".
+            </p>
+            <a href="Documents/II. TECHNICAL_BUILD_PLAN.html"
+              >Open Document →</a
+            >
+          </div>
+
+          <div class="document-card">
+            <h3>III. Scale Considerations</h3>
+            <p>
+              Critical architectural adjustments and cost optimization
+              strategies for scaling to 100,000 users. Includes performance
+              requirements and monitoring strategies.
+            </p>
+            <a href="Documents/III. SCALE_CONSIDERATIONS.html"
+              >Open Document →</a
+            >
+          </div>
+
+          <div class="document-card">
+            <h3>IV. Scrum Sprint Plan & Work Breakdown Structure</h3>
+            <p>
+              Detailed sprint breakdown, story point estimation, team
+              allocation, and WBS. Operational execution plan for the 4-person
+              team.
+            </p>
+            <a href="Documents/IV. SCRUM_SPRINTS_WBS.html">Open Document →</a>
+          </div>
+
+          <div class="document-card">
+            <h3>V. Deliverables Checklist</h3>
+            <p>
+              Day 30/60/90 deliverables aligned with job description
+              requirements. Includes acceptance criteria and success metrics for
+              each milestone.
+            </p>
+            <a href="Documents/V. DELIVERABLES_CHECKLIST.html"
+              >Open Document →</a
+            >
+          </div>
+        </div>
+
+        <div class="reading-order">
+          <h3>Recommended Reading Order</h3>
+          <ol>
+            <li>
+              <strong>Project Overview</strong> - Understand the vision and
+              requirements
+            </li>
+            <li>
+              <strong>Technical Build Plan</strong> - Learn the architecture and
+              strategy
+            </li>
+            <li>
+              <strong>Scale Considerations</strong> - Review scaling
+              requirements
+            </li>
+            <li>
+              <strong>Scrum Sprint Plan</strong> - See the execution breakdown
+            </li>
+            <li>
+              <strong>Deliverables Checklist</strong> - Reference for milestones
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p><strong>Garfield Greg V. Lim III</strong></p>
+        <p>November 8, 2025</p>
+        <p style="margin-top: 15px; font-size: 0.9em">
+          All documents are self-contained HTML files with embedded styling.
+          They work offline and can be opened directly in any modern web
+          browser.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

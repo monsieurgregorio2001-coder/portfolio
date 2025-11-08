@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Garfield Greg V. Lim III" />
+  <meta name="dcterms.date" content="2025-11-08" />
+  <title>UniversalHire: AI-Powered Recruitment CRM</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pdf-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">UniversalHire: AI-Powered Recruitment CRM</h1>
+<p class="subtitle">Technical Build Plan - 120-Day Strategy</p>
+<p class="author">Garfield Greg V. Lim III</p>
+<p class="date">November 8, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#technical-build-plan-ai-powered-recruitment-crm"
+id="toc-technical-build-plan-ai-powered-recruitment-crm">Technical Build
+Plan: AI-Powered Recruitment CRM</a>
+<ul>
+<li><a href="#universalhire---120-day-build-strategy"
+id="toc-universalhire---120-day-build-strategy">UniversalHire - 120-Day
+Build Strategy</a></li>
+<li><a href="#executive-summary" id="toc-executive-summary">Executive
+Summary</a></li>
+<li><a href="#mvp-build-plan-first-60-days"
+id="toc-mvp-build-plan-first-60-days">1. MVP Build Plan (First 60
+Days)</a></li>
+<li><a href="#architecture-mvp---days-1-60"
+id="toc-architecture-mvp---days-1-60">2. Architecture (MVP - Days
+1-60)</a></li>
+<li><a href="#enterprise-grade-extension-plan-days-61-120"
+id="toc-enterprise-grade-extension-plan-days-61-120">3. Enterprise-Grade
+Extension Plan (Days 61-120)</a></li>
+<li><a href="#team-structure-responsibilities-4-people-max"
+id="toc-team-structure-responsibilities-4-people-max">4. Team Structure
+&amp; Responsibilities (4 People Max)</a></li>
+<li><a href="#timeline-with-team-allocation"
+id="toc-timeline-with-team-allocation">5. Timeline with Team
+Allocation</a></li>
+<li><a href="#database-entity-diagram-multi-tenant"
+id="toc-database-entity-diagram-multi-tenant">6. Database Entity Diagram
+(Multi-Tenant)</a></li>
+<li><a href="#success-metrics" id="toc-success-metrics">7. Success
+Metrics</a></li>
+<li><a href="#key-technical-decisions-trade-offs"
+id="toc-key-technical-decisions-trade-offs">8. Key Technical Decisions
+&amp; Trade-offs</a></li>
+<li><a href="#risks-mitigations" id="toc-risks-mitigations">9. Risks
+&amp; Mitigations</a></li>
+<li><a href="#next-steps" id="toc-next-steps">10. Next Steps</a></li>
+<li><a href="#appendix-tech-stack-summary"
+id="toc-appendix-tech-stack-summary">Appendix: Tech Stack
+Summary</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="technical-build-plan-ai-powered-recruitment-crm">Technical Build
+Plan: AI-Powered Recruitment CRM</h1>
+<h2 id="universalhire---120-day-build-strategy">UniversalHire - 120-Day
+Build Strategy</h2>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>This document outlines a comprehensive technical strategy to build an
+AI-first recruitment CRM from the ground up. The platform will unify
+ATS, sourcing, outreach, AI automation, and reporting into a modern,
+scalable system.</p>
+<p><strong>Timeline:</strong> 120 days (4 months)</p>
+<ul>
+<li>Days 1-60: MVP with core CRM + AI v1</li>
+<li>Days 61-120: Enterprise hardening + Advanced AI features</li>
+</ul>
+<p><strong>Team Structure:</strong></p>
+<ul>
+<li><strong>Product Owner/PM/AI Specialist (Product Owner/PM/AI
+Specialist):</strong> 120 days</li>
+<li><strong>UI/UX Designer:</strong> Week 4-17 (Days 22-119)</li>
+<li><strong>Full-Stack Developer #1:</strong> Week 4-17 (Days
+22-119)</li>
+<li><strong>Full-Stack Developer #2:</strong> Week 7-17 (Days
+43-119)</li>
+</ul>
+<hr />
+<h2 id="mvp-build-plan-first-60-days">1. MVP Build Plan (First 60
+Days)</h2>
+<h3 id="week-1-2-foundation-architecture-setup">Week 1-2: Foundation
+&amp; Architecture Setup</h3>
+<h4 id="features-to-ship">Features to Ship</h4>
+<ul>
+<li>Development environment setup</li>
+<li>Core infrastructure provisioning</li>
+<li>Multi-tenant architecture foundation</li>
+<li>Organization/workspace model</li>
+<li>Database schema design with organization isolation</li>
+<li>Authentication &amp; authorization framework</li>
+<li>Row-Level Security policies</li>
+<li>Organization context middleware</li>
+<li>Basic UI shell with navigation</li>
+</ul>
+<h4 id="technical-milestones">Technical Milestones</h4>
+<ul>
+<li><strong>By Day 7:</strong> Infrastructure live, CI/CD pipeline
+operational, multi-tenant architecture designed</li>
+<li><strong>By Day 14:</strong> Authentication working, RLS policies
+active, database migrations system ready, API scaffolding complete with
+org context</li>
+</ul>
+<hr />
+<h3 id="week-3-4-core-crm-entities">Week 3-4: Core CRM Entities</h3>
+<h4 id="features-to-ship-1">Features to Ship</h4>
+<ul>
+<li>Companies CRUD (Create, Read, Update, Delete)</li>
+<li>Contacts CRUD with company relationships</li>
+<li>Jobs/Positions management</li>
+<li>Basic pipeline stages (Applied → Screening → Interview → Offer →
+Hired/Rejected)</li>
+<li>Drag-and-drop pipeline board</li>
+<li>Activity timeline (view-only for now)</li>
+</ul>
+<h4 id="technical-milestones-1">Technical Milestones</h4>
+<ul>
+<li><strong>By Day 21:</strong> All core entities have full CRUD APIs +
+UI</li>
+<li><strong>By Day 28:</strong> Pipeline board functional with
+drag-and-drop, basic search working</li>
+</ul>
+<hr />
+<h3 id="week-5-6-data-views">Week 5-6: Data &amp; Views</h3>
+<h4 id="features-to-ship-2">Features to Ship</h4>
+<ul>
+<li>CSV import for companies and contacts</li>
+<li>Field mapping UI for imports</li>
+<li>Saved views/filters system</li>
+<li>Custom filter builder (AND/OR conditions)</li>
+<li>Data deduplication (basic, manual review)</li>
+<li>Bulk actions (assign, tag, delete)</li>
+</ul>
+<h4 id="technical-milestones-2">Technical Milestones</h4>
+<ul>
+<li><strong>By Day 35:</strong> CSV import processing 10k+ records
+reliably</li>
+<li><strong>By Day 42:</strong> Filter system supporting complex
+queries, saved views persisting</li>
+</ul>
+<hr />
+<h3 id="week-7-8-communication-layer">Week 7-8: Communication Layer</h3>
+<h4 id="features-to-ship-3">Features to Ship</h4>
+<ul>
+<li>Email integration (Gmail/Outlook OAuth)</li>
+<li>In-app email composer with templates</li>
+<li>Email threading &amp; timeline integration</li>
+<li>SMS integration (Twilio)</li>
+<li>Calendar integration (Google Calendar/Outlook)</li>
+<li>Meeting scheduling from candidate profiles</li>
+<li>Activity auto-logging</li>
+</ul>
+<h4 id="technical-milestones-3">Technical Milestones</h4>
+<ul>
+<li><strong>By Day 49:</strong> Bi-directional email sync working (send
+&amp; receive)</li>
+<li><strong>By Day 56:</strong> SMS and calendar fully integrated, all
+communications logged to timeline</li>
+</ul>
+<hr />
+<h3 id="week-8-9-ai-v1---foundation">Week 8-9: AI v1 - Foundation</h3>
+<h4 id="features-to-ship-4">Features to Ship</h4>
+<ul>
+<li>Semantic search infrastructure (vector database)</li>
+<li>RAG search on contacts/companies</li>
+<li>Smart duplicate detection (fuzzy matching + embeddings)</li>
+<li>Merge duplicate UI</li>
+<li>AI note-taker: transcription service integration</li>
+<li>Audio upload → transcript → summary generation</li>
+<li>Action item extraction from transcripts</li>
+</ul>
+<h4 id="technical-milestones-4">Technical Milestones</h4>
+<ul>
+<li><strong>By Day 60:</strong> Semantic search returning relevant
+results, transcription → summary working end-to-end, duplicate detection
+catching 90%+ of obvious duplicates</li>
+</ul>
+<hr />
+<h3 id="week-9-bonus-polish-prep">Week 9 (Bonus): Polish &amp; Prep</h3>
+<ul>
+<li>Basic RBAC (Owner, Admin, Manager, Recruiter roles)</li>
+<li>Permission system for viewing/editing</li>
+<li>Onboarding flow</li>
+<li>Error handling &amp; validation</li>
+<li>Performance optimization</li>
+<li>Security audit</li>
+<li>MVP documentation</li>
+</ul>
+<hr />
+<h2 id="architecture-mvp---days-1-60">2. Architecture (MVP - Days
+1-60)</h2>
+<h3 id="technology-stack">Technology Stack</h3>
+<h4 id="frontend">Frontend</h4>
+<ul>
+<li><strong>Framework:</strong> Next.js 14+ (App Router)</li>
+<li><strong>UI Library:</strong> Tailwind CSS + shadcn/ui</li>
+<li><strong>State Management:</strong> Zustand + React Query</li>
+<li><strong>Forms:</strong> React Hook Form + Zod</li>
+<li><strong>Drag &amp; Drop:</strong> dnd-kit</li>
+</ul>
+<h4 id="backend">Backend</h4>
+<ul>
+<li><strong>Runtime:</strong> Node.js 20+ with TypeScript</li>
+<li><strong>Framework:</strong> Next.js API Routes (MVP) → NestJS
+(Post-MVP)</li>
+<li><strong>API Style:</strong> tRPC for type-safe APIs</li>
+<li><strong>Validation:</strong> Zod</li>
+</ul>
+<h4 id="database">Database</h4>
+<ul>
+<li><strong>Primary Database:</strong> PostgreSQL 16 (Neon or
+Supabase)</li>
+<li><strong>Vector Database:</strong> pgvector (for semantic
+search)</li>
+<li><strong>Cache:</strong> Redis (Upstash)</li>
+<li><strong>ORM:</strong> Prisma</li>
+</ul>
+<h4 id="aiml-stack">AI/ML Stack</h4>
+<ul>
+<li><strong>LLM Provider:</strong> OpenAI (GPT-4o, GPT-4o-mini)</li>
+<li><strong>Embeddings:</strong> OpenAI text-embedding-3-small</li>
+<li><strong>Transcription:</strong> OpenAI Whisper API</li>
+<li><strong>AI Framework:</strong> Vercel AI SDK</li>
+<li><strong>Prompt Management:</strong> Langfuse</li>
+</ul>
+<h4 id="infrastructure">Infrastructure</h4>
+<ul>
+<li><strong>Hosting:</strong> Vercel (frontend + API routes)</li>
+<li><strong>Object Storage:</strong> Cloudflare R2 or AWS S3</li>
+<li><strong>Email Delivery:</strong> Resend</li>
+<li><strong>SMS:</strong> Twilio</li>
+<li><strong>Monitoring:</strong> Sentry + Vercel Analytics +
+Langfuse</li>
+<li><strong>Logs:</strong> Axiom or Betterstack</li>
+</ul>
+<h4 id="devops">DevOps</h4>
+<ul>
+<li><strong>Version Control:</strong> Git + GitHub</li>
+<li><strong>Monorepo Tool:</strong> Turborepo + pnpm</li>
+<li><strong>CI/CD:</strong> GitHub Actions</li>
+<li><strong>Authentication:</strong> Clerk</li>
+<li><strong>Background Jobs:</strong> Inngest or Trigger.dev</li>
+<li><strong>Feature Flags:</strong> GrowthBook</li>
+<li><strong>Testing:</strong> Vitest + Playwright</li>
+</ul>
+<hr />
+<h3 id="multi-tenancy-architecture">Multi-Tenancy Architecture</h3>
+<p><strong>Core Principle:</strong> Every organization is completely
+isolated at the database level.</p>
+<h4 id="data-isolation-strategy">Data Isolation Strategy</h4>
+<p><strong>Database Level:</strong></p>
+<ul>
+<li>Every table contains <code>organization_id</code> column</li>
+<li>Row-Level Security (RLS) enforces data access</li>
+<li>Users can belong to multiple organizations</li>
+<li>Unique constraints scoped per organization</li>
+<li>Cascade deletes for GDPR compliance</li>
+</ul>
+<p><strong>Application Level:</strong></p>
+<ul>
+<li>Middleware validates user membership in organization</li>
+<li>All queries automatically filtered by organization context</li>
+<li>Organization switcher in UI</li>
+<li>Org-scoped routes: <code>/[orgSlug]/contacts</code></li>
+</ul>
+<p><strong>Caching &amp; Jobs:</strong></p>
+<ul>
+<li>Cache keys prefixed with organization ID</li>
+<li>Background jobs carry organization context</li>
+<li>Rate limiting per organization</li>
+</ul>
+<h4 id="security-layers-defense-in-depth">Security Layers (Defense in
+Depth)</h4>
+<pre><code>Layer 1: Frontend
+  ↓ Organization switcher, context validation
+Layer 2: API Middleware
+  ↓ Validates user belongs to organization
+Layer 3: Application Logic
+  ↓ Explicitly filters by organization_id
+Layer 4: Database RLS
+  ↓ Final enforcement at PostgreSQL level
+Layer 5: Audit Logs
+  └→ Track all actions with org context</code></pre>
+<hr />
+<h3 id="system-architecture-diagram-multi-tenant">System Architecture
+Diagram (Multi-Tenant)</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                      CLIENT LAYER                            │
+│                                                               │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │         Next.js 14 (React + Server Components)       │  │
+│  │                                                        │  │
+│  │  • Tailwind + shadcn/ui                               │  │
+│  │  • Zustand (client state + org context)               │  │
+│  │  • React Query (server state)                         │  │
+│  │  • Organization switcher UI                           │  │
+│  └──────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       API LAYER                              │
+│                                                               │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │           Next.js API Routes (MVP Phase)              │  │
+│  │                       OR                               │  │
+│  │           NestJS Backend (Post-MVP)                   │  │
+│  │                                                        │  │
+│  │  • tRPC APIs                                          │  │
+│  │  • Auth middleware (Clerk)                            │  │
+│  │  • **Organization Context Middleware**                │  │
+│  │    (validates user belongs to org)                    │  │
+│  │  • Rate limiting (per org)                            │  │
+│  │  • Request validation (Zod)                           │  │
+│  │  • Audit logging middleware                           │  │
+│  └──────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                             │
+           ┌─────────────────┼─────────────────┐
+           ▼                 ▼                 ▼
+┌──────────────────┐  ┌──────────────┐  ┌──────────────────┐
+│   DATA LAYER     │  │  AI LAYER    │  │  EXTERNAL APIs   │
+│                  │  │              │  │                  │
+│ • PostgreSQL     │  │ • OpenAI API │  │ • Gmail API      │
+│   with RLS       │  │ • Whisper    │  │ • Outlook API    │
+│ • pgvector       │  │ • Embeddings │  │ • Twilio         │
+│ • Redis (cache)  │  │ • Vercel AI  │  │ • Google Cal     │
+│   (org-scoped)   │  │   SDK        │  │                  │
+│ • Neon/Supabase  │  │ • Langfuse   │  │                  │
+└──────────────────┘  └──────────────┘  └──────────────────┘
+           │                 │                 │
+           └─────────────────┴─────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   BACKGROUND JOBS                            │
+│                                                               │
+│  • Email sync worker (per org) (Inngest/Trigger.dev)        │
+│  • CSV import processor (org-scoped)                         │
+│  • AI embedding generation (org-scoped)                      │
+│  • Duplicate detection scanner (within org)                  │
+│  • Usage quota enforcement                                   │
+└─────────────────────────────────────────────────────────────┘
+
+MULTI-TENANT DATA FLOW:
+1. User logs in → JWT contains user_id
+2. User selects/switches organization → org_id stored in session
+3. Every API request includes org_id in context
+4. Middleware validates: user belongs to org
+5. All queries filtered by org_id (enforced by RLS at DB level)
+6. Background jobs process data per-organization in isolation</code></pre>
+<hr />
+<h3 id="modular-architecture-strategy">Modular Architecture
+Strategy</h3>
+<p>The system is designed with modularity at its core, allowing
+independent development and scaling.</p>
+<h4 id="module-structure">Module Structure</h4>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                     CORE MODULES                             │
+│                                                               │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │   Auth       │  │  Org Context │  │   RBAC       │     │
+│  │   Module     │  │   Module     │  │   Module     │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+                             │
+           ┌─────────────────┼─────────────────┐
+           ▼                 ▼                 ▼
+┌──────────────────┐  ┌──────────────┐  ┌──────────────────┐
+│  CRM MODULES     │  │  AI MODULES  │  │ INTEGRATION      │
+│                  │  │              │  │ MODULES          │
+│ • Companies      │  │ • Semantic   │  │ • Email Service  │
+│ • Contacts       │  │   Search     │  │ • SMS Service    │
+│ • Jobs           │  │ • Transcribe │  │ • Calendar       │
+│ • Pipeline       │  │ • Summarize  │  │ • Webhooks       │
+│ • Activities     │  │ • Matching   │  │                  │
+└──────────────────┘  └──────────────┘  └──────────────────┘</code></pre>
+<h4 id="key-modular-principles">Key Modular Principles</h4>
+<p><strong>1. Domain-Driven Design</strong></p>
+<ul>
+<li>Each module owns its domain logic, data models, and business
+rules</li>
+<li>Clear boundaries between modules</li>
+<li>Modules communicate via well-defined interfaces</li>
+</ul>
+<p><strong>2. Monorepo Structure</strong></p>
+<ul>
+<li>Turborepo + pnpm for fast builds</li>
+<li>Separate packages for each domain (contacts, companies, jobs)</li>
+<li>Shared packages (database, auth, types, UI components)</li>
+</ul>
+<p><strong>3. Service Layer Pattern</strong></p>
+<ul>
+<li>Each module exposes clear service interfaces</li>
+<li>Dependency injection for testability</li>
+<li>Event-driven communication between modules</li>
+</ul>
+<p><strong>4. Benefits</strong></p>
+<ul>
+<li>Independent development by team members</li>
+<li>Each module can be unit tested in isolation</li>
+<li>Can extract modules into microservices later if needed</li>
+<li>Clear boundaries reduce cognitive load</li>
+</ul>
+<hr />
+<h2 id="enterprise-grade-extension-plan-days-61-120">3. Enterprise-Grade
+Extension Plan (Days 61-120)</h2>
+<h3 id="week-10-11-scale-performance">Week 10-11: Scale &amp;
+Performance</h3>
+<h4 id="features-to-ship-5">Features to Ship</h4>
+<ul>
+<li>Database query optimization</li>
+<li>Pagination &amp; infinite scroll for large datasets</li>
+<li>API response caching strategy</li>
+<li>Rate limiting per user/org</li>
+<li>Background job queue optimization</li>
+<li>Async processing for expensive operations</li>
+<li>CDN for static assets</li>
+<li>Database read replicas (if needed)</li>
+</ul>
+<h4 id="hardening">Hardening</h4>
+<ul>
+<li>Load testing (artillery.io or k6)</li>
+<li>Database connection pooling</li>
+<li>Horizontal scaling strategy</li>
+<li>API versioning strategy</li>
+</ul>
+<hr />
+<h3 id="week-12-13-enterprise-features---advanced-rbac-billing">Week
+12-13: Enterprise Features - Advanced RBAC &amp; Billing</h3>
+<h4 id="features-to-ship-6">Features to Ship</h4>
+<ul>
+<li>Custom role builder (define permissions)</li>
+<li>Field-level permissions (hide salary, PII, etc.)</li>
+<li>Approval workflows</li>
+<li>Billing integration (Stripe)</li>
+<li>Usage analytics dashboard</li>
+<li>Per-org usage quotas enforcement</li>
+<li>Subscription tier management</li>
+<li>Invoice generation</li>
+</ul>
+<hr />
+<h3 id="week-14-15-advanced-ai---task-outreach-automation">Week 14-15:
+Advanced AI - Task &amp; Outreach Automation</h3>
+<h4 id="features-to-ship-7">Features to Ship</h4>
+<ul>
+<li>AI task creation from emails/transcripts</li>
+<li>Task assignment &amp; due dates</li>
+<li>Email sequence builder</li>
+<li>AI-personalized email generation</li>
+<li>Variable templating</li>
+<li>A/B testing for sequences</li>
+<li>Auto opt-out handling</li>
+<li>Sequence analytics</li>
+</ul>
+<h4 id="ai-pipeline">AI Pipeline</h4>
+<ul>
+<li>Inbound email → LLM classification → Extract action items → Create
+tasks</li>
+<li>Outreach sequence → Fetch contact data → LLM personalization →
+Schedule send</li>
+</ul>
+<hr />
+<h3 id="week-16-17-advanced-ai---voice-screening">Week 16-17: Advanced
+AI - Voice &amp; Screening</h3>
+<h4 id="features-to-ship-8">Features to Ship</h4>
+<ul>
+<li>Voice screening agent</li>
+<li>Custom screening questions per job</li>
+<li>Real-time call transcription</li>
+<li>Sentiment analysis during calls</li>
+<li>Call scoring and recommendations</li>
+<li>Reference check automation</li>
+<li>Real-time call coaching</li>
+</ul>
+<hr />
+<h3 id="week-18-advanced-ai---talent-rediscovery-matching">Week 18:
+Advanced AI - Talent Rediscovery &amp; Matching</h3>
+<h4 id="features-to-ship-9">Features to Ship</h4>
+<ul>
+<li>“Silver medalist” miner (past candidates for new roles)</li>
+<li>Explainable matching scores</li>
+<li>“Why match” chips (skills, experience, location)</li>
+<li>Multi-armed bandit optimization for outreach</li>
+<li>Candidate engagement prediction</li>
+<li>Automatic role suggestions for contacts</li>
+</ul>
+<h4 id="ai-pipeline-1">AI Pipeline</h4>
+<ul>
+<li>Embedding-based similarity search</li>
+<li>Job requirements → Candidate profiles vector search</li>
+<li>LLM explains match reasoning</li>
+<li>Reinforcement learning for sequence optimization</li>
+</ul>
+<hr />
+<h3 id="week-19-20-enterprise-security-compliance">Week 19-20:
+Enterprise Security &amp; Compliance</h3>
+<h4 id="features-to-ship-10">Features to Ship</h4>
+<ul>
+<li>SOC 2 compliance readiness</li>
+<li>Data encryption at rest and in transit</li>
+<li>PII detection and handling</li>
+<li>GDPR/CCPA compliance features</li>
+<li>SSO integration (SAML, OAuth via WorkOS)</li>
+<li>IP whitelisting</li>
+<li>Advanced RBAC (field-level permissions)</li>
+<li>Secrets management</li>
+</ul>
+<hr />
+<h2 id="team-structure-responsibilities-4-people-max">4. Team Structure
+&amp; Responsibilities (4 People Max)</h2>
+<h3
+id="product-ownerpmai-specialist-product-owner-project-manager-ai-specialist">Product
+Owner/PM/AI Specialist: Product Owner / Project Manager / AI
+Specialist</h3>
+<p><strong>Days 1-120 (Full duration)</strong></p>
+<h4 id="week-1-4-solo">Week 1-4 (Solo)</h4>
+<ul>
+<li>Architecture decisions and setup (100%)</li>
+<li>Database schema design</li>
+<li>Core backend APIs</li>
+<li>DevOps setup (CI/CD, hosting)</li>
+<li>Auth &amp; security foundation</li>
+<li>Frontend scaffolding</li>
+</ul>
+<h4 id="week-5-17-with-team">Week 5-17 (With Team)</h4>
+<ul>
+<li>Product management &amp; sprint planning (20%)</li>
+<li>AI feature architecture &amp; implementation (50%)</li>
+<li>Technical leadership &amp; code reviews (20%)</li>
+<li>Complex integrations (10%)</li>
+</ul>
+<p><strong>Key Responsibilities:</strong></p>
+<ul>
+<li>Define product roadmap and priorities</li>
+<li>Lead sprint planning and retrospectives</li>
+<li>Design and implement all AI features</li>
+<li>Architect semantic search, RAG, and ML pipelines</li>
+<li>Integrate OpenAI, Langfuse, and AI observability</li>
+<li>Review all pull requests</li>
+<li>Manage technical debt</li>
+</ul>
+<hr />
+<h3 id="uiux-designer">UI/UX Designer</h3>
+<p><strong>Week 4-17 (Days 22-119)</strong></p>
+<h4 id="primary-responsibilities">Primary Responsibilities</h4>
+<ul>
+<li>Design system creation (shadcn/ui customization)</li>
+<li>All UI/UX design and prototyping</li>
+<li>User research and usability testing</li>
+<li>Component library maintenance</li>
+<li>Frontend implementation (React/Next.js)</li>
+<li>Responsive design across devices</li>
+</ul>
+<h4 id="key-deliverables">Key Deliverables</h4>
+<ul>
+<li>Design system and component library</li>
+<li>All page designs and user flows</li>
+<li>Interactive prototypes</li>
+<li>Frontend components implementation</li>
+<li>Onboarding flow design</li>
+<li>Dashboard and analytics UI</li>
+</ul>
+<hr />
+<h3 id="full-stack-developer-1">Full-Stack Developer #1</h3>
+<p><strong>Week 4-17 (Days 22-119)</strong></p>
+<h4 id="primary-responsibilities-1">Primary Responsibilities</h4>
+<ul>
+<li>Core CRM features (Companies, Contacts, Jobs)</li>
+<li>CRUD operations and data management</li>
+<li>Search and filtering systems</li>
+<li>Pipeline drag-and-drop functionality</li>
+<li>Data import/export features</li>
+<li>Database optimization</li>
+</ul>
+<h4 id="key-deliverables-1">Key Deliverables</h4>
+<ul>
+<li>Companies module (full CRUD)</li>
+<li>Contacts module (full CRUD)</li>
+<li>Jobs module (full CRUD)</li>
+<li>Pipeline board with drag-and-drop</li>
+<li>Saved views and custom filters</li>
+<li>CSV import/export</li>
+<li>Bulk operations</li>
+</ul>
+<hr />
+<h3 id="full-stack-developer-2">Full-Stack Developer #2</h3>
+<p><strong>Week 7-17 (Days 43-119)</strong></p>
+<h4 id="primary-responsibilities-2">Primary Responsibilities</h4>
+<ul>
+<li>Communication integrations (Email, SMS, Calendar)</li>
+<li>Activity timeline implementation</li>
+<li>Background job processing</li>
+<li>Third-party API integrations</li>
+<li>Performance optimization</li>
+<li>Testing and QA</li>
+</ul>
+<h4 id="key-deliverables-2">Key Deliverables</h4>
+<ul>
+<li>Email integration (Gmail, Outlook)</li>
+<li>SMS integration (Twilio)</li>
+<li>Calendar integration (Google, Microsoft)</li>
+<li>Activity timeline and logging</li>
+<li>Background jobs (Inngest setup)</li>
+<li>Integration testing</li>
+<li>Performance monitoring setup</li>
+</ul>
+<hr />
+<h3 id="team-collaboration-model">Team Collaboration Model</h3>
+<pre><code>┌────────────────────────────────────────────────┐
+│  Product Owner/PM/AI Specialist (Lead)        │
+│                                                 │
+│  Sprint Planning │ Standups │ AI Architecture  │
+└────────────────┬───────────────────────────────┘
+                 │
+      ┌──────────┼──────────┐
+      ▼          ▼          ▼
+┌──────────┬──────────┬──────────┐
+│ Designer │  Dev #1  │  Dev #2  │
+│          │          │          │
+│  UI/UX   │   CRM    │  Integr. │
+│  Design  │  Features│  &amp; Jobs  │
+│  +React  │  +APIs   │  +APIs   │
+└──────────┴──────────┴──────────┘
+      │          │          │
+      └──────────┼──────────┘
+                 │
+         Daily Collaboration</code></pre>
+<hr />
+<h2 id="timeline-with-team-allocation">5. Timeline with Team
+Allocation</h2>
+<h3 id="days-1-60-mvp-timeline">Days 1-60: MVP Timeline</h3>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 10%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>Week</th>
+<th>Dates</th>
+<th>Team</th>
+<th>Focus Area</th>
+<th>Key Deliverables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Days 1-7</td>
+<td>Product Owner/PM/AI Specialist (solo)</td>
+<td>Infrastructure</td>
+<td>Repo, Vercel, DB, CI/CD, Auth</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Days 8-14</td>
+<td>Product Owner/PM/AI Specialist (solo)</td>
+<td>Core Architecture</td>
+<td>DB schema, API scaffold, UI shell</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Days 15-21</td>
+<td>Product Owner/PM/AI Specialist (solo)</td>
+<td>Foundation</td>
+<td>Basic CRUD, routing, multi-tenancy</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Days 22-28</td>
+<td>Product Owner/PM/AI Specialist + Designer + Dev #1</td>
+<td>Companies &amp; Contacts</td>
+<td>CRUD UI, APIs, Designer onboarding</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Days 29-35</td>
+<td>All 3</td>
+<td>Jobs &amp; Pipeline</td>
+<td>Pipeline board, filters, search</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Days 36-42</td>
+<td>All 3</td>
+<td>Data &amp; Views</td>
+<td>CSV import, saved views, bulk ops</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Days 43-49</td>
+<td>All 4</td>
+<td>Communication - Email</td>
+<td>Email OAuth, sync, composer</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Days 50-56</td>
+<td>All 4</td>
+<td>Communication - SMS/Cal</td>
+<td>SMS, calendar, timeline</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Days 57-63</td>
+<td>All 4</td>
+<td>AI v1 - Search</td>
+<td>Semantic search, dedupe, embeddings</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Days 64-70</td>
+<td>All 4</td>
+<td>AI v1 - Transcription</td>
+<td>Whisper integration, summaries</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="days-61-120-enterprise-timeline">Days 61-120: Enterprise
+Timeline</h3>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 30%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr>
+<th>Week</th>
+<th>Dates</th>
+<th>Team</th>
+<th>Focus Area</th>
+<th>Key Deliverables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11</td>
+<td>Days 71-77</td>
+<td>All 4</td>
+<td>Performance Optimization</td>
+<td>Query optimization, caching</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Days 78-84</td>
+<td>All 4</td>
+<td>RBAC &amp; Billing</td>
+<td>Permissions, Stripe integration</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Days 85-91</td>
+<td>All 4</td>
+<td>Advanced RBAC</td>
+<td>Custom roles, audit logs</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Days 92-98</td>
+<td>All 4</td>
+<td>AI Task Automation</td>
+<td>AI task creation, classification</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Days 99-105</td>
+<td>All 4</td>
+<td>AI Email Sequences</td>
+<td>Sequence builder, personalization</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Days 106-112</td>
+<td>All 4</td>
+<td>Voice AI Foundation</td>
+<td>Voice integration, transcription</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Days 113-119</td>
+<td>All 4</td>
+<td>Voice Screening Agent</td>
+<td>Screening bot, call scoring</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Days 120-126</td>
+<td>All 4</td>
+<td>Talent Matching</td>
+<td>Matching algorithms, explainability</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Days 127-133</td>
+<td>All 4</td>
+<td>Security Hardening</td>
+<td>SOC 2 prep, SSO, encryption</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Days 134-140</td>
+<td>All 4</td>
+<td>Polish &amp; Testing</td>
+<td>E2E testing, performance, docs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="database-entity-diagram-multi-tenant">6. Database Entity Diagram
+(Multi-Tenant)</h2>
+<pre><code>┌─────────────────────┐
+│   ORGANIZATIONS     │  ← Tenant Root
+│─────────────────────│
+│ • id (PK)           │
+│ • name              │
+│ • slug (unique)     │
+│ • subscription_tier │
+│ • max_users         │
+│ • max_contacts      │
+└──────────┬──────────┘
+           │
+           │ has many
+           │
+    ┌──────┴──────┬────────────┬────────────┐
+    ▼             ▼            ▼            ▼
+┌─────────┐  ┌─────────┐  ┌─────────┐  ┌───────────┐
+│ USERS   │  │COMPANIES│  │CONTACTS │  │   JOBS    │
+│─────────│  │─────────│  │─────────│  │───────────│
+│ • id    │  │ • id    │  │ • id    │  │ • id      │
+│ • email │  │ • org_id│  │ • org_id│  │ • org_id  │
+│ • name  │  │ • name  │  │ • name  │  │ • title   │
+└─────────┘  │ • domain│  │ • email │  │ • company │
+             └─────────┘  │ • company  └───────────┘
+                          └─────────┘
+                               │
+                               │ belongs to
+                               ▼
+                          ┌─────────────┐
+                          │  PIPELINE   │
+                          │─────────────│
+                          │ • id        │
+                          │ • org_id    │
+                          │ • job_id    │
+                          │ • contact_id│
+                          │ • stage     │
+                          └─────────────┘
+
+┌──────────────────────────────────────────────────┐
+│  CROSS-CUTTING ENTITIES (all org-scoped)        │
+│──────────────────────────────────────────────────│
+│  • activities (timeline)                         │
+│  • saved_views (custom filters)                  │
+│  • ai_summaries (generated content)              │
+│  • communication_integrations (OAuth tokens)     │
+│  • audit_logs (compliance tracking)              │
+└──────────────────────────────────────────────────┘
+
+KEY PRINCIPLES:
+ Every entity has organization_id (except users/orgs)
+ Row-Level Security enforces isolation
+ Users can belong to multiple orgs (many-to-many)
+ Unique constraints scoped per organization
+ Cascade deletes for GDPR compliance</code></pre>
+<hr />
+<h2 id="success-metrics">7. Success Metrics</h2>
+<h3 id="mvp-day-60-success-criteria">MVP (Day 60) Success Criteria</h3>
+<ul>
+<li>5+ companies using the product daily</li>
+<li>100+ candidates tracked in the system</li>
+<li>Email sync working reliably (99% uptime)</li>
+<li>Semantic search returns relevant results 80%+ of the time</li>
+<li>AI transcription → summary working end-to-end</li>
+<li>Page load times &lt; 2 seconds</li>
+<li>Zero critical security vulnerabilities</li>
+</ul>
+<h3 id="enterprise-day-120-success-criteria">Enterprise (Day 120)
+Success Criteria</h3>
+<ul>
+<li>20+ companies, 5+ with multiple team members</li>
+<li>10,000+ candidates in system</li>
+<li>Voice screening agent completes 100+ calls</li>
+<li>Email sequences show 40%+ open rate, 10%+ reply rate</li>
+<li>P95 API response time &lt; 500ms</li>
+<li>SOC 2 Type 1 in progress or complete</li>
+<li>95%+ test coverage on critical paths</li>
+</ul>
+<hr />
+<h2 id="key-technical-decisions-trade-offs">8. Key Technical Decisions
+&amp; Trade-offs</h2>
+<h3 id="decision-1-multi-tenancy-from-day-1">Decision 1: Multi-Tenancy
+from Day 1</h3>
+<p><strong>Choice:</strong> Build multi-tenant architecture from the
+foundation</p>
+<p><strong>Rationale:</strong></p>
+<ul>
+<li>Retrofitting multi-tenancy is extremely difficult</li>
+<li>RLS provides database-level security</li>
+<li>Critical for B2B SaaS business model</li>
+</ul>
+<p><strong>Trade-offs:</strong> Slightly more complex initial setup, but
+saves months of refactoring later</p>
+<hr />
+<h3 id="decision-2-modular-monolith-vs.-microservices">Decision 2:
+Modular Monolith vs. Microservices</h3>
+<p><strong>Choice:</strong> Start with modular monolith, extract
+services later if needed</p>
+<p><strong>Rationale:</strong></p>
+<ul>
+<li>Faster iteration, simpler deployment</li>
+<li>Clear module boundaries allow future extraction</li>
+<li>Can always split later when scale demands it</li>
+</ul>
+<p><strong>Trade-offs:</strong> All modules share same deployment, but
+speed matters more than scale in early days</p>
+<hr />
+<h3 id="decision-3-build-vs.-buy-calendaremail">Decision 3: Build
+vs. Buy (Calendar/Email)</h3>
+<p><strong>Choice:</strong> Integrate existing APIs (Gmail, Outlook,
+Google Calendar)</p>
+<p><strong>Rationale:</strong> Focus engineering time on unique AI
+value, not commodity features</p>
+<p><strong>Trade-offs:</strong> Dependent on third-party reliability,
+but worth it</p>
+<hr />
+<h3 id="decision-4-team-size-4-people-max">Decision 4: Team Size (4
+People Max)</h3>
+<p><strong>Choice:</strong> Keep team small and focused</p>
+<p><strong>Rationale:</strong></p>
+<ul>
+<li>Less coordination overhead</li>
+<li>Faster decision-making</li>
+<li>Higher individual ownership</li>
+<li>Modern tools enable small teams to move fast</li>
+</ul>
+<p><strong>Trade-offs:</strong> Longer timeline for some features, but
+higher quality output</p>
+<hr />
+<h2 id="risks-mitigations">9. Risks &amp; Mitigations</h2>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 9%" />
+<col style="width: 13%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Likelihood</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Email/Calendar integration more complex</td>
+<td>HIGH</td>
+<td>1-2 week delay</td>
+<td>Start early, have manual input fallback</td>
+</tr>
+<tr>
+<td>AI quality issues (hallucinations)</td>
+<td>MEDIUM</td>
+<td>Feature delays</td>
+<td>Prompt engineering, human-in-loop</td>
+</tr>
+<tr>
+<td>Team hiring takes longer</td>
+<td>MEDIUM</td>
+<td>Slower progress</td>
+<td>Start recruiting Week 2, have contractor backup</td>
+</tr>
+<tr>
+<td>Scope creep from founder/customers</td>
+<td>HIGH</td>
+<td>Timeline slip</td>
+<td>Strict prioritization, v1.1 backlog discipline</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="next-steps">10. Next Steps</h2>
+<h3 id="immediate-actions-this-week">Immediate Actions (This Week)</h3>
+<ol type="1">
+<li>Review and approve this plan with founder</li>
+<li>Set up development environment</li>
+<li>Provision accounts (Vercel, Neon, Clerk, OpenAI, Langfuse,
+GrowthBook)</li>
+<li>Create GitHub repo and initial project structure</li>
+<li>Design database schema v1</li>
+<li>Set up CI/CD pipeline</li>
+</ol>
+<h3 id="week-2-actions">Week 2 Actions</h3>
+<ol type="1">
+<li>Implement authentication (Clerk)</li>
+<li>Build first API endpoint (companies CRUD)</li>
+<li>Create UI shell and first page</li>
+<li>Weekly demo to founder</li>
+</ol>
+<h3 id="hiring-timeline">Hiring Timeline</h3>
+<ul>
+<li><strong>Week 2:</strong> Post jobs for UI/UX Designer and Full-Stack
+Developer #1</li>
+<li><strong>Week 3:</strong> Interview candidates</li>
+<li><strong>Week 4:</strong> Onboard UI/UX Designer and Full-Stack
+Developer #1</li>
+<li><strong>Week 5:</strong> Post job for Full-Stack Developer #2</li>
+<li><strong>Week 6:</strong> Interview Full-Stack Developer #2</li>
+<li><strong>Week 7:</strong> Onboard Full-Stack Developer #2</li>
+</ul>
+<hr />
+<h2 id="appendix-tech-stack-summary">Appendix: Tech Stack Summary</h2>
+<h3 id="core-stack">Core Stack</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 39%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>Next.js 14 + React</td>
+<td>UI framework</td>
+</tr>
+<tr>
+<td>Styling</td>
+<td>Tailwind CSS + shadcn/ui</td>
+<td>Component library</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Next.js API Routes → NestJS</td>
+<td>API server</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>PostgreSQL (Neon/Supabase)</td>
+<td>Primary data store (multi-tenant)</td>
+</tr>
+<tr>
+<td>Vector DB</td>
+<td>pgvector</td>
+<td>Semantic search</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>Redis (Upstash)</td>
+<td>Session, rate limiting</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Clerk</td>
+<td>Authentication &amp; org management</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Cloudflare R2 / AWS S3</td>
+<td>File uploads</td>
+</tr>
+<tr>
+<td>Monorepo</td>
+<td>Turborepo + pnpm</td>
+<td>Build system</td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>Prisma</td>
+<td>Type-safe database access</td>
+</tr>
+<tr>
+<td>API</td>
+<td>tRPC</td>
+<td>Type-safe API contracts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ai-stack">AI Stack</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI GPT-4o</td>
+<td>Complex reasoning, summarization</td>
+</tr>
+<tr>
+<td>OpenAI GPT-4o-mini</td>
+<td>Simple tasks, cost optimization</td>
+</tr>
+<tr>
+<td>OpenAI Whisper</td>
+<td>Audio transcription</td>
+</tr>
+<tr>
+<td>OpenAI Embeddings</td>
+<td>Vector embeddings for search</td>
+</tr>
+<tr>
+<td>Vercel AI SDK</td>
+<td>LLM integration framework</td>
+</tr>
+<tr>
+<td>Langfuse</td>
+<td>Prompt management &amp; observability</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-services">External Services</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gmail API</td>
+<td>Email integration</td>
+</tr>
+<tr>
+<td>Outlook API</td>
+<td>Email integration</td>
+</tr>
+<tr>
+<td>Twilio</td>
+<td>SMS + voice calling</td>
+</tr>
+<tr>
+<td>Google Calendar API</td>
+<td>Calendar integration</td>
+</tr>
+<tr>
+<td>Resend</td>
+<td>Transactional email delivery</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td>Billing (post-MVP)</td>
+</tr>
+<tr>
+<td>WorkOS</td>
+<td>Enterprise SSO/SAML</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devops-monitoring">DevOps &amp; Monitoring</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vercel</td>
+<td>Frontend + API hosting</td>
+</tr>
+<tr>
+<td>GitHub Actions</td>
+<td>CI/CD</td>
+</tr>
+<tr>
+<td>Sentry</td>
+<td>Error tracking</td>
+</tr>
+<tr>
+<td>Vercel Analytics</td>
+<td>Performance monitoring</td>
+</tr>
+<tr>
+<td>Langfuse</td>
+<td>AI usage &amp; cost tracking</td>
+</tr>
+<tr>
+<td>GrowthBook</td>
+<td>Feature flags &amp; A/B tests</td>
+</tr>
+<tr>
+<td>Inngest</td>
+<td>Background job processing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>This plan is <strong>aggressive but achievable</strong> with a
+focused team of 4 people. The keys to success are:</p>
+<ol type="1">
+<li><strong>Strong technical foundation</strong> (Weeks 1-4) - don’t
+rush this</li>
+<li><strong>Clear team roles</strong> - Everyone knows their domain</li>
+<li><strong>AI as enhancement</strong> - Ship CRM functionality first,
+layer AI</li>
+<li><strong>Weekly demos</strong> - Fast feedback and
+decision-making</li>
+<li><strong>Ruthless prioritization</strong> - Say no to scope
+creep</li>
+</ol>
+<p>The architecture leverages modern, proven technologies that allow
+rapid iteration with a small team. The phased approach ensures a working
+product at Day 60 (MVP) and an enterprise-ready platform by Day 120.</p>
+<hr />
+<p><em>Document Version: 2.0</em><br />
+<em>Last Updated: November 8, 2025</em><br />
+<em>Team Structure: 4 people (Product Owner/PM/AI Specialist + Designer
++ 2 Full-Stack Devs)</em></p>
+</body>
+</html>

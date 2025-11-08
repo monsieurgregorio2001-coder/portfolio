@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Composer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
+    <nav class="p-4 space-y-1">
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-building w-5"></i>
+            <span class="ml-3">Companies</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">47</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-user-group w-5"></i>
+            <span class="ml-3">Contacts</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">1.2K</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-briefcase w-5"></i>
+            <span class="ml-3">Jobs</span>
+            <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">12</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-diagram-project w-5"></i>
+            <span class="ml-3">Pipeline</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-regular fa-calendar w-5"></i>
+            <span class="ml-3">Calendar</span>
+            <span class="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-semibold">8</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-bar w-5"></i>
+            <span class="ml-3">Reports</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-robot w-5"></i>
+            <span class="ml-3">AI Assistant</span>
+            <span class="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
+        </a>
+    </nav>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <div class="space-y-1">
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Candidate</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Create Job</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Company</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Workspace</div>
+        <div class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-users w-4"></i>
+                <span class="ml-3">Team</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-gear w-4"></i>
+                <span class="ml-3">Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-700 m-4 rounded-lg">
+        <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-crown text-yellow-300"></i>
+            </div>
+            <div>
+                <div class="text-white font-semibold text-sm">Upgrade to Pro</div>
+                <div class="text-blue-100 text-xs mt-1">Unlock AI features & unlimited contacts</div>
+                <button class="mt-3 w-full bg-white text-blue-600 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-64 mt-16 p-8">
+    <div id="candidate-profile-section" class="mb-6">
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-start justify-between">
+                <div class="flex items-start space-x-4">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Michael Chen" class="w-16 h-16 rounded-full">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Michael Chen</h1>
+                        <p class="text-gray-600 mt-1">Senior Software Engineer</p>
+                        <div class="flex items-center space-x-4 mt-3">
+                            <span class="text-sm text-gray-500"><i class="fa-solid fa-envelope mr-2"></i>michael.chen@email.com</span>
+                            <span class="text-sm text-gray-500"><i class="fa-solid fa-phone mr-2"></i>+1 (555) 123-4567</span>
+                            <span class="text-sm text-gray-500"><i class="fa-solid fa-location-dot mr-2"></i>San Francisco, CA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
+                        <i class="fa-solid fa-phone mr-2"></i>Call
+                    </button>
+                    <button id="compose-email-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                        <i class="fa-solid fa-envelope mr-2"></i>Send Email
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="candidate-details-grid" class="grid grid-cols-3 gap-6">
+        <div class="col-span-2 space-y-6">
+            <div id="activity-timeline-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Activity Timeline</h2>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-blue-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-semibold text-gray-900">Email sent: Follow-up on Senior Software Engineer role</p>
+                                    <span class="text-xs text-gray-500">2 days ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600">You sent an email to Michael about the Senior Software Engineer position at TechCorp</p>
+                                <button class="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium">View email</button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-phone text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-semibold text-gray-900">Phone call completed</p>
+                                    <span class="text-xs text-gray-500">5 days ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600">15 minute call discussing experience and career goals. Very interested in remote opportunities.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-user-plus text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-sm font-semibold text-gray-900">Candidate added to database</p>
+                                    <span class="text-xs text-gray-500">1 week ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Applied for Senior Software Engineer position via LinkedIn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notes-section" class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900">Notes</h2>
+                        <button class="px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <i class="fa-solid fa-plus mr-1"></i>Add Note
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                                </div>
+                                <span class="text-xs text-gray-500">3 days ago</span>
+                            </div>
+                            <p class="text-sm text-gray-700">Strong technical background with 8 years of experience. Particularly interested in backend architecture and cloud infrastructure. Looking for fully remote positions only.</p>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah" class="w-6 h-6 rounded-full">
+                                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                                </div>
+                                <span class="text-xs text-gray-500">1 week ago</span>
+                            </div>
+                            <p class="text-sm text-gray-700">Initial screening went well. Candidate has excellent communication skills and seems like a cultural fit for most of our tech clients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="candidate-info-sidebar" class="space-y-6">
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Candidate Info</h2>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Status</p>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">Active</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Current Company</p>
+                        <p class="text-sm text-gray-900">TechStartup Inc.</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Experience</p>
+                        <p class="text-sm text-gray-900">8 years</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Skills</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Java</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">AWS</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Docker</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Kubernetes</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Salary Expectation</p>
+                        <p class="text-sm text-gray-900">$140,000 - $160,000</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Availability</p>
+                        <p class="text-sm text-gray-900">2 weeks notice</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-bold text-gray-900">Applied Jobs</h2>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <p class="text-sm font-semibold text-gray-900">Senior Software Engineer</p>
+                        <p class="text-xs text-gray-500 mt-1">TechCorp • Remote</p>
+                        <span class="inline-block mt-2 px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-medium rounded">In Review</span>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <p class="text-sm font-semibold text-gray-900">Backend Engineer</p>
+                        <p class="text-xs text-gray-500 mt-1">CloudTech • San Francisco</p>
+                        <span class="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">Shortlisted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="email-composer-drawer" class="fixed top-0 right-0 bottom-0 w-[600px] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+    <div id="composer-header" class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <div class="flex items-center space-x-3">
+            <h2 class="text-lg font-bold text-gray-900">New Email</h2>
+            <div class="relative">
+                <select class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none pr-8 bg-white">
+                    <option>Select Template</option>
+                    <option>Initial Outreach</option>
+                    <option>Follow-up</option>
+                    <option>Interview Invitation</option>
+                    <option>Offer Letter</option>
+                    <option>Rejection (Polite)</option>
+                </select>
+                <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2">
+            <button id="minimize-composer" class="p-2 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <button id="close-composer" class="p-2 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="composer-form" class="flex-1 overflow-y-auto">
+        <div class="p-6 space-y-4">
+            <div id="to-field-section">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">To</label>
+                <div class="relative">
+                    <input type="text" value="Michael Chen" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Search candidates...">
+                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Michael" class="w-6 h-6 rounded-full">
+                    </div>
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-times text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2 flex items-center space-x-2">
+                    <button id="show-cc-btn" class="text-sm text-blue-600 hover:text-blue-700 font-medium">+ Cc</button>
+                    <button id="show-bcc-btn" class="text-sm text-blue-600 hover:text-blue-700 font-medium">+ Bcc</button>
+                </div>
+                <div id="cc-field" class="mt-3 hidden">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Cc</label>
+                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Add Cc recipients...">
+                </div>
+                <div id="bcc-field" class="mt-3 hidden">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Bcc</label>
+                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Add Bcc recipients...">
+                </div>
+            </div>
+
+            <div id="subject-field-section">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                <input type="text" value="Exciting Senior Software Engineer Opportunity at TechCorp" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+            </div>
+
+            <div id="rich-editor-section">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                
+                <div id="editor-toolbar" class="flex items-center space-x-1 p-2 bg-gray-50 border border-gray-300 rounded-t-lg">
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Bold">
+                        <i class="fa-solid fa-bold"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Italic">
+                        <i class="fa-solid fa-italic"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Underline">
+                        <i class="fa-solid fa-underline"></i>
+                    </button>
+                    <div class="w-px h-6 bg-gray-300 mx-1"></div>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Bullet List">
+                        <i class="fa-solid fa-list-ul"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Numbered List">
+                        <i class="fa-solid fa-list-ol"></i>
+                    </button>
+                    <div class="w-px h-6 bg-gray-300 mx-1"></div>
+                    <button id="insert-variable-btn" class="p-2 text-blue-600 hover:bg-blue-50 rounded transition-colors" title="Insert Variable">
+                        <i class="fa-solid fa-code"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Insert Link">
+                        <i class="fa-solid fa-link"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Insert Emoji">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </button>
+                    <button class="p-2 text-gray-600 hover:bg-gray-200 rounded transition-colors" title="Attach File">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </button>
+                    <div class="w-px h-6 bg-gray-300 mx-1"></div>
+                    <button class="p-2 text-purple-600 hover:bg-purple-50 rounded transition-colors" title="AI Improve">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </button>
+                </div>
+
+                <div id="editor-content" class="min-h-[300px] p-4 border border-t-0 border-gray-300 rounded-b-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-gray-700 bg-white" contenteditable="true">
+                    <p>Hi Michael,</p>
+                    <br>
+                    <p>I hope this email finds you well! I came across your profile and was impressed by your extensive experience in backend development and cloud infrastructure.</p>
+                    <br>
+                    <p>I'm reaching out because I have an exciting opportunity that I think would be a perfect fit for your skills and career goals. TechCorp is looking for a Senior Software Engineer to join their growing engineering team. This is a fully remote position with competitive compensation ($140K-$160K) and excellent benefits.</p>
+                    <br>
+                    <p><strong>Key highlights:</strong></p>
+                    <ul class="list-disc ml-6 mt-2 mb-2">
+                        <li>100% remote work</li>
+                        <li>Work with cutting-edge technologies (AWS, Kubernetes, microservices)</li>
+                        <li>Collaborative team culture</li>
+                        <li>Significant growth opportunities</li>
+                    </ul>
+                    <br>
+                    <p>Would you be interested in learning more about this opportunity? I'd love to schedule a brief call to discuss the role in detail and answer any questions you might have.</p>
+                    <br>
+                    <p>Looking forward to hearing from you!</p>
+                    <br>
+                    <p>Best regards,<br>Sarah Mitchell</p>
+                </div>
+
+                <div id="variables-panel" class="hidden mt-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-semibold text-gray-900">Insert Variable</h3>
+                        <button id="close-variables-panel" class="text-gray-600 hover:text-gray-800">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-left hover:bg-gray-50 transition-colors">
+                            <span class="font-mono text-blue-600">{{firstName}}</span>
+                            <span class="text-gray-500 text-xs block">First Name</span>
+                        </button>
+                        <button class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-left hover:bg-gray-50 transition-colors">
+                            <span class="font-mono text-blue-600">{{lastName}}</span>
+                            <span class="text-gray-500 text-xs block">Last Name</span>
+                        </button>
+                        <button class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-left hover:bg-gray-50 transition-colors">
+                            <span class="font-mono text-blue-600">{{company}}</span>
+                            <span class="text-gray-500 text-xs block">Company</span>
+                        </button>
+                        <button class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-left hover:bg-gray-50 transition-colors">
+                            <span class="font-mono text-blue-600">{{jobTitle}}</span>
+                            <span class="text-gray-500 text-xs block">Job Title</span>
+                        </button>
+                        <button class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-left hover:bg-gray-50 transition-colors">
+                            <span class="font-mono text-blue-600">{{email}}</span>
+                            <span class="text-gray-500 text-xs block">Email</span>
+                        </button>
+                        <button class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-left hover:bg-gray-50 transition-colors">
+                            <span class="font-mono text-blue-600">{{phone}}</span>
+                            <span class="text-gray-500 text-xs block">Phone</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="attachments-section" class="mt-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-paperclip text-gray-400"></i>
+                    <span class="text-sm text-gray-500">No attachments</span>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium ml-2">Add files</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-history-sidebar" class="border-t border-l border-gray-200 bg-gray-50 p-4 max-h-[300px] overflow-y-auto">
+        <h3 class="text-sm font-bold text-gray-900 mb-3">Previous Conversations</h3>
+        <div class="space-y-3">
+            <div class="bg-white border border-gray-200 rounded-lg p-3">
+                <div class="flex items-start justify-between mb-2">
+                    <p class="text-xs font-semibold text-gray-900">Follow-up on Senior Software Engineer role</p>
+                    <span class="text-xs text-gray-500">2 days ago</span>
+                </div>
+                <p class="text-xs text-gray-600 line-clamp-2">Hi Michael, I wanted to follow up on my previous email about the Senior Software Engineer position...</p>
+                <button class="mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium">View full email</button>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-3">
+                <div class="flex items-start justify-between mb-2">
+                    <p class="text-xs font-semibold text-gray-900">Initial outreach for Backend Engineer role</p>
+                    <span class="text-xs text-gray-500">1 week ago</span>
+                </div>
+                <p class="text-xs text-gray-600 line-clamp-2">Hi Michael, I came across your profile and was impressed by your extensive experience in backend...</p>
+                <button class="mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium">View full email</button>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-3">
+                <div class="flex items-start justify-between mb-2">
+                    <p class="text-xs font-semibold text-gray-900">Thank you for applying</p>
+                    <span class="text-xs text-gray-500">2 weeks ago</span>
+                </div>
+                <p class="text-xs text-gray-600 line-clamp-2">Hi Michael, Thank you for your interest in the Senior Software Engineer position at CloudTech...</p>
+                <button class="mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium">View full email</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="composer-footer" class="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-white">
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-save mr-2"></i>Save Template
+            </button>
+            <button class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-clock mr-2"></i>Schedule Send
+            </button>
+            <button class="px-4 py-2 text-sm font-medium text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>AI Improve
+            </button>
+        </div>
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center text-xs text-gray-500">
+                <i class="fa-solid fa-check-circle text-green-500 mr-1"></i>
+                <span>Auto-saved</span>
+            </div>
+            <button class="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors">
+                Save Draft
+            </button>
+            <button class="px-6 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                <i class="fa-solid fa-paper-plane mr-2"></i>Send Email
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="composer-overlay" class="hidden fixed inset-0 bg-black bg-opacity-30 z-40"></div>
+
+<script>
+window.addEventListener('load', function() {
+    const composeBtn = document.getElementById('compose-email-btn');
+    const drawer = document.getElementById('email-composer-drawer');
+    const overlay = document.getElementById('composer-overlay');
+    const closeBtn = document.getElementById('close-composer');
+    const minimizeBtn = document.getElementById('minimize-composer');
+    const showCcBtn = document.getElementById('show-cc-btn');
+    const showBccBtn = document.getElementById('show-bcc-btn');
+    const ccField = document.getElementById('cc-field');
+    const bccField = document.getElementById('bcc-field');
+    const insertVariableBtn = document.getElementById('insert-variable-btn');
+    const variablesPanel = document.getElementById('variables-panel');
+    const closeVariablesBtn = document.getElementById('close-variables-panel');
+
+    function openComposer() {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeComposer() {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    composeBtn.addEventListener('click', openComposer);
+    closeBtn.addEventListener('click', closeComposer);
+    overlay.addEventListener('click', closeComposer);
+    
+    minimizeBtn.addEventListener('click', function() {
+        drawer.style.height = '60px';
+        setTimeout(() => {
+            drawer.style.height = '';
+        }, 3000);
+    });
+
+    showCcBtn.addEventListener('click', function() {
+        ccField.classList.toggle('hidden');
+    });
+
+    showBccBtn.addEventListener('click', function() {
+        bccField.classList.toggle('hidden');
+    });
+
+    insertVariableBtn.addEventListener('click', function() {
+        variablesPanel.classList.toggle('hidden');
+    });
+
+    closeVariablesBtn.addEventListener('click', function() {
+        variablesPanel.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeComposer();
+        }
+    });
+});
+</script>
+
+</body>
+</html>

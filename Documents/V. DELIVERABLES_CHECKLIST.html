@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Garfield Greg V. Lim III" />
+  <meta name="dcterms.date" content="2025-11-08" />
+  <title>UniversalHire: AI-Powered Recruitment CRM</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pdf-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">UniversalHire: AI-Powered Recruitment CRM</h1>
+<p class="subtitle">Deliverables Checklist - Day 30/60/90</p>
+<p class="author">Garfield Greg V. Lim III</p>
+<p class="date">November 8, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#deliverables-checklist-day-306090"
+id="toc-deliverables-checklist-day-306090">Deliverables Checklist: Day
+30/60/90</a>
+<ul>
+<li><a href="#day-30-deliverables" id="toc-day-30-deliverables">Day 30
+Deliverables</a></li>
+<li><a href="#day-60-deliverables-mvp"
+id="toc-day-60-deliverables-mvp">Day 60 Deliverables (MVP)</a></li>
+<li><a href="#day-90-deliverables-hardening"
+id="toc-day-90-deliverables-hardening">Day 90 Deliverables
+(Hardening)</a></li>
+<li><a href="#success-metrics" id="toc-success-metrics">Success
+Metrics</a></li>
+<li><a href="#definition-of-done" id="toc-definition-of-done">Definition
+of Done</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="deliverables-checklist-day-306090">Deliverables Checklist: Day
+30/60/90</h1>
+<p><strong>Aligned with Job Description Requirements</strong></p>
+<hr />
+<h2 id="day-30-deliverables">Day 30 Deliverables</h2>
+<h3 id="architecture-documentation">Architecture Documentation</h3>
+<p><strong>Required Documents:</strong></p>
+<ul>
+<li><p><strong>Architecture Decision Record (ADR)</strong></p>
+<ul>
+<li>Multi-tenant strategy (shared DB + RLS)</li>
+<li>Platform choice rationale (Vercel + Neon + Clerk)</li>
+<li>Tech stack justification</li>
+<li>Data model overview</li>
+<li>API design patterns (tRPC)</li>
+</ul></li>
+<li><p><strong>Lightweight Threat Model</strong></p>
+<ul>
+<li>Authentication &amp; authorization flows</li>
+<li>Data isolation mechanisms (RLS)</li>
+<li>PII handling strategy</li>
+<li>Common attack vectors (SQL injection, XSS, CSRF)</li>
+<li>Mitigation strategies</li>
+</ul></li>
+<li><p><strong>Deployment Architecture Diagram</strong></p>
+<ul>
+<li>Frontend (Vercel)</li>
+<li>Database (Neon/Supabase)</li>
+<li>Background jobs (Inngest)</li>
+<li>Caching (Upstash Redis)</li>
+<li>AI services (OpenAI + Langfuse)</li>
+</ul></li>
+</ul>
+<p>** Deliverable:** <code>docs/architecture/</code> folder with:</p>
+<ul>
+<li><code>ADR.md</code> - Architecture decisions</li>
+<li><code>THREAT_MODEL.md</code> - Security analysis</li>
+<li><code>DEPLOYMENT.md</code> - Infrastructure diagram</li>
+<li><code>API_DESIGN.md</code> - API contracts</li>
+</ul>
+<hr />
+<h3 id="monorepo-scaffold">Monorepo Scaffold</h3>
+<p><strong>Structure:</strong></p>
+<pre><code>universalhire/
+├── apps/
+│   └── web/          # Next.js app
+├── packages/
+│   ├── database/     # Prisma
+│   ├── auth/         # Clerk utilities
+│   ├── types/        # Shared types
+│   └── config/       # Shared config
+├── turbo.json
+├── package.json
+└── pnpm-workspace.yaml</code></pre>
+<p><strong>Configuration:</strong></p>
+<ul>
+<li>Turborepo + pnpm workspace configured</li>
+<li>ESLint + Prettier (or Biome) for TypeScript</li>
+<li>Shared config across packages</li>
+<li>Pre-commit hooks (Husky)</li>
+</ul>
+<p><strong>CI/CD Pipeline:</strong></p>
+<ul>
+<li>Type checking (tsc)</li>
+<li>Linting (Biome/ESLint)</li>
+<li>Tests (Vitest)</li>
+<li>Build check</li>
+<li>E2E tests (Playwright) on main</li>
+</ul>
+<p>** Deliverable:** Working monorepo with CI passing</p>
+<hr />
+<h3 id="auth-roles-live">Auth &amp; Roles Live</h3>
+<p><strong>Clerk Integration:</strong></p>
+<ul>
+<li>Sign up / Sign in flows</li>
+<li>Email verification</li>
+<li>Password reset</li>
+</ul>
+<p><strong>Organization Management:</strong></p>
+<ul>
+<li>Create organization</li>
+<li>Switch between orgs</li>
+<li>Invite members</li>
+<li>Organization slug-based routing</li>
+</ul>
+<p><strong>Role-Based Access Control (RBAC):</strong></p>
+<ul>
+<li>Owner (all permissions)</li>
+<li>Admin (contacts, companies, jobs, settings)</li>
+<li>Manager (contacts, companies read, jobs)</li>
+<li>Recruiter (contacts read/create, jobs read)</li>
+<li>Viewer (read-only access)</li>
+</ul>
+<p><strong>Middleware:</strong></p>
+<ul>
+<li>Extract user from Clerk session</li>
+<li>Validate org membership</li>
+<li>Check permissions before actions</li>
+<li>Attach org context to all requests</li>
+</ul>
+<p>** Deliverable:** Auth flows working + org switcher + RBAC active</p>
+<hr />
+<h3 id="first-ui-flows-companiescontacts">First UI Flows
+(Companies/Contacts)</h3>
+<p><strong>Companies Module:</strong></p>
+<ul>
+<li>List companies (with pagination)</li>
+<li>View company detail</li>
+<li>Create company</li>
+<li>Edit company</li>
+<li>Search companies</li>
+</ul>
+<p><strong>Contacts Module:</strong></p>
+<ul>
+<li>List contacts (with pagination)</li>
+<li>View contact detail</li>
+<li>Create contact</li>
+<li>Edit contact</li>
+<li>Link contact to company</li>
+<li>Search contacts</li>
+</ul>
+<p><strong>UI Components (shadcn/ui):</strong></p>
+<ul>
+<li>Data tables with sorting</li>
+<li>Forms with validation (React Hook Form + Zod)</li>
+<li>Search bars</li>
+<li>Modals/dialogs</li>
+<li>Loading states</li>
+<li>Error states</li>
+</ul>
+<p>** Deliverable:** Working CRUD for companies and contacts</p>
+<hr />
+<h3 id="seeded-postgresprisma">Seeded Postgres/Prisma</h3>
+<p><strong>Prisma Schema Complete:</strong></p>
+<ul>
+<li>Organizations</li>
+<li>Users</li>
+<li>OrganizationMembers</li>
+<li>Companies</li>
+<li>Contacts</li>
+<li>Jobs (basic)</li>
+<li>Activities (basic)</li>
+<li>All with proper indexes</li>
+</ul>
+<p><strong>Migrations:</strong></p>
+<ul>
+<li>All tables created</li>
+<li>RLS policies active</li>
+<li>Indexes created</li>
+</ul>
+<p><strong>Seed Script:</strong></p>
+<ul>
+<li>3 test organizations</li>
+<li>5 users across orgs</li>
+<li>50 companies per org</li>
+<li>200 contacts per org</li>
+</ul>
+<p>** Deliverable:** Database schema live + seed data working</p>
+<hr />
+<h3 id="baseline-ai-embeddings-pipeline">Baseline AI: Embeddings
+Pipeline</h3>
+<p><strong>Embeddings Generation:</strong></p>
+<ul>
+<li>Background job to generate embeddings for contacts</li>
+<li>OpenAI text-embedding-3-small</li>
+<li>Stored in pgvector</li>
+</ul>
+<p><strong>Vector Search:</strong></p>
+<ul>
+<li>Basic semantic search working</li>
+<li>Distance-based similarity</li>
+<li>Returns top 20 results</li>
+<li>Org-scoped queries</li>
+</ul>
+<p>** Deliverable:** Embeddings generated + basic vector search
+working</p>
+<hr />
+<h3 id="eval-harness-langfuse-integration">Eval Harness + Langfuse
+Integration</h3>
+<p><strong>Langfuse Setup:</strong></p>
+<ul>
+<li>Project created</li>
+<li>API keys configured</li>
+<li>SDKs integrated</li>
+</ul>
+<p><strong>Prompt Versioning:</strong></p>
+<ul>
+<li>Prompts stored in Langfuse</li>
+<li>Version controlled</li>
+<li>Compiled with variables</li>
+<li>Logged traces</li>
+</ul>
+<p><strong>Cost Tracking:</strong></p>
+<ul>
+<li>Track API calls per org</li>
+<li>Track total tokens used</li>
+<li>Calculate costs</li>
+<li>Dashboard in Langfuse</li>
+</ul>
+<p><strong>Basic Evals:</strong></p>
+<ul>
+<li>Test search quality</li>
+<li>Test cases with expected results</li>
+<li>Calculate relevance scores</li>
+<li>Log scores to Langfuse</li>
+</ul>
+<p>** Deliverable:** Langfuse integrated + cost tracking + basic
+evals</p>
+<hr />
+<h3 id="latency-dashboard">Latency Dashboard</h3>
+<p><strong>Metrics Collected:</strong></p>
+<ul>
+<li>API endpoint latency (P50, P95, P99)</li>
+<li>Database query duration</li>
+<li>AI API call duration</li>
+<li>Background job processing time</li>
+</ul>
+<p><strong>Dashboard (Langfuse + Vercel Analytics):</strong></p>
+<ul>
+<li>Real-time latency metrics</li>
+<li>Error rates</li>
+<li>AI costs per org</li>
+<li>Slow query log</li>
+</ul>
+<p>** Deliverable:** Observability dashboard showing key metrics</p>
+<hr />
+<h2 id="day-60-deliverables-mvp">Day 60 Deliverables (MVP)</h2>
+<h3 id="usable-crm">Usable CRM</h3>
+<p><strong>Companies:</strong></p>
+<ul>
+<li>Full CRUD with validation</li>
+<li>Search and filters</li>
+<li>Bulk operations</li>
+<li>CSV import</li>
+</ul>
+<p><strong>Contacts:</strong></p>
+<ul>
+<li>Full CRUD with validation</li>
+<li>Link to companies</li>
+<li>Tags and custom fields</li>
+<li>Advanced filters</li>
+<li>CSV import</li>
+<li>Duplicate detection</li>
+</ul>
+<p><strong>Jobs/Pipeline:</strong></p>
+<ul>
+<li>Create jobs with requirements</li>
+<li>Drag-and-drop pipeline board</li>
+<li>Stages: Applied → Screening → Interview → Offer →
+Hired/Rejected</li>
+<li>Assign contacts to jobs</li>
+<li>Move contacts between stages</li>
+<li>Pipeline analytics</li>
+</ul>
+<p><strong>Notes &amp; Tasks:</strong></p>
+<ul>
+<li>Add notes to contacts/companies/jobs</li>
+<li>Create tasks with due dates</li>
+<li>Assign tasks to team members</li>
+<li>Task notifications</li>
+</ul>
+<p><strong>Saved Views &amp; Search:</strong></p>
+<ul>
+<li>Create custom filters</li>
+<li>Save filter combinations as views</li>
+<li>Share views with team</li>
+<li>Full-text search across entities</li>
+</ul>
+<p>** Deliverable:** Fully functional CRM with all core features</p>
+<hr />
+<h3 id="emailsms-io-activity-timeline">Email/SMS I/O &amp; Activity
+Timeline</h3>
+<p><strong>Email Integration:</strong></p>
+<ul>
+<li>Gmail OAuth connection</li>
+<li>Outlook OAuth connection</li>
+<li>Bi-directional sync (send + receive)</li>
+<li>Email composer with templates</li>
+<li>Email threading</li>
+<li>Auto-log emails to contact timeline</li>
+</ul>
+<p><strong>SMS Integration:</strong></p>
+<ul>
+<li>Twilio integration</li>
+<li>Send SMS from platform</li>
+<li>Receive SMS (webhook)</li>
+<li>Auto-log SMS to timeline</li>
+</ul>
+<p><strong>Calendar Integration:</strong></p>
+<ul>
+<li>Google Calendar OAuth</li>
+<li>Outlook Calendar OAuth</li>
+<li>Schedule meetings from platform</li>
+<li>Auto-log meetings to timeline</li>
+</ul>
+<p><strong>Unified Activity Timeline:</strong></p>
+<ul>
+<li>Show all activities (emails, calls, SMS, meetings, notes)</li>
+<li>Chronological order</li>
+<li>Filter by activity type</li>
+<li>Search activities</li>
+</ul>
+<p>** Deliverable:** Communication layer fully integrated</p>
+<hr />
+<h3 id="background-jobs-running-in-prod">Background Jobs Running in
+Prod</h3>
+<p><strong>Inngest/Trigger.dev Deployed:</strong></p>
+<ul>
+<li>Email sync worker (runs every 5 min)</li>
+<li>SMS sync worker</li>
+<li>Embedding generation worker</li>
+<li>CSV import processor</li>
+</ul>
+<p><strong>Job Monitoring:</strong></p>
+<ul>
+<li>Job success/failure rates</li>
+<li>Job duration</li>
+<li>Retry counts</li>
+<li>Dead letter queue</li>
+</ul>
+<p><strong>Scheduled Jobs:</strong></p>
+<ul>
+<li>Daily: Clean up old data</li>
+<li>Hourly: Sync emails/SMS</li>
+<li>On-demand: Generate embeddings, process CSV</li>
+</ul>
+<p>** Deliverable:** Background jobs operational and monitored</p>
+<hr />
+<h3 id="ai-v1-rag-search">AI V1: RAG Search</h3>
+<p><strong>Semantic Search:</strong></p>
+<ul>
+<li>Natural language queries</li>
+<li>Vector similarity search</li>
+<li>Hybrid search (keyword + semantic)</li>
+<li>Result ranking</li>
+</ul>
+<p><strong>RAG (Retrieval-Augmented Generation):</strong></p>
+<ul>
+<li>Query: “Find senior engineers who worked at startups in SF”</li>
+<li>Generate embedding for query</li>
+<li>Vector search returns relevant candidates</li>
+<li>LLM generates response with context</li>
+</ul>
+<p>** Deliverable:** Working semantic search with RAG</p>
+<hr />
+<h3 id="ai-v1-dedupematching">AI V1: Dedupe/Matching</h3>
+<p><strong>Smart Duplicate Detection:</strong></p>
+<ul>
+<li>Fuzzy name matching</li>
+<li>Email similarity</li>
+<li>Embedding similarity</li>
+<li>LinkedIn URL matching</li>
+<li>Phone number matching</li>
+</ul>
+<p><strong>Merge UI:</strong></p>
+<ul>
+<li>Show potential duplicates</li>
+<li>Compare fields side-by-side</li>
+<li>Select which data to keep</li>
+<li>Merge records</li>
+</ul>
+<p><strong>Automated Matching:</strong></p>
+<ul>
+<li>Candidate → Job matching</li>
+<li>Similarity score</li>
+<li>Explanation (“matches because of skills, location…”)</li>
+</ul>
+<p>** Deliverable:** Duplicate detection + candidate matching
+working</p>
+<hr />
+<h3 id="ai-v1-meetingemail-summaries">AI V1: Meeting/Email
+Summaries</h3>
+<p><strong>Transcription:</strong></p>
+<ul>
+<li>Upload audio/video</li>
+<li>Transcribe with Whisper</li>
+<li>Speaker diarization</li>
+</ul>
+<p><strong>Summarization:</strong></p>
+<ul>
+<li>Summarize recruiting calls</li>
+<li>Extract key points</li>
+<li>Identify sentiment</li>
+<li>Generate concise summaries</li>
+</ul>
+<p><strong>Action Item Extraction:</strong></p>
+<ul>
+<li>Extract tasks from transcript</li>
+<li>Auto-create tasks</li>
+<li>Assign to team members</li>
+</ul>
+<p><strong>Email Summarization:</strong></p>
+<ul>
+<li>Summarize email threads</li>
+<li>Sentiment analysis</li>
+<li>Key points extraction</li>
+</ul>
+<p>** Deliverable:** AI summaries for meetings and emails working</p>
+<hr />
+<h3 id="eval-dashboards-budget-guards">Eval Dashboards &amp; Budget
+Guards</h3>
+<p><strong>Quality Metrics:</strong></p>
+<ul>
+<li>Search relevance scores</li>
+<li>Summary accuracy (human eval)</li>
+<li>Duplicate detection precision/recall</li>
+</ul>
+<p><strong>Cost Monitoring:</strong></p>
+<ul>
+<li>Real-time AI spend per org</li>
+<li>Daily/weekly/monthly reports</li>
+<li>Cost by feature (search, summarization, etc.)</li>
+</ul>
+<p><strong>Budget Enforcement:</strong></p>
+<ul>
+<li>Check org’s AI budget before expensive operations</li>
+<li>Quota limits (e.g., $1000/month per org)</li>
+<li>Throw error when quota exceeded</li>
+</ul>
+<p><strong>Alerts:</strong></p>
+<ul>
+<li>Alert when org approaching quota (80%)</li>
+<li>Alert on cost spikes (&gt;$500/hour)</li>
+<li>Alert on quality degradation</li>
+</ul>
+<p>** Deliverable:** Cost tracking + quality monitoring + budgets
+enforced</p>
+<hr />
+<h2 id="day-90-deliverables-hardening">Day 90 Deliverables
+(Hardening)</h2>
+<h3 id="slos-alerts">SLOs &amp; Alerts</h3>
+<p><strong>Service Level Objectives:</strong></p>
+<table>
+<thead>
+<tr>
+<th>SLO Name</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Availability</td>
+<td>99.9%</td>
+</tr>
+<tr>
+<td>API Latency (P95)</td>
+<td>&lt; 500ms</td>
+</tr>
+<tr>
+<td>Background Job Success Rate</td>
+<td>99.5%</td>
+</tr>
+<tr>
+<td>Email Sync Latency</td>
+<td>&lt; 5 min</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Alerts Configured (PagerDuty or similar):</strong></p>
+<ul>
+<li>API error rate &gt; 1% for 5 min</li>
+<li>API latency P95 &gt; 1s for 10 min</li>
+<li>Database connections &gt; 90%</li>
+<li>AI costs &gt; $500/hour</li>
+<li>Background job failures &gt; 5% for 30 min</li>
+</ul>
+<p>** Deliverable:** SLOs documented + alerting operational</p>
+<hr />
+<h3 id="audit-logging">Audit Logging</h3>
+<p><strong>Comprehensive Audit Log:</strong></p>
+<ul>
+<li>Organization ID</li>
+<li>User ID</li>
+<li>Action (create, update, delete, view)</li>
+<li>Entity type (contact, company, job)</li>
+<li>Entity ID</li>
+<li>Changes (before/after in JSON)</li>
+<li>IP address</li>
+<li>User agent</li>
+<li>Timestamp</li>
+</ul>
+<p><strong>Audit Trail UI:</strong></p>
+<ul>
+<li>View all actions in org</li>
+<li>Filter by user, entity type, date</li>
+<li>Export audit logs (for compliance)</li>
+</ul>
+<p><strong>Retention Policy:</strong></p>
+<ul>
+<li>Keep audit logs for 7 years (compliance)</li>
+<li>Archive old logs to cold storage</li>
+</ul>
+<p>** Deliverable:** Full audit logging active</p>
+<hr />
+<h3 id="drbackups-pitr">DR/Backups (PITR)</h3>
+<p><strong>Point-in-Time Recovery (PITR):</strong></p>
+<ul>
+<li>Neon/Supabase automatic backups</li>
+<li>Can restore to any point in last 30 days</li>
+<li>Tested recovery process</li>
+</ul>
+<p><strong>Backup Strategy:</strong></p>
+<ul>
+<li>Daily automated snapshots</li>
+<li>Retention: 30 days</li>
+<li>Cross-region backup (DR)</li>
+</ul>
+<p><strong>Disaster Recovery Plan:</strong></p>
+<ul>
+<li>RTO (Recovery Time Objective): 1 hour</li>
+<li>RPO (Recovery Point Objective): 5 minutes</li>
+<li>Documented runbook</li>
+<li>Tested quarterly</li>
+</ul>
+<p>** Deliverable:** Backup + DR tested and documented</p>
+<hr />
+<h3 id="performance-pass">Performance Pass</h3>
+<p><strong>Database Optimization:</strong></p>
+<ul>
+<li>All slow queries identified and optimized</li>
+<li>Query cache hit rate &gt; 95%</li>
+<li>Index usage analyzed</li>
+<li>VACUUM and ANALYZE scheduled</li>
+</ul>
+<p><strong>API Optimization:</strong></p>
+<ul>
+<li>All endpoints &lt; 500ms (P95)</li>
+<li>N+1 queries eliminated</li>
+<li>Response caching implemented</li>
+<li>Payload size optimized</li>
+</ul>
+<p><strong>Frontend Optimization:</strong></p>
+<ul>
+<li>Core Web Vitals green:
+<ul>
+<li>LCP &lt; 2.5s</li>
+<li>FID &lt; 100ms</li>
+<li>CLS &lt; 0.1</li>
+</ul></li>
+<li>Code splitting</li>
+<li>Image optimization</li>
+<li>Bundle size &lt; 200KB</li>
+</ul>
+<p>** Deliverable:** Performance targets met</p>
+<hr />
+<h3 id="first-automations">First Automations</h3>
+<p><strong>Auto-Enrich:</strong></p>
+<ul>
+<li>Automatically enrich contacts from LinkedIn</li>
+<li>Add missing company info</li>
+<li>Update job titles</li>
+</ul>
+<p><strong>Auto-Routing:</strong></p>
+<ul>
+<li>Route incoming candidates to right recruiter</li>
+<li>Based on skills, location, job type</li>
+</ul>
+<p><strong>Email Sequences:</strong></p>
+<ul>
+<li>Automated follow-up sequences</li>
+<li>Personalized with AI</li>
+<li>Opt-out handling</li>
+<li>Engagement tracking</li>
+</ul>
+<p>** Deliverable:** Automation features working</p>
+<hr />
+<h3 id="prompt-versioning-ab-tests">Prompt Versioning &amp; A/B
+Tests</h3>
+<p><strong>Prompt Registry (Langfuse):</strong></p>
+<ul>
+<li>All prompts version-controlled</li>
+<li>Easy rollback</li>
+<li>Prompt comparison</li>
+</ul>
+<p><strong>A/B Testing:</strong></p>
+<ul>
+<li>Test two different summarization prompts</li>
+<li>Use GrowthBook for variant selection</li>
+<li>Track which variant performs better</li>
+<li>Log results to Langfuse</li>
+</ul>
+<p><strong>Experiment Results:</strong></p>
+<ul>
+<li>Statistical significance calculated</li>
+<li>Winner rolled out to all users</li>
+</ul>
+<p>** Deliverable:** A/B testing framework operational</p>
+<hr />
+<h3 id="red-team-tests">Red-Team Tests</h3>
+<p><strong>Prompt Injection Testing:</strong></p>
+<ul>
+<li>Tested with adversarial prompts</li>
+<li>Guardrails implemented</li>
+<li>Input validation</li>
+</ul>
+<p><strong>PII Leakage Testing:</strong></p>
+<ul>
+<li>Ensure AI doesn’t leak PII across orgs</li>
+<li>Test RLS enforcement</li>
+<li>Data masking where needed</li>
+</ul>
+<p><strong>Security Testing:</strong></p>
+<ul>
+<li>SQL injection (should be impossible with Prisma, but test)</li>
+<li>XSS testing</li>
+<li>CSRF protection</li>
+<li>Rate limiting tested</li>
+</ul>
+<p>** Deliverable:** Security tests passed + report</p>
+<hr />
+<h3 id="model-fallback-traffic-splitting">Model Fallback &amp; Traffic
+Splitting</h3>
+<p><strong>Model Fallback:</strong></p>
+<ul>
+<li>Try OpenAI first</li>
+<li>If rate_limit_exceeded, fallback to Anthropic</li>
+<li>If both fail, throw error with helpful message</li>
+</ul>
+<p><strong>Traffic Splitting:</strong></p>
+<ul>
+<li>Route 90% to GPT-4o-mini (cheap)</li>
+<li>Route 10% to GPT-4o (expensive, better quality)</li>
+<li>Compare results</li>
+<li>A/B test quality vs. cost</li>
+</ul>
+<p><strong>Circuit Breaker:</strong></p>
+<ul>
+<li>If error rate &gt; 20%, stop calling AI</li>
+<li>Fallback to non-AI features</li>
+<li>Auto-recover when service restored</li>
+</ul>
+<p>** Deliverable:** Resilient AI infrastructure</p>
+<hr />
+<h2 id="success-metrics">Success Metrics</h2>
+<h3 id="day-30">Day 30</h3>
+<ul>
+<li>CI passing on all PRs</li>
+<li>Can sign up and create org</li>
+<li>Can CRUD companies and contacts</li>
+<li>Embeddings generated for sample data</li>
+</ul>
+<h3 id="day-60">Day 60</h3>
+<ul>
+<li>5 pilot users actively using</li>
+<li>&lt;2s page load time</li>
+<li>Email/SMS sync working</li>
+<li>AI search returning relevant results</li>
+<li>&lt;$1000 total AI spend (early stage)</li>
+</ul>
+<h3 id="day-90">Day 90</h3>
+<ul>
+<li>99.9% uptime</li>
+<li>P95 latency &lt; 500ms</li>
+<li>All security tests passing</li>
+<li>Disaster recovery tested</li>
+<li>20+ pilot users</li>
+<li>AI cost per user &lt; $10/month</li>
+</ul>
+<hr />
+<h2 id="definition-of-done">Definition of Done</h2>
+<p>Each deliverable must meet:</p>
+<ul>
+<li><strong>Code quality:</strong> Passes CI (lint, type-check,
+tests)</li>
+<li><strong>Testing:</strong> Unit tests + E2E tests for critical
+paths</li>
+<li><strong>Documentation:</strong> README updated, API docs
+current</li>
+<li><strong>Observability:</strong> Logging, metrics, tracing added</li>
+<li><strong>Security:</strong> Reviewed for common vulnerabilities</li>
+<li><strong>Performance:</strong> Meets latency requirements</li>
+<li><strong>Accessibility:</strong> WCAG 2.1 AA compliance (UI
+components)</li>
+</ul>
+<hr />
+<p><strong>This checklist ensures the team hit all requirements from the
+job description while building a production-ready system. Track progress
+weekly!</strong></p>
+<hr />
+<p><em>Document Version: 2.0</em><br />
+<em>Last Updated: November 8, 2025</em><br />
+<em>Code-free: High-level deliverables only</em></p>
+</body>
+</html>

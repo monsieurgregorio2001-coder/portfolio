@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="settings-sidebar" class="fixed left-0 top-16 bottom-0 w-80 bg-white border-r border-gray-200 overflow-y-auto">
+    <div class="p-6">
+        <div class="flex items-center space-x-3 mb-6">
+            <button class="text-gray-500 hover:text-gray-700">
+                <i class="fa-solid fa-arrow-left text-lg"></i>
+            </button>
+            <div>
+                <h2 class="text-lg font-bold text-gray-900">Organization Settings</h2>
+                <p class="text-xs text-gray-500">Acme Recruiting</p>
+            </div>
+        </div>
+
+        <nav class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium border-l-4 border-blue-600">
+                <i class="fa-solid fa-gear w-5"></i>
+                <span class="ml-3">General</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-users w-5"></i>
+                <span class="ml-3">Team & Members</span>
+                <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">8</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-shield-halved w-5"></i>
+                <span class="ml-3">Roles & Permissions</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-credit-card w-5"></i>
+                <span class="ml-3">Billing & Subscription</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-puzzle-piece w-5"></i>
+                <span class="ml-3">Integrations</span>
+                <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">5</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-lock w-5"></i>
+                <span class="ml-3">Security</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-key w-5"></i>
+                <span class="ml-3">API Keys</span>
+            </a>
+            
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <i class="fa-solid fa-bell w-5"></i>
+                <span class="ml-3">Notifications</span>
+            </a>
+        </nav>
+
+        <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-info-circle text-blue-600 mt-1"></i>
+                <div>
+                    <p class="text-sm font-semibold text-blue-900 mb-1">Need Help?</p>
+                    <p class="text-xs text-blue-700 mb-3">Check out our documentation or contact support for assistance with settings.</p>
+                    <button class="text-xs font-semibold text-blue-600 hover:text-blue-700">
+                        View Documentation <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-80 mt-16 p-8 bg-gray-50">
+    <div id="breadcrumb-section" class="mb-6">
+        <div class="flex items-center space-x-2 text-sm text-gray-500">
+            <a href="#" class="hover:text-blue-600">Settings</a>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+            <a href="#" class="hover:text-blue-600">Organization</a>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+            <span class="text-gray-900 font-medium">General</span>
+        </div>
+    </div>
+
+    <div id="page-header-section" class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Organization Settings</h1>
+        <p class="text-gray-600">Manage your organization details, team members, and subscription</p>
+    </div>
+
+    <div id="organization-details-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-lg font-bold text-gray-900">Organization Details</h2>
+            <p class="text-sm text-gray-600 mt-1">Update your organization information and branding</p>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-2 gap-6">
+                <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Organization Logo</label>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-24 h-24 bg-blue-100 rounded-xl flex items-center justify-center border-2 border-dashed border-blue-300">
+                            <span class="text-3xl font-bold text-blue-600">AC</span>
+                        </div>
+                        <div>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm">
+                                <i class="fa-solid fa-upload mr-2"></i>
+                                Upload Logo
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2">PNG, JPG or SVG. Max size 2MB. Recommended 400x400px</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Organization Name</label>
+                    <input type="text" value="Acme Recruiting" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Organization Slug</label>
+                    <div class="flex items-center">
+                        <span class="px-4 py-2.5 bg-gray-100 border border-r-0 border-gray-200 rounded-l-lg text-sm text-gray-600">universalhire.com/</span>
+                        <input type="text" value="acme-recruiting" class="flex-1 px-4 py-2.5 border border-gray-200 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Industry</label>
+                    <select class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Recruiting & Staffing</option>
+                        <option>Technology</option>
+                        <option>Healthcare</option>
+                        <option>Finance</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Organization Size</label>
+                    <select class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>5-10 employees</option>
+                        <option>11-50 employees</option>
+                        <option>51-200 employees</option>
+                        <option>201-500 employees</option>
+                        <option>500+ employees</option>
+                    </select>
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Website</label>
+                    <input type="url" value="https://acmerecruiting.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                    <textarea rows="4" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell us about your organization...">Leading recruiting agency specializing in technology and software engineering placements across North America.</textarea>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+                <button class="px-5 py-2.5 border border-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+                <button class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="team-members-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-gray-900">Team Members</h2>
+                    <p class="text-sm text-gray-600 mt-1">Manage your team members and their roles</p>
+                </div>
+                <button class="px-4 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    <i class="fa-solid fa-user-plus mr-2"></i>
+                    Invite Member
+                </button>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="mb-4 flex items-center justify-between">
+                <div class="relative flex-1 max-w-md">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" placeholder="Search members..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                </div>
+                <div class="flex items-center space-x-2">
+                    <select class="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>All Roles</option>
+                        <option>Admin</option>
+                        <option>Manager</option>
+                        <option>Recruiter</option>
+                    </select>
+                    <select class="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>Pending</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Member</th>
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Role</th>
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Status</th>
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Last Active</th>
+                            <th class="text-right py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Sarah Mitchell</p>
+                                        <p class="text-xs text-gray-500">sarah.mitchell@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">Admin</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">2 minutes ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Mike" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Mike Johnson</p>
+                                        <p class="text-xs text-gray-500">mike.johnson@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">Manager</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">15 minutes ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Emily" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Emily Davis</p>
+                                        <p class="text-xs text-gray-500">emily.davis@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Recruiter</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">1 hour ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="David" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">David Park</p>
+                                        <p class="text-xs text-gray-500">david.park@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Recruiter</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">2 hours ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-7.jpg" alt="Lisa" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Lisa Chen</p>
+                                        <p class="text-xs text-gray-500">lisa.chen@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Recruiter</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">3 hours ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="James" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">James Wilson</p>
+                                        <p class="text-xs text-gray-500">james.wilson@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Recruiter</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">5 hours ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-9.jpg" alt="Marcus" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Marcus Rodriguez</p>
+                                        <p class="text-xs text-gray-500">marcus.rodriguez@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Recruiter</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">Yesterday</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Rachel" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Rachel Thompson</p>
+                                        <p class="text-xs text-gray-500">rachel.thompson@acme.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">Recruiter</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-600">2 days ago</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="pending-invitations-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-lg font-bold text-gray-900">Pending Invitations</h2>
+            <p class="text-sm text-gray-600 mt-1">Manage pending team member invitations</p>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-yellow-200 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-envelope text-yellow-700"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">alex.martinez@email.com</p>
+                            <p class="text-xs text-gray-600">Invited as <span class="font-semibold">Recruiter</span> • 2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            <i class="fa-solid fa-paper-plane mr-1"></i>
+                            Resend
+                        </button>
+                        <button class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                            <i class="fa-solid fa-times mr-1"></i>
+                            Revoke
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-yellow-200 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-envelope text-yellow-700"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">jessica.brown@email.com</p>
+                            <p class="text-xs text-gray-600">Invited as <span class="font-semibold">Recruiter</span> • 5 days ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            <i class="fa-solid fa-paper-plane mr-1"></i>
+                            Resend
+                        </button>
+                        <button class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                            <i class="fa-solid fa-times mr-1"></i>
+                            Revoke
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="subscription-usage-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-gray-900">Subscription & Usage</h2>
+                    <p class="text-sm text-gray-600 mt-1">Monitor your plan usage and billing</p>
+                </div>
+                <button class="px-4 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    <i class="fa-solid fa-crown mr-2"></i>
+                    Upgrade Plan
+                </button>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="p-6 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl text-white">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <p class="text-sm text-blue-100 mb-1">Current Plan</p>
+                            <h3 class="text-2xl font-bold">Professional</h3>
+                        </div>
+                        <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-crown text-2xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-blue-100 mb-4">$499/month • Billed monthly</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                        <span class="text-sm">Next billing date</span>
+                        <span class="text-sm font-semibold">Dec 15, 2024</span>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-1">Total Spent</p>
+                            <h3 class="text-2xl font-bold text-gray-900">$5,988</h3>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-dollar-sign text-green-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Last 12 months</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <span class="text-sm text-gray-600">Average monthly</span>
+                        <span class="text-sm font-semibold text-gray-900">$499</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Team Members</p>
+                            <p class="text-xs text-gray-500 mt-0.5">8 of 10 seats used</p>
+                        </div>
+                        <span class="text-sm font-semibold text-blue-600">80%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Contacts Database</p>
+                            <p class="text-xs text-gray-500 mt-0.5">1,247 of 5,000 contacts</p>
+                        </div>
+                        <span class="text-sm font-semibold text-green-600">25%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-green-600 h-2.5 rounded-full" style="width: 25%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">AI Credits</p>
+                            <p class="text-xs text-gray-500 mt-0.5">342 of 1,000 credits used this month</p>
+                        </div>
+                        <span class="text-sm font-semibold text-purple-600">34%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-purple-600 h-2.5 rounded-full" style="width: 34%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Storage</p>
+                            <p class="text-xs text-gray-500 mt-0.5">8.4 GB of 50 GB used</p>
+                        </div>
+                        <span class="text-sm font-semibold text-orange-600">17%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-orange-600 h-2.5 rounded-full" style="width: 17%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div class="flex items-start space-x-3">
+                    <i class="fa-solid fa-info-circle text-blue-600 mt-0.5"></i>
+                    <div>
+                        <p class="text-sm font-semibold text-blue-900 mb-1">Need more resources?</p>
+                        <p class="text-xs text-blue-700">Upgrade to our Enterprise plan for unlimited contacts, advanced AI features, and priority support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="billing-history-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-bold text-gray-900">Billing History</h2>
+                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                    View all invoices
+                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Invoice</th>
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Date</th>
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Amount</th>
+                            <th class="text-left py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Status</th>
+                            <th class="text-right py-3 px-4 text-xs font-semibold text-gray-600 uppercase">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <p class="text-sm font-semibold text-gray-900">#INV-2024-11</p>
+                                <p class="text-xs text-gray-500">Professional Plan</p>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-900">Nov 15, 2024</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">$499.00</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                                    <i class="fa-solid fa-download mr-1"></i>
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <p class="text-sm font-semibold text-gray-900">#INV-2024-10</p>
+                                <p class="text-xs text-gray-500">Professional Plan</p>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-900">Oct 15, 2024</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">$499.00</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                                    <i class="fa-solid fa-download mr-1"></i>
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <p class="text-sm font-semibold text-gray-900">#INV-2024-09</p>
+                                <p class="text-xs text-gray-500">Professional Plan</p>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-900">Sep 15, 2024</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">$499.00</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                                    <i class="fa-solid fa-download mr-1"></i>
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-4 px-4">
+                                <p class="text-sm font-semibold text-gray-900">#INV-2024-08</p>
+                                <p class="text-xs text-gray-500">Professional Plan</p>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm text-gray-900">Aug 15, 2024</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-sm font-semibold text-gray-900">$499.00</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 px-4 text-right">
+                                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">
+                                    <i class="fa-solid fa-download mr-1"></i>
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-method-section" class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-lg font-bold text-gray-900">Payment Method</h2>
+            <p class="text-sm text-gray-600 mt-1">Manage your payment methods</p>
+        </div>
+        <div class="p-6">
+            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fa-brands fa-cc-visa text-blue-600 text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900">Visa ending in 4242</p>
+                        <p class="text-xs text-gray-500">Expires 12/2025</p>
+                    </div>
+                    <span class="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">Primary</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors">
+                        Edit
+                    </button>
+                    <button class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                        Remove
+                    </button>
+                </div>
+            </div>
+
+            <button class="mt-4 w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:border-blue-500 hover:text-blue-600 transition-colors">
+                <i class="fa-solid fa-plus mr-2"></i>
+                Add Payment Method
+            </button>
+        </div>
+    </div>
+
+    <div id="danger-zone-section" class="bg-white rounded-xl border-2 border-red-200 mb-8">
+        <div class="p-6 border-b border-red-200 bg-red-50">
+            <h2 class="text-lg font-bold text-red-900">Danger Zone</h2>
+            <p class="text-sm text-red-700 mt-1">Irreversible actions that affect your organization</p>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 border border-red-200 rounded-lg bg-red-50">
+                    <div>
+                        <p class="text-sm font-semibold text-red-900">Transfer Ownership</p>
+                        <p class="text-xs text-red-700 mt-1">Transfer organization ownership to another admin</p>
+                    </div>
+                    <button class="px-4 py-2 bg-white border border-red-300 text-red-700 rounded-lg font-medium hover:bg-red-50 transition-colors text-sm">
+                        Transfer
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-red-200 rounded-lg bg-red-50">
+                    <div>
+                        <p class="text-sm font-semibold text-red-900">Delete Organization</p>
+                        <p class="text-xs text-red-700 mt-1">Permanently delete this organization and all associated data</p>
+                    </div>
+                    <button class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors text-sm">
+                        Delete Organization
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="invite-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-900">Invite Team Member</h2>
+                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                    <input type="email" placeholder="colleague@email.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="text-xs text-gray-500 mt-2">You can invite multiple people by separating emails with commas</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Select Role</label>
+                    <div class="space-y-3">
+                        <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all">
+                            <input type="radio" name="role" value="admin" class="mt-1 mr-3">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Admin</p>
+                                    <span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded">Full Access</span>
+                                </div>
+                                <p class="text-xs text-gray-600">Can manage organization settings, billing, team members, and all recruiting activities. Full administrative privileges.</p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all">
+                            <input type="radio" name="role" value="manager" class="mt-1 mr-3">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Manager</p>
+                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded">Team Lead</span>
+                                </div>
+                                <p class="text-xs text-gray-600">Can manage team activities, view reports, and oversee recruiting processes. Cannot modify organization settings or billing.</p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start p-4 border-2 border-blue-500 bg-blue-50 rounded-lg cursor-pointer">
+                            <input type="radio" name="role" value="recruiter" checked class="mt-1 mr-3">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-sm font-semibold text-gray-900">Recruiter</p>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">Standard</span>
+                                </div>
+                                <p class="text-xs text-gray-600">Can manage candidates, jobs, and perform day-to-day recruiting activities. No access to settings or team management.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Personal Message (Optional)</label>
+                    <textarea rows="3" placeholder="Add a personal note to your invitation..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-gray-200 bg-gray-50 flex items-center justify-end space-x-3">
+            <button class="px-5 py-2.5 border border-gray-200 text-gray-700 rounded-lg font-medium hover:bg-white transition-colors">
+                Cancel
+            </button>
+            <button class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                <i class="fa-solid fa-paper-plane mr-2"></i>
+                Send Invitation
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

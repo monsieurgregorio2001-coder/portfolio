@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Semantic Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <div class="flex items-center justify-between h-full px-6">
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-users text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">UniversalHire</span>
+            </div>
+            
+            <div class="flex items-center space-x-1 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                <div class="w-7 h-7 bg-blue-100 rounded flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-600">AC</span>
+                </div>
+                <span class="text-sm font-medium text-gray-700 ml-2">Acme Recruiting</span>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs ml-2"></i>
+            </div>
+        </div>
+
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search candidates, jobs, companies... (Cmd+K)" class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">⌘</kbd>
+                    <kbd class="px-2 py-0.5 text-xs font-semibold text-gray-500 bg-white border border-gray-200 rounded">K</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-bell text-xl"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                <i class="fa-regular fa-question-circle text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 pl-3 border-l border-gray-200">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-9 h-9 rounded-full">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-gray-900">Sarah Mitchell</span>
+                    <span class="text-xs text-gray-500">Senior Recruiter</span>
+                </div>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
+    <nav class="p-4 space-y-1">
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-building w-5"></i>
+            <span class="ml-3">Companies</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">47</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-user-group w-5"></i>
+            <span class="ml-3">Contacts</span>
+            <span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">1.2K</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-briefcase w-5"></i>
+            <span class="ml-3">Jobs</span>
+            <span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-semibold">12</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-diagram-project w-5"></i>
+            <span class="ml-3">Pipeline</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-regular fa-calendar w-5"></i>
+            <span class="ml-3">Calendar</span>
+            <span class="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-semibold">8</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+            <i class="fa-solid fa-chart-bar w-5"></i>
+            <span class="ml-3">Reports</span>
+        </a>
+        
+        <a href="#" class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+            <i class="fa-solid fa-robot w-5"></i>
+            <span class="ml-3">AI Assistant</span>
+            <span class="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
+        </a>
+    </nav>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <div class="space-y-1">
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Candidate</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Create Job</span>
+            </button>
+            <button class="w-full flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-plus w-4 text-blue-600"></i>
+                <span class="ml-3">Add Company</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-4 py-3 border-t border-gray-200 mt-4">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Workspace</div>
+        <div class="space-y-1">
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-users w-4"></i>
+                <span class="ml-3">Team</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg text-sm">
+                <i class="fa-solid fa-gear w-4"></i>
+                <span class="ml-3">Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-blue-600 to-blue-700 m-4 rounded-lg">
+        <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-crown text-yellow-300"></i>
+            </div>
+            <div>
+                <div class="text-white font-semibold text-sm">Upgrade to Pro</div>
+                <div class="text-blue-100 text-xs mt-1">Unlock AI features & unlimited contacts</div>
+                <button class="mt-3 w-full bg-white text-blue-600 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content" class="ml-64 mt-16">
+    <div id="hero-search-section" class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 h-[500px] flex items-center justify-center">
+        <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div class="relative z-10 w-full max-w-4xl px-8">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center space-x-2 bg-white bg-opacity-80 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
+                    <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i>
+                    <span class="text-sm font-semibold text-gray-700">AI-Powered Semantic Search</span>
+                </div>
+                <h1 class="text-5xl font-bold text-gray-900 mb-3">Find the perfect candidate</h1>
+                <p class="text-xl text-gray-600">Search naturally, discover intelligently</p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -inset-1 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 rounded-2xl blur-lg opacity-75"></div>
+                <div class="relative bg-white rounded-2xl shadow-2xl p-2">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex-1 flex items-center space-x-3 px-4">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-600 text-xl"></i>
+                            <input type="text" placeholder="Find candidates naturally... e.g., 'senior engineers at startups in SF'" class="flex-1 text-lg py-4 focus:outline-none text-gray-900 placeholder-gray-400">
+                        </div>
+                        <button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center space-x-2">
+                            <span>Search</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="example-queries" class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <span class="text-sm text-gray-600 font-medium">Try:</span>
+                <button class="px-4 py-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-700 hover:bg-white hover:shadow-md transition-all border border-gray-200">
+                    <i class="fa-solid fa-code mr-2 text-blue-600"></i>
+                    Senior engineers at startups in SF
+                </button>
+                <button class="px-4 py-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-700 hover:bg-white hover:shadow-md transition-all border border-gray-200">
+                    <i class="fa-solid fa-chart-line mr-2 text-purple-600"></i>
+                    Product managers with SaaS experience
+                </button>
+                <button class="px-4 py-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-700 hover:bg-white hover:shadow-md transition-all border border-gray-200">
+                    <i class="fa-solid fa-palette mr-2 text-pink-600"></i>
+                    UX designers who worked remotely
+                </button>
+                <button class="px-4 py-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-700 hover:bg-white hover:shadow-md transition-all border border-gray-200">
+                    <i class="fa-solid fa-database mr-2 text-green-600"></i>
+                    Data scientists from FAANG companies
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="results-main-section" class="px-8 py-8">
+        <div class="flex gap-6">
+            <div id="results-content" class="flex-1">
+                <div id="results-header" class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-1">Search Results</h2>
+                            <p class="text-sm text-gray-600">Found <span class="font-semibold text-blue-600">47 candidates</span> matching your query</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center bg-gray-100 rounded-lg p-1">
+                                <button class="px-4 py-2 bg-white text-blue-600 font-semibold rounded-md shadow-sm">
+                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
+                                    Semantic
+                                </button>
+                                <button class="px-4 py-2 text-gray-600 hover:text-gray-900">
+                                    <i class="fa-solid fa-search mr-2"></i>
+                                    Keyword
+                                </button>
+                            </div>
+                            <select class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>Best Match</option>
+                                <option>Highest Score</option>
+                                <option>Recently Active</option>
+                                <option>Last Contacted</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs text-gray-500">Active Filters:</span>
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full flex items-center space-x-1">
+                            <span>Senior Level</span>
+                            <i class="fa-solid fa-times text-xs cursor-pointer hover:text-blue-900"></i>
+                        </span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full flex items-center space-x-1">
+                            <span>San Francisco</span>
+                            <i class="fa-solid fa-times text-xs cursor-pointer hover:text-purple-900"></i>
+                        </span>
+                        <button class="px-3 py-1 text-xs text-gray-600 hover:text-gray-900 font-medium">
+                            <i class="fa-solid fa-filter-circle-xmark mr-1"></i>
+                            Clear all
+                        </button>
+                    </div>
+                </div>
+
+                <div id="result-card-1" class="bg-white rounded-xl border border-gray-200 p-6 mb-4 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Candidate" class="w-16 h-16 rounded-full border-2 border-blue-100">
+                            <div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <h3 class="text-xl font-bold text-gray-900">Michael Chen</h3>
+                                    <span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded">Available</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-1">Senior Software Engineer</p>
+                                <div class="flex items-center space-x-3 text-sm text-gray-500">
+                                    <span class="flex items-center">
+                                        <i class="fa-solid fa-location-dot mr-1 text-blue-600"></i>
+                                        San Francisco, CA
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa-solid fa-briefcase mr-1 text-purple-600"></i>
+                                        8 years experience
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-1 text-orange-600"></i>
+                                        Last contact: 2 weeks ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="relative inline-flex items-center justify-center w-20 h-20">
+                                <svg class="w-20 h-20 transform -rotate-90">
+                                    <circle cx="40" cy="40" r="32" stroke="#E5E7EB" stroke-width="6" fill="none"/>
+                                    <circle cx="40" cy="40" r="32" stroke="#3B82F6" stroke-width="6" fill="none" stroke-dasharray="201" stroke-dashoffset="21" stroke-linecap="round"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-2xl font-bold text-blue-600">92%</span>
+                                    <span class="text-xs text-gray-500">Match</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fa-solid fa-sparkles text-purple-600"></i>
+                            <h4 class="text-sm font-semibold text-gray-900">Why matched:</h4>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Senior-level engineer with 8+ years at tech startups</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Currently based in San Francisco Bay Area</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Strong background in full-stack development</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Previously worked at Series A-C startups</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">React</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">Node.js</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">AWS</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">Kubernetes</span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">TypeScript</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">+8 more</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <div class="flex items-center space-x-3">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                <i class="fa-solid fa-envelope mr-2"></i>
+                                Contact
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                <i class="fa-solid fa-user-plus mr-2"></i>
+                                Add to Job
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                <i class="fa-solid fa-calendar mr-2"></i>
+                                Schedule
+                            </button>
+                        </div>
+                        <button class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fa-regular fa-bookmark text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="result-card-2" class="bg-white rounded-xl border border-gray-200 p-6 mb-4 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Candidate" class="w-16 h-16 rounded-full border-2 border-blue-100">
+                            <div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <h3 class="text-xl font-bold text-gray-900">Sarah Rodriguez</h3>
+                                    <span class="px-2 py-1 bg-yellow-50 text-yellow-700 text-xs font-semibold rounded">Open to offers</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-1">Staff Software Engineer</p>
+                                <div class="flex items-center space-x-3 text-sm text-gray-500">
+                                    <span class="flex items-center">
+                                        <i class="fa-solid fa-location-dot mr-1 text-blue-600"></i>
+                                        San Francisco, CA
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa-solid fa-briefcase mr-1 text-purple-600"></i>
+                                        10 years experience
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-1 text-orange-600"></i>
+                                        Last contact: 1 month ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="relative inline-flex items-center justify-center w-20 h-20">
+                                <svg class="w-20 h-20 transform -rotate-90">
+                                    <circle cx="40" cy="40" r="32" stroke="#E5E7EB" stroke-width="6" fill="none"/>
+                                    <circle cx="40" cy="40" r="32" stroke="#8B5CF6" stroke-width="6" fill="none" stroke-dasharray="201" stroke-dashoffset="31" stroke-linecap="round"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-2xl font-bold text-purple-600">88%</span>
+                                    <span class="text-xs text-gray-500">Match</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fa-solid fa-sparkles text-purple-600"></i>
+                            <h4 class="text-sm font-semibold text-gray-900">Why matched:</h4>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Staff-level engineer with extensive startup experience</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Located in San Francisco, open to relocation</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Led engineering teams at 3 successful startups</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Expert in distributed systems and microservices</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Go</span>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Rust</span>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Kubernetes</span>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">Docker</span>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full">GraphQL</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">+12 more</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <div class="flex items-center space-x-3">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                <i class="fa-solid fa-envelope mr-2"></i>
+                                Contact
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                <i class="fa-solid fa-user-plus mr-2"></i>
+                                Add to Job
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                <i class="fa-solid fa-calendar mr-2"></i>
+                                Schedule
+                            </button>
+                        </div>
+                        <button class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fa-regular fa-bookmark text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="result-card-3" class="bg-white rounded-xl border border-gray-200 p-6 mb-4 hover:shadow-lg transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="Candidate" class="w-16 h-16 rounded-full border-2 border-blue-100">
+                            <div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <h3 class="text-xl font-bold text-gray-900">David Kim</h3>
+                                    <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded">Actively looking</span>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-1">Senior Backend Engineer</p>
+                                <div class="flex items-center space-x-3 text-sm text-gray-500">
+                                    <span class="flex items-center">
+                                        <i class="fa-solid fa-location-dot mr-1 text-blue-600"></i>
+                                        Palo Alto, CA
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa-solid fa-briefcase mr-1 text-purple-600"></i>
+                                        7 years experience
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa-regular fa-calendar mr-1 text-orange-600"></i>
+                                        Last contact: 3 days ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="relative inline-flex items-center justify-center w-20 h-20">
+                                <svg class="w-20 h-20 transform -rotate-90">
+                                    <circle cx="40" cy="40" r="32" stroke="#E5E7EB" stroke-width="6" fill="none"/>
+                                    <circle cx="40" cy="40" r="32" stroke="#10B981" stroke-width="6" fill="none" stroke-dasharray="201" stroke-dashoffset="41" stroke-linecap="round"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-2xl font-bold text-green-600">85%</span>
+                                    <span class="text-xs text-gray-500">Match</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fa-solid fa-sparkles text-purple-600"></i>
+                            <h4 class="text-sm font-semibold text-gray-900">Why matched:</h4>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Senior backend engineer with startup DNA</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Based in Silicon Valley, 15 min from SF</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Built scalable APIs serving millions of users</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-0.5"></i>
+                                <span class="text-sm text-gray-700">Recently worked at early-stage fintech startup</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">Java</span>
+                            <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">Spring Boot</span>
+                            <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">MongoDB</span>
+                            <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">Redis</span>
+                            <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">Kafka</span>
+                            <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">AWS</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">+6 more</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                        <div class="flex items-center space-x-3">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                <i class="fa-solid fa-envelope mr-2"></i>
+                                Contact
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                <i class="fa-solid fa-user-plus mr-2"></i>
+                                Add to Job
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                                <i class="fa-solid fa-calendar mr-2"></i>
+                                Schedule
+                            </button>
+                        </div>
+                        <button class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fa-regular fa-bookmark text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="load-more-section" class="text-center py-8">
+                    <button class="px-6 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold hover:border-blue-500 hover:text-blue-600 transition-all">
+                        Load More Results
+                        <i class="fa-solid fa-chevron-down ml-2"></i>
+                    </button>
+                    <p class="text-sm text-gray-500 mt-3">Showing 3 of 47 results</p>
+                </div>
+            </div>
+
+            <div id="sidebar-insights" class="w-96 space-y-6">
+                <div id="search-insights-card" class="bg-white rounded-xl border border-gray-200 p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-chart-pie text-purple-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900">Search Insights</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Search Quality</span>
+                                <span class="text-sm font-bold text-green-600">Excellent</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Your query returned highly relevant results</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-medium text-gray-700">Average Match Score</span>
+                                <span class="text-2xl font-bold text-blue-600">88%</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Higher than 75% of similar searches</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Response Rate</span>
+                                <span class="text-sm font-bold text-orange-600">67%</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Candidates in this pool typically respond well</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-200">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="text-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-blue-600 mb-1">12</div>
+                                    <div class="text-xs text-gray-600">Available Now</div>
+                                </div>
+                                <div class="text-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="text-2xl font-bold text-purple-600 mb-1">23</div>
+                                    <div class="text-xs text-gray-600">Open to Offers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="silver-medalists-card" class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl border border-orange-200 p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-medal text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Silver Medalists</h3>
+                            <p class="text-xs text-gray-600">Previously interviewed candidates</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-4">
+                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">James Wilson</p>
+                                <p class="text-xs text-gray-500">Interviewed 3 months ago</p>
+                            </div>
+                            <span class="text-xs font-bold text-orange-600">82%</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" alt="Candidate" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-gray-900">Emma Thompson</p>
+                                <p class="text-xs text-gray-500">Interviewed 5 months ago</p>
+                            </div>
+                            <span class="text-xs font-bold text-orange-600">79%</span>
+                        </div>
+                    </div>
+
+                    <button class="w-full px-4 py-2 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition-colors text-sm">
+                        <i class="fa-solid fa-users mr-2"></i>
+                        View All Silver Medalists
+                    </button>
+                </div>
+
+                <div id="recommended-filters-card" class="bg-white rounded-xl border border-gray-200 p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-sliders text-blue-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900">Recommended Filters</h3>
+                    </div>
+
+                    <div class="space-y-2">
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-blue-50 rounded-lg transition-colors group">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-graduation-cap text-gray-400 group-hover:text-blue-600"></i>
+                                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">Top Universities</span>
+                            </div>
+                            <span class="text-xs text-gray-500">+8 matches</span>
+                        </button>
+
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-blue-50 rounded-lg transition-colors group">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-building text-gray-400 group-hover:text-blue-600"></i>
+                                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">FAANG Experience</span>
+                            </div>
+                            <span class="text-xs text-gray-500">+5 matches</span>
+                        </button>
+
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-blue-50 rounded-lg transition-colors group">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-rocket text-gray-400 group-hover:text-blue-600"></i>
+                                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">Startup Experience</span>
+                            </div>
+                            <span class="text-xs text-gray-500">+12 matches</span>
+                        </button>
+
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-blue-50 rounded-lg transition-colors group">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-code-branch text-gray-400 group-hover:text-blue-600"></i>
+                                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">Open Source Contributors</span>
+                            </div>
+                            <span class="text-xs text-gray-500">+6 matches</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="saved-searches-card" class="bg-white rounded-xl border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">Saved Searches</h3>
+                        <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                            <i class="fa-solid fa-plus mr-1"></i>
+                            Save
+                        </button>
+                    </div>
+
+                    <div class="space-y-2">
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-bookmark text-blue-600"></i>
+                                <span class="text-sm font-medium text-gray-700">SF Backend Engineers</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+                        </button>
+
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-bookmark text-purple-600"></i>
+                                <span class="text-sm font-medium text-gray-700">Product Managers</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+                        </button>
+
+                        <button class="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-bookmark text-green-600"></i>
+                                <span class="text-sm font-medium text-gray-700">Remote Designers</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="ai-suggestions-card" class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl p-6 text-white">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold">AI Suggestions</h3>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="bg-white bg-opacity-10 rounded-lg p-3">
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-lightbulb text-yellow-300 mt-1"></i>
+                                <div>
+                                    <p class="text-sm font-semibold mb-1">Broaden your search</p>
+                                    <p class="text-xs text-purple-100">Try including "mid-level" engineers to get 23 more matches</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white bg-opacity-10 rounded-lg p-3">
+                            <div class="flex items-start space-x-2">
+                                <i class="fa-solid fa-clock text-blue-300 mt-1"></i>
+                                <div>
+                                    <p class="text-sm font-semibold mb-1">Best time to reach out</p>
+                                    <p class="text-xs text-purple-100">Candidates respond 2x more on Tuesday-Thursday mornings</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="export-card" class="bg-white rounded-xl border border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Export Results</h3>
+                    <div class="space-y-2">
+                        <button class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors text-sm">
+                            <i class="fa-solid fa-file-csv mr-2"></i>
+                            Export as CSV
+                        </button>
+                        <button class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors text-sm">
+                            <i class="fa-solid fa-file-pdf mr-2"></i>
+                            Export as PDF
+                        </button>
+                        <button class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors text-sm">
+                            <i class="fa-solid fa-share-nodes mr-2"></i>
+                            Share with Team
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="advanced-search-section" class="px-8 py-8 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Refine Your Search</h2>
+                <p class="text-gray-600">Use advanced filters to find exactly who you're looking for</p>
+            </div>
+
+            <div class="grid grid-cols-4 gap-6">
+                <div id="filter-experience">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Experience Level</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Entry Level (0-2 years)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Mid Level (3-5 years)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded" checked>
+                            <span class="text-sm text-gray-700">Senior (6-10 years)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Staff/Principal (10+ years)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="filter-location">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Location</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded" checked>
+                            <span class="text-sm text-gray-700">San Francisco Bay Area</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">New York</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Los Angeles</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Remote</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="filter-company">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Company Type</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded" checked>
+                            <span class="text-sm text-gray-700">Startup (Seed-Series B)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Growth Stage (Series C+)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Enterprise</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">FAANG</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="filter-availability">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Availability</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Available Now</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Actively Looking</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Open to Offers</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">Not Looking</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-center space-x-3">
+                <button class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    <i class="fa-solid fa-filter mr-2"></i>
+                    Apply Filters
+                </button>
+                <button class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                    <i class="fa-solid fa-rotate-left mr-2"></i>
+                    Reset All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="search-tips-section" class="px-8 py-12 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Search Tips & Tricks</h2>
+                <p class="text-gray-600">Get the most out of AI semantic search</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl border border-gray-200 p-6">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-comments text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Use Natural Language</h3>
+                    <p class="text-sm text-gray-600 mb-3">Search like you're talking to a colleague. Our AI understands context and intent.</p>
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <p class="text-xs font-mono text-gray-700">"Find me engineers who love working at fast-paced startups"</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-6">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-brain text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Be Specific</h3>
+                    <p class="text-sm text-gray-600 mb-3">Include details about experience, location, skills, and company preferences.</p>
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <p class="text-xs font-mono text-gray-700">"Senior React developers in NYC with fintech experience"</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-6">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-sliders text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Use Filters</h3>
+                    <p class="text-sm text-gray-600 mb-3">Combine natural language with filters for precision targeting.</p>
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <p class="text-xs font-mono text-gray-700">Search + Experience Level + Availability filters</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="recent-searches-section" class="px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Recent Searches</h2>
+                <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Clear History
+                </button>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4">
+                <button class="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all text-left">
+                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-900 truncate">Senior engineers at startups in SF</p>
+                        <p class="text-xs text-gray-500">2 hours ago • 47 results</p>
+                    </div>
+                </button>
+
+                <button class="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all text-left">
+                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-clock-rotate-left text-purple-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-900 truncate">Product managers with SaaS experience</p>
+                        <p class="text-xs text-gray-500">Yesterday • 32 results</p>
+                    </div>
+                </button>
+
+                <button class="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all text-left">
+                    <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-clock-rotate-left text-green-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-900 truncate">UX designers who worked remotely</p>
+                        <p class="text-xs text-gray-500">3 days ago • 28 results</p>
+                    </div>
+                </button>
+
+                <button class="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all text-left">
+                    <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-clock-rotate-left text-orange-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-900 truncate">Data scientists from FAANG companies</p>
+                        <p class="text-xs text-gray-500">1 week ago • 19 results</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cta-section" class="px-8 py-12 mb-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-center text-white">
+                <div class="max-w-3xl mx-auto">
+                    <div class="inline-flex items-center space-x-2 bg-white bg-opacity-20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                        <i class="fa-solid fa-crown text-yellow-300"></i>
+                        <span class="text-sm font-semibold">Pro Feature</span>
+                    </div>
+                    <h2 class="text-4xl font-bold mb-4">Unlock Advanced AI Search</h2>
+                    <p class="text-xl text-blue-100 mb-8">Get unlimited semantic searches, saved searches, and AI-powered candidate recommendations</p>
+                    <div class="flex items-center justify-center space-x-4">
+                        <button class="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+                            Upgrade to Pro
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                        <button class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-blue-600 transition-colors">
+                            View Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
